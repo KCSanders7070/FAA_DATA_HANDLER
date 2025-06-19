@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>FAA_DATA_HANDLER</RootNamespace>
+    <AssemblyName>FAA_DATA_HANDLER</AssemblyName>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MODELS\CIFP\" />
+    <Folder Include="MODELS\D-TPP\" />
+    <Folder Include="MODELS\NASR\AXIM\" />
+    <Folder Include="MODELS\NASR\ShapeFiles\" />
+    <Folder Include="PARSERS\CIFP\" />
+    <Folder Include="PARSERS\D-TPP\" />
+    <Folder Include="PARSERS\NASR\AXIM\" />
+    <Folder Include="PARSERS\NASR\ShapeFiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+  </ItemGroup>
+
+</Project>
