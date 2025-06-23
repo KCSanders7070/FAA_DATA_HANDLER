@@ -7,7 +7,7 @@
         {
             /// <summary>
             /// Effective Date
-            /// _Src: All Atc_*.csv files(EFF_DATE)
+            /// _Src: All Apt_*.csv files(EFF_DATE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
