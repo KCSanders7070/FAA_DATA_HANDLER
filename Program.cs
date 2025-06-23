@@ -160,81 +160,237 @@ namespace FAA_DATA_HANDLER
             // DOMAIN: DP
             if (parseDp)
             {
+                Console.WriteLine("Parsing Dp csv files");
+                DpCsvParser dpCsvParser = new DpCsvParser();
+                DpDataCollection allParsedDpData = new DpDataCollection();
+                allParsedDpData.DpApt = dpCsvParser.ParseDpApt(Path.Combine(userSelectedSourceDirectory, "DP_APT.csv")).DpApt;
+                allParsedDpData.DpBase = dpCsvParser.ParseDpBase(Path.Combine(userSelectedSourceDirectory, "DP_BASE.csv")).DpBase;
+                allParsedDpData.DpRte = dpCsvParser.ParseDpRte(Path.Combine(userSelectedSourceDirectory, "DP_RTE.csv")).DpRte;
+
+                Console.WriteLine("Generating Dp.json");
+                // GenerateDpJson.Generate(allParsedDpData, userSelectedOutputDirectory);
+                Console.WriteLine("Dp data created.");
             }
 
             // DOMAIN: FIX
             if (parseFix)
             {
+                Console.WriteLine("Parsing Fix csv files");
+                FixCsvParser fixCsvParser = new FixCsvParser();
+                FixDataCollection allParsedFixData = new FixDataCollection();
+                allParsedFixData.FixBase = fixCsvParser.ParseFixBase(Path.Combine(userSelectedSourceDirectory, "FIX_BASE.csv")).FixBase;
+                allParsedFixData.FixChrt = fixCsvParser.ParseFixChrt(Path.Combine(userSelectedSourceDirectory, "FIX_CHRT.csv")).FixChrt;
+                allParsedFixData.FixNav = fixCsvParser.ParseFixNav(Path.Combine(userSelectedSourceDirectory, "FIX_NAV.csv")).FixNav;
+
+                Console.WriteLine("Generating Fix.json");
+                // GenerateFixJson.Generate(allParsedFixData, userSelectedOutputDirectory);
+                Console.WriteLine("Fix data created.");
             }
 
             // DOMAIN: FSS
             if (parseFss)
             {
+                Console.WriteLine("Parsing Fss csv files");
+                FssCsvParser fssCsvParser = new FssCsvParser();
+                FssDataCollection allParsedFssData = new FssDataCollection();
+                allParsedFssData.FssBase = fssCsvParser.ParseFssBase(Path.Combine(userSelectedSourceDirectory, "FSS_BASE.csv")).FssBase;
+                allParsedFssData.FssRmk = fssCsvParser.ParseFssRmk(Path.Combine(userSelectedSourceDirectory, "FSS_RMK.csv")).FssRmk;
+
+                Console.WriteLine("Generating Fss.json");
+                // GenerateFssJson.Generate(allParsedFssData, userSelectedOutputDirectory);
+                Console.WriteLine("Fss data created.");
             }
 
             // DOMAIN: FRQ
             if (parseFrq)
             {
+                Console.WriteLine("Parsing Frq csv files");
+                FrqCsvParser frqCsvParser = new FrqCsvParser();
+                FrqDataCollection allParsedFrqData = new FrqDataCollection();
+                allParsedFrqData.Frq = frqCsvParser.ParseFrq(Path.Combine(userSelectedSourceDirectory, "FRQ.csv")).Frq;
+
+                Console.WriteLine("Generating Frq.json");
+                // GenerateFrqJson.Generate(allParsedFrqData, userSelectedOutputDirectory);
+                Console.WriteLine("Frq data created.");
             }
 
             // DOMAIN: HPF
             if (parseHpf)
             {
+                Console.WriteLine("Parsing Hpf csv files");
+                HpfCsvParser hpfCsvParser = new HpfCsvParser();
+                HpfDataCollection allParsedHpfData = new HpfDataCollection();
+                allParsedHpfData.HpfBase = hpfCsvParser.ParseHpfBase(Path.Combine(userSelectedSourceDirectory, "HPF_BASE.csv")).HpfBase;
+                allParsedHpfData.HpfChrt = hpfCsvParser.ParseHpfChrt(Path.Combine(userSelectedSourceDirectory, "HPF_CHRT.csv")).HpfChrt;
+                allParsedHpfData.HpfRmk = hpfCsvParser.ParseHpfRmk(Path.Combine(userSelectedSourceDirectory, "HPF_RMK.csv")).HpfRmk;
+                allParsedHpfData.HpfSpdAlt = hpfCsvParser.ParseHpfSpdAlt(Path.Combine(userSelectedSourceDirectory, "HPF_SPD_ALT.csv")).HpfSpdAlt;
+
+                Console.WriteLine("Generating Hpf.json");
+                // GenerateHpfJson.Generate(allParsedHpfData, userSelectedOutputDirectory);
+                Console.WriteLine("Hpf data created.");
             }
 
             // DOMAIN: ILS
             if (parseIls)
             {
+                Console.WriteLine("Parsing Ils csv files");
+                IlsCsvParser ilsCsvParser = new IlsCsvParser();
+                IlsDataCollection allParsedIlsData = new IlsDataCollection();
+                allParsedIlsData.IlsBase = ilsCsvParser.ParseIlsBase(Path.Combine(userSelectedSourceDirectory, "ILS_BASE.csv")).IlsBase;
+                allParsedIlsData.IlsDme = ilsCsvParser.ParseIlsDme(Path.Combine(userSelectedSourceDirectory, "ILS_DME.csv")).IlsDme;
+                allParsedIlsData.IlsGs = ilsCsvParser.ParseIlsGs(Path.Combine(userSelectedSourceDirectory, "ILS_GS.csv")).IlsGs;
+                allParsedIlsData.IlsMkr = ilsCsvParser.ParseIlsMkr(Path.Combine(userSelectedSourceDirectory, "ILS_MKR.csv")).IlsMkr;
+                allParsedIlsData.IlsRmk = ilsCsvParser.ParseIlsRmk(Path.Combine(userSelectedSourceDirectory, "ILS_RMK.csv")).IlsRmk;
+
+                Console.WriteLine("Generating Ils.json");
+                // GenerateIlsJson.Generate(allParsedIlsData, userSelectedOutputDirectory);
+                Console.WriteLine("Ils data created.");
             }
 
             // DOMAIN: LID
             if (parseLid)
             {
+                Console.WriteLine("Parsing Lid csv files");
+                LidCsvParser lidCsvParser = new LidCsvParser();
+                LidDataCollection allParsedLidData = new LidDataCollection();
+                allParsedLidData.Lid = lidCsvParser.ParseLid(Path.Combine(userSelectedSourceDirectory, "LID.csv")).Lid;
+
+                Console.WriteLine("Generating Lid.json");
+                // GenerateLidJson.Generate(allParsedLidData, userSelectedOutputDirectory);
+                Console.WriteLine("Lid data created.");
             }
 
             // DOMAIN: MIL_OPS
             if (parseMilOps)
             {
+                Console.WriteLine("Parsing Mil csv files");
+                MilCsvParser milCsvParser = new MilCsvParser();
+                MilDataCollection allParsedMilData = new MilDataCollection();
+                allParsedMilData.MilOps = milCsvParser.ParseMilOps(Path.Combine(userSelectedSourceDirectory, "MIL_OPS.csv")).MilOps;
+
+                Console.WriteLine("Generating Mil.json");
+                // GenerateMilJson.Generate(allParsedMilData, userSelectedOutputDirectory);
+                Console.WriteLine("Mil data created.");
             }
 
             // DOMAIN: MTR
             if (parseMtr)
             {
+                Console.WriteLine("Parsing Mtr csv files");
+                MtrCsvParser mtrCsvParser = new MtrCsvParser();
+                MtrDataCollection allParsedMtrData = new MtrDataCollection();
+                allParsedMtrData.MtrAgy = mtrCsvParser.ParseMtrAgy(Path.Combine(userSelectedSourceDirectory, "MTR_AGY.csv")).MtrAgy;
+                allParsedMtrData.MtrBase = mtrCsvParser.ParseMtrBase(Path.Combine(userSelectedSourceDirectory, "MTR_BASE.csv")).MtrBase;
+                allParsedMtrData.MtrPt = mtrCsvParser.ParseMtrPt(Path.Combine(userSelectedSourceDirectory, "MTR_PT.csv")).MtrPt;
+                allParsedMtrData.MtrSop = mtrCsvParser.ParseMtrSop(Path.Combine(userSelectedSourceDirectory, "MTR_SOP.csv")).MtrSop;
+                allParsedMtrData.MtrTerr = mtrCsvParser.ParseMtrTerr(Path.Combine(userSelectedSourceDirectory, "MTR_TERR.csv")).MtrTerr;
+                allParsedMtrData.MtrWdth = mtrCsvParser.ParseMtrWdth(Path.Combine(userSelectedSourceDirectory, "MTR_WDTH.csv")).MtrWdth;
+
+                Console.WriteLine("Generating Mtr.json");
+                // GenerateMtrJson.Generate(allParsedMtrData, userSelectedOutputDirectory);
+                Console.WriteLine("Mtr data created.");
             }
 
             // DOMAIN: MAA
             if (parseMaa)
             {
+                Console.WriteLine("Parsing Maa csv files");
+                MaaCsvParser maaCsvParser = new MaaCsvParser();
+                MaaDataCollection allParsedMaaData = new MaaDataCollection();
+                allParsedMaaData.MaaBase = maaCsvParser.ParseMaaBase(Path.Combine(userSelectedSourceDirectory, "MAA_BASE.csv")).MaaBase;
+                allParsedMaaData.MaaCon = maaCsvParser.ParseMaaCon(Path.Combine(userSelectedSourceDirectory, "MAA_CON.csv")).MaaCon;
+                allParsedMaaData.MaaRmk = maaCsvParser.ParseMaaRmk(Path.Combine(userSelectedSourceDirectory, "MAA_RMK.csv")).MaaRmk;
+                allParsedMaaData.MaaShp = maaCsvParser.ParseMaaShp(Path.Combine(userSelectedSourceDirectory, "MAA_SHP.csv")).MaaShp;
+
+                Console.WriteLine("Generating Maa.json");
+                // GenerateMaaJson.Generate(allParsedMaaData, userSelectedOutputDirectory);
+                Console.WriteLine("Maa data created.");
             }
 
             // DOMAIN: NAV
             if (parseNav)
             {
+                Console.WriteLine("Parsing Nav csv files");
+                NavCsvParser navCsvParser = new NavCsvParser();
+                NavDataCollection allParsedNavData = new NavDataCollection();
+                allParsedNavData.NavBase = navCsvParser.ParseNavBase(Path.Combine(userSelectedSourceDirectory, "NAV_BASE.csv")).NavBase;
+                allParsedNavData.NavCkpt = navCsvParser.ParseNavCkpt(Path.Combine(userSelectedSourceDirectory, "NAV_CKPT.csv")).NavCkpt;
+                allParsedNavData.NavRmk = navCsvParser.ParseNavRmk(Path.Combine(userSelectedSourceDirectory, "NAV_RMK.csv")).NavRmk;
+
+                Console.WriteLine("Generating Nav.json");
+                // GenerateNavJson.Generate(allParsedNavData, userSelectedOutputDirectory);
+                Console.WriteLine("Nav data created.");
             }
 
             // DOMAIN: PJA
             if (parsePja)
             {
+                Console.WriteLine("Parsing Pja csv files");
+                PjaCsvParser pjaCsvParser = new PjaCsvParser();
+                PjaDataCollection allParsedPjaData = new PjaDataCollection();
+                allParsedPjaData.PjaBase = pjaCsvParser.ParsePjaBase(Path.Combine(userSelectedSourceDirectory, "PJA_BASE.csv")).PjaBase;
+                allParsedPjaData.PjaCon = pjaCsvParser.ParsePjaCon(Path.Combine(userSelectedSourceDirectory, "PJA_CON.csv")).PjaCon;
+
+                Console.WriteLine("Generating Pja.json");
+                // GeneratePjaJson.Generate(allParsedPjaData, userSelectedOutputDirectory);
+                Console.WriteLine("Pja data created.");
             }
 
             // DOMAIN: PFR
             if (parsePfr)
             {
+                Console.WriteLine("Parsing Pfr csv files");
+                PfrCsvParser pfrCsvParser = new PfrCsvParser();
+                PfrDataCollection allParsedPfrData = new PfrDataCollection();
+                allParsedPfrData.PfrBase = pfrCsvParser.ParsePfrBase(Path.Combine(userSelectedSourceDirectory, "PFR_BASE.csv")).PfrBase;
+                allParsedPfrData.PfrRmtFmt = pfrCsvParser.ParsePfrRmtFmt(Path.Combine(userSelectedSourceDirectory, "PFR_RMT_FMT.csv")).PfrRmtFmt;
+                allParsedPfrData.PfrSeg = pfrCsvParser.ParsePfrSeg(Path.Combine(userSelectedSourceDirectory, "PFR_SEG.csv")).PfrSeg;
+
+                Console.WriteLine("Generating Pfr.json");
+                // GeneratePfrJson.Generate(allParsedPfrData, userSelectedOutputDirectory);
+                Console.WriteLine("Pfr data created.");
             }
 
             // DOMAIN: RDR
             if (parseRdr)
             {
+                Console.WriteLine("Parsing Rdr csv files");
+                RdrCsvParser rdrCsvParser = new RdrCsvParser();
+                RdrDataCollection allParsedRdrData = new RdrDataCollection();
+                allParsedRdrData.Rdr = rdrCsvParser.ParseRdr(Path.Combine(userSelectedSourceDirectory, "RDR.csv")).Rdr;
+
+                Console.WriteLine("Generating Rdr.json");
+                // GenerateRdrJson.Generate(allParsedRdrData, userSelectedOutputDirectory);
+                Console.WriteLine("Rdr data created.");
             }
 
             // DOMAIN: STAR
             if (parseStar)
             {
+                Console.WriteLine("Parsing Star csv files");
+                StarCsvParser starCsvParser = new StarCsvParser();
+                StarDataCollection allParsedStarData = new StarDataCollection();
+                allParsedStarData.StarApt = starCsvParser.ParseStarApt(Path.Combine(userSelectedSourceDirectory, "STAR_APT.csv")).StarApt;
+                allParsedStarData.StarBase = starCsvParser.ParseStarBase(Path.Combine(userSelectedSourceDirectory, "STAR_BASE.csv")).StarBase;
+                allParsedStarData.StarRte = starCsvParser.ParseStarRte(Path.Combine(userSelectedSourceDirectory, "STAR_RTE.csv")).StarRte;
+
+                Console.WriteLine("Generating Star.json");
+                // GenerateStarJson.Generate(allParsedStarData, userSelectedOutputDirectory);
+                Console.WriteLine("Star data created.");
             }
 
             // DOMAIN: WXL
             if (parseWxl)
             {
+                Console.WriteLine("Parsing Wxl csv files");
+                WxlCsvParser wxlCsvParser = new WxlCsvParser();
+                WxlDataCollection allParsedWxlData = new WxlDataCollection();
+                allParsedWxlData.WxlBase = wxlCsvParser.ParseWxlBase(Path.Combine(userSelectedSourceDirectory, "WXL_BASE.csv")).WxlBase;
+                allParsedWxlData.WxlSvc = wxlCsvParser.ParseWxlSvc(Path.Combine(userSelectedSourceDirectory, "WXL_SVC.csv")).WxlSvc;
+
+                Console.WriteLine("Generating Wxl.json");
+                // GenerateWxlJson.Generate(allParsedWxlData, userSelectedOutputDirectory);
+                Console.WriteLine("Wxl data created.");
             }
         }
     }
