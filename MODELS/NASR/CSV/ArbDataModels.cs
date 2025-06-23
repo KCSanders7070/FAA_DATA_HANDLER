@@ -6,33 +6,32 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class CommonFields
         {
             /// <summary>
-            /// NoTitleYet
-            /// _Src: All Arb_*.csv files(EFF_DATE)
+            /// Effective Date
+            /// _Src: All Apt_*.csv files(EFF_DATE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>The 28 Day NASR Subscription Effective Date in format ‘YYYY/MM/DD’.</remarks>
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Identifier
             /// _Src: All Arb_*.csv files(LOCATION_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>3-4 character alphanumeric identifier.</remarks>
             public string LocationId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Center (ARTCC) Name
             /// _Src: All Arb_*.csv files(LOCATION_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? LocationName { get; set; }
 
         }
@@ -42,67 +41,62 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class ArbBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Location Computer Identifier
             /// _Src: ARB_BASE.csv(COMPUTER_ID)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string ComputerId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ICAO Identifier
             /// _Src: ARB_BASE.csv(ICAO_ID)
             /// _MaxLength: 7
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? IcaoId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Type (ARTCC or CERAP).
             /// _Src: ARB_BASE.csv(LOCATION_TYPE)
             /// _MaxLength: 5
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LocationType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location City Name
             /// _Src: ARB_BASE.csv(CITY)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State 2 letter code
             /// _Src: ARB_BASE.csv(STATE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Location State Post Office Code standard two letter abbreviation for US States and Territories</remarks>
             public string? State { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Country Post Office Code
             /// _Src: ARB_BASE.csv(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CountryCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Latitude Degrees
             /// _Src: ARB_BASE.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -112,7 +106,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Latitude Minutes
             /// _Src: ARB_BASE.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -122,7 +116,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Latitude Seconds
             /// _Src: ARB_BASE.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -132,7 +126,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Latitude Hemisphere
             /// _Src: ARB_BASE.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -142,7 +136,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Latitude in Decimal Format
             /// _Src: ARB_BASE.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -152,7 +146,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Longitude Degrees
             /// _Src: ARB_BASE.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -162,7 +156,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Longitude Minutes
             /// _Src: ARB_BASE.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -172,7 +166,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Longitude Seconds
             /// _Src: ARB_BASE.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -182,7 +176,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Longitude Hemisphere
             /// _Src: ARB_BASE.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -192,7 +186,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Reference Point Longitude in Decimal Format
             /// _Src: ARB_BASE.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -202,13 +196,13 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Cross Reference Text
             /// _Src: ARB_BASE.csv(CROSS_REF)
             /// _MaxLength: 50
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Free Form Text that further describes a specific Information Item</remarks>
             public string? CrossRef { get; set; }
 
         }
@@ -218,47 +212,47 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class ArbSeg : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Record Identifier
             /// _Src: ARB_SEG.csv(REC_ID)
             /// _MaxLength: 14
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Concatenation of the LOCATION_ID * BNDRY_CODE * 5 Character Point Designator</remarks>
             public string RecId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Altitude Structure
             /// _Src: ARB_SEG.csv(ALTITUDE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>HIGH, LOW or UNLIMITED.</remarks>
             public string Altitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Type
             /// _Src: ARB_SEG.csv(TYPE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>ARTCC, FIR, CTA, CTA/FIR, UTA</remarks>
             public string Type { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Point Sequencing number
             /// _Src: ARB_SEG.csv(POINT_SEQ)
             /// _MaxLength: (4,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>In multiples of ten. Points are in order adapted for given Boundary.</remarks>
             public int PointSeq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Latitude Degrees
             /// _Src: ARB_SEG.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -268,7 +262,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int SegLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Latitude Minutes
             /// _Src: ARB_SEG.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -278,7 +272,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int SegLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Latitude Seconds
             /// _Src: ARB_SEG.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -288,7 +282,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double SegLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Latitude Hemisphere
             /// _Src: ARB_SEG.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -298,7 +292,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string SegLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Latitude in Decimal Format
             /// _Src: ARB_SEG.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -308,7 +302,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double SegLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Longitude Degrees
             /// _Src: ARB_SEG.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -318,7 +312,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int SegLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Longitude Minutes
             /// _Src: ARB_SEG.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -328,7 +322,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int SegLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Longitude Seconds
             /// _Src: ARB_SEG.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -338,7 +332,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double SegLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Longitude Hemisphere
             /// _Src: ARB_SEG.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -348,7 +342,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string SegLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Boundary Point Longitude in Decimal Format
             /// _Src: ARB_SEG.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -358,23 +352,23 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double SegLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Description
             /// _Src: ARB_SEG.csv(BNDRY_PT_DESCRIP)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Description of Boundary Line Connecting Points on The Boundary</remarks>
             public string? BndryPtDescrip { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NAS Description
             /// _Src: ARB_SEG.csv(NAS_DESCRIP_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>An 'X' In This Field Indicates This Point Is Used Only in The NAS Description and Not the Legal Description</remarks>
             public string? NasDescripFlag { get; set; }
 
         }

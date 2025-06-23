@@ -14,13 +14,13 @@ namespace FAA_DATA_HANDLER
         static void Main(string[] args)
         {
             // Input/output directories
-            string userSelectedSourceDirectory = @"C:\Users\ksand\OneDrive\Desktop\ProjFolder\FAA DATA HANDLER\NASR\12_Jun_2025_ATC_CSV";
+            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads\10_Jul_2025_CSV";
             string userSelectedOutputDirectory = @"C:\Users\ksand\Downloads";
 
             bool parseApt = false;
             bool parseAtc = false;
             bool parseAwy = false;
-            bool parseArb = false;
+            bool parseArb = true;
             bool parseAwos = false;
             bool parseClsArsp = false;
             bool parseCdr = false;
@@ -101,7 +101,7 @@ namespace FAA_DATA_HANDLER
                 allParsedArbData.ArbSeg = arbCsvParser.ParseArbSeg(Path.Combine(userSelectedSourceDirectory, "ARB_SEG.csv")).ArbSeg;
 
                 Console.WriteLine("Generating Arb.json");
-                // GenerateArbJson.Generate(allParsedArbData, userSelectedOutputDirectory);
+                GenerateArbJson.Generate(allParsedArbData, userSelectedOutputDirectory);
                 Console.WriteLine("Arb data created.");
             }
 
