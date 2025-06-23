@@ -18,7 +18,7 @@ namespace FAA_DATA_HANDLER
             string userSelectedOutputDirectory = @"C:\Users\ksand\Downloads";
 
             bool parseApt = false;
-            bool parseAtc = true;
+            bool parseAtc = false;
             bool parseAwy = false;
             bool parseArb = false;
             bool parseAwos = false;
@@ -80,31 +80,81 @@ namespace FAA_DATA_HANDLER
             // DOMAIN: AWY
             if (parseAwy)
             {
+                Console.WriteLine("Parsing Awy csv files");
+                AwyCsvParser awyCsvParser = new AwyCsvParser();
+                AwyDataCollection allParsedAwyData = new AwyDataCollection();
+                allParsedAwyData.AwyBase = awyCsvParser.ParseAwyBase(Path.Combine(userSelectedSourceDirectory, "AWY_BASE.csv")).AwyBase;
+                allParsedAwyData.AwySegAlt = awyCsvParser.ParseAwySegAlt(Path.Combine(userSelectedSourceDirectory, "AWY_SEG_ALT.csv")).AwySegAlt;
+
+                Console.WriteLine("Generating Awy.json");
+                // GenerateAwyJson.Generate(allParsedAwyData, userSelectedOutputDirectory);
+                Console.WriteLine("Awy data created.");
             }
 
             // DOMAIN: ARB
             if (parseArb)
             {
+                Console.WriteLine("Parsing Arb csv files");
+                ArbCsvParser arbCsvParser = new ArbCsvParser();
+                ArbDataCollection allParsedArbData = new ArbDataCollection();
+                allParsedArbData.ArbBase = arbCsvParser.ParseArbBase(Path.Combine(userSelectedSourceDirectory, "ARB_BASE.csv")).ArbBase;
+                allParsedArbData.ArbSeg = arbCsvParser.ParseArbSeg(Path.Combine(userSelectedSourceDirectory, "ARB_SEG.csv")).ArbSeg;
+
+                Console.WriteLine("Generating Arb.json");
+                // GenerateArbJson.Generate(allParsedArbData, userSelectedOutputDirectory);
+                Console.WriteLine("Arb data created.");
             }
 
             // DOMAIN: AWOS
             if (parseAwos)
             {
+                Console.WriteLine("Parsing Awos csv files");
+                AwosCsvParser awosCsvParser = new AwosCsvParser();
+                AwosDataCollection allParsedAwosData = new AwosDataCollection();
+                allParsedAwosData.Awos = awosCsvParser.ParseAwos(Path.Combine(userSelectedSourceDirectory, "AWOS.csv")).Awos;
+
+                Console.WriteLine("Generating Awos.json");
+                // GenerateAwosJson.Generate(allParsedAwosData, userSelectedOutputDirectory);
+                Console.WriteLine("Awos data created.");
             }
 
             // DOMAIN: CLS_ARSP
             if (parseClsArsp)
             {
+                Console.WriteLine("Parsing ClsArsp csv files");
+                ClsArspCsvParser ClsArspCsvParser = new ClsArspCsvParser();
+                ClsArspDataCollection allParsedClsArspData = new ClsArspDataCollection();
+                allParsedClsArspData.ClsArsp = ClsArspCsvParser.ParseClsArsp(Path.Combine(userSelectedSourceDirectory, "CLS_ARSP.csv")).ClsArsp;
+
+                Console.WriteLine("Generating ClsArsp.json");
+                // GenerateClsArspJson.Generate(allParsedClsArspData, userSelectedOutputDirectory);
+                Console.WriteLine("ClsArsp data created.");
             }
 
             // DOMAIN: CDR
             if (parseCdr)
             {
+                Console.WriteLine("Parsing Cdr csv files");
+                CdrCsvParser cdrCsvParser = new CdrCsvParser();
+                CdrDataCollection allParsedCdrData = new CdrDataCollection();
+                allParsedCdrData.Cdr = cdrCsvParser.ParseCdr(Path.Combine(userSelectedSourceDirectory, "CDR.csv")).Cdr;
+
+                Console.WriteLine("Generating Cdr.json");
+                // GenerateCdrJson.Generate(allParsedCdrData, userSelectedOutputDirectory);
+                Console.WriteLine("Cdr data created.");
             }
 
             // DOMAIN: COM
             if (parseCom)
             {
+                Console.WriteLine("Parsing Com csv files");
+                ComCsvParser comCsvParser = new ComCsvParser();
+                ComDataCollection allParsedComData = new ComDataCollection();
+                allParsedComData.Com = comCsvParser.ParseCom(Path.Combine(userSelectedSourceDirectory, "COM.csv")).Com;
+
+                Console.WriteLine("Generating Com.json");
+                // GenerateComJson.Generate(allParsedComData, userSelectedOutputDirectory);
+                Console.WriteLine("Com data created.");
             }
 
             // DOMAIN: DP
