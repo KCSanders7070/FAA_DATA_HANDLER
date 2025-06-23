@@ -59,7 +59,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string Route string { get; set; }
+            public string RouteString { get; set; }
 
             /// <summary>
             /// NoTitleYet

@@ -18,7 +18,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 {
                     EffDate = fields["EFF_DATE"],
                     HpName = fields["HP_NAME"],
-                    HpNo = fields["HP_NO"],
+                    HpNo = FebCsvHelper.ParseInt(fields["HP_NO"]),
                     StateCode = fields["STATE_CODE"],
                     CountryCode = fields["COUNTRY_CODE"],
                     FixId = fields["FIX_ID"],
@@ -46,7 +46,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 {
                     EffDate = fields["EFF_DATE"],
                     HpName = fields["HP_NAME"],
-                    HpNo = fields["HP_NO"],
+                    HpNo = FebCsvHelper.ParseInt(fields["HP_NO"]),
                     StateCode = fields["STATE_CODE"],
                     CountryCode = fields["COUNTRY_CODE"],
                     ChartingTypeDesc = fields["CHARTING_TYPE_DESC"],
@@ -65,7 +65,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 {
                     EffDate = fields["EFF_DATE"],
                     HpName = fields["HP_NAME"],
-                    HpNo = fields["HP_NO"],
+                    HpNo = FebCsvHelper.ParseInt(fields["HP_NO"]),
                     StateCode = fields["STATE_CODE"],
                     CountryCode = fields["COUNTRY_CODE"],
                     TabName = fields["TAB_NAME"],
@@ -87,7 +87,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 {
                     EffDate = fields["EFF_DATE"],
                     HpName = fields["HP_NAME"],
-                    HpNo = fields["HP_NO"],
+                    HpNo = FebCsvHelper.ParseInt(fields["HP_NO"]),
                     StateCode = fields["STATE_CODE"],
                     CountryCode = fields["COUNTRY_CODE"],
                     SpeedRange = fields["SPEED_RANGE"],

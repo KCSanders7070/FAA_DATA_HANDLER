@@ -26,7 +26,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                     DstnStateCode = fields["DSTN_STATE_CODE"],
                     DstnCountryCode = fields["DSTN_COUNTRY_CODE"],
                     PfrTypeCode = fields["PFR_TYPE_CODE"],
-                    RouteNo = fields["ROUTE_NO"],
+                    RouteNo = FebCsvHelper.ParseInt(fields["ROUTE_NO"]),
                     SpecialAreaDescrip = fields["SPECIAL_AREA_DESCRIP"],
                     AltDescrip = fields["ALT_DESCRIP"],
                     BaseAircraft = fields["AIRCRAFT"],
@@ -52,7 +52,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 fields => new PfrRmtFmt
                 {
                     Orig = fields["Orig"],
-                    Route string = fields["Route String"],
+                    RouteString = fields["Route String"],
                     Dest = fields["Dest"],
                     Hours1 = fields["Hours1"],
                     Type = fields["Type"],
@@ -80,7 +80,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                     OriginId = fields["ORIGIN_ID"],
                     DstnId = fields["DSTN_ID"],
                     PfrTypeCode = fields["PFR_TYPE_CODE"],
-                    RouteNo = fields["ROUTE_NO"],
+                    RouteNo = FebCsvHelper.ParseInt(fields["ROUTE_NO"]),
                     SegmentSeq = FebCsvHelper.ParseInt(fields["SEGMENT_SEQ"]),
                     SegValue = fields["SEG_VALUE"],
                     SegType = fields["SEG_TYPE"],

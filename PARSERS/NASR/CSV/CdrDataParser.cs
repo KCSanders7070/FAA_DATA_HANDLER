@@ -20,7 +20,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                     Orig = fields["Orig"],
                     Dest = fields["Dest"],
                     Depfix = fields["DepFix"],
-                    Route string = fields["Route String"],
+                    RouteString = fields["Route String"],
                     Dcntr = fields["DCNTR"],
                     Acntr = fields["ACNTR"],
                     Tcntrs = fields["TCNTRs"],
