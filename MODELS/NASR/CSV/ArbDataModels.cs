@@ -218,7 +218,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>Concatenation of the LOCATION_ID + BNDRY_CODE + 5 Character Point Designator</remarks>
+            /// <remarks>Concatenation of the LOCATION_ID * BNDRY_CODE * 5 Character Point Designator</remarks>
             public string RecId { get; set; }
 
             /// <summary>
