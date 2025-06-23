@@ -87,7 +87,7 @@ namespace FAA_DATA_HANDLER
                 allParsedAwyData.AwySegAlt = awyCsvParser.ParseAwySegAlt(Path.Combine(userSelectedSourceDirectory, "AWY_SEG_ALT.csv")).AwySegAlt;
 
                 Console.WriteLine("Generating Awy.json");
-                // GenerateAwyJson.Generate(allParsedAwyData, userSelectedOutputDirectory);
+                GenerateAwyJson.Generate(allParsedAwyData, userSelectedOutputDirectory);
                 Console.WriteLine("Awy data created.");
             }
 
