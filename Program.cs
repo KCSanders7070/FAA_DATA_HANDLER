@@ -21,8 +21,8 @@ namespace FAA_DATA_HANDLER
             bool parseAtc = false;
             bool parseAwy = false;
             bool parseArb = false;
-            bool parseAwos = true;
-            bool parseClsArsp = false;
+            bool parseAwos = false;
+            bool parseClsArsp = true;
             bool parseCdr = false;
             bool parseCom = false;
             bool parseDp = false;
@@ -127,7 +127,7 @@ namespace FAA_DATA_HANDLER
                 allParsedClsArspData.ClsArsp = ClsArspCsvParser.ParseClsArsp(Path.Combine(userSelectedSourceDirectory, "CLS_ARSP.csv")).ClsArsp;
 
                 Console.WriteLine("Generating ClsArsp.json");
-                // GenerateClsArspJson.Generate(allParsedClsArspData, userSelectedOutputDirectory);
+                GenerateClsArspJson.Generate(allParsedClsArspData, userSelectedOutputDirectory);
                 Console.WriteLine("ClsArsp data created.");
             }
 

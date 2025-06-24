@@ -6,13 +6,13 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class CommonFields
         {
             /// <summary>
-            /// NoTitleYet
-            /// _Src: All Awos_*.csv files(EFF_DATE)
+            /// Effective Date
+            /// _Src: All Apt_*.csv files(EFF_DATE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>The 28 Day NASR Subscription Effective Date in format ‘YYYY/MM/DD’.</remarks>
             public string EffDate { get; set; }
 
             /// <summary>
