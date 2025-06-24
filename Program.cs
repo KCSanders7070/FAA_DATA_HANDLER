@@ -140,7 +140,7 @@ namespace FAA_DATA_HANDLER
                 allParsedCdrData.Cdr = cdrCsvParser.ParseCdr(Path.Combine(userSelectedSourceDirectory, "CDR.csv")).Cdr;
 
                 Console.WriteLine("Generating Cdr.json");
-                // GenerateCdrJson.Generate(allParsedCdrData, userSelectedOutputDirectory);
+                GenerateCdrJson.Generate(allParsedCdrData, userSelectedOutputDirectory);
                 Console.WriteLine("Cdr data created.");
             }
 
