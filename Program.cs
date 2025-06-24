@@ -21,7 +21,7 @@ namespace FAA_DATA_HANDLER
             bool parseAtc = false;
             bool parseAwy = false;
             bool parseArb = false;
-            bool parseAwos = false;
+            bool parseAwos = true;
             bool parseClsArsp = false;
             bool parseCdr = false;
             bool parseCom = false;
@@ -114,7 +114,7 @@ namespace FAA_DATA_HANDLER
                 allParsedAwosData.Awos = awosCsvParser.ParseAwos(Path.Combine(userSelectedSourceDirectory, "AWOS.csv")).Awos;
 
                 Console.WriteLine("Generating Awos.json");
-                // GenerateAwosJson.Generate(allParsedAwosData, userSelectedOutputDirectory);
+                GenerateAwosJson.Generate(allParsedAwosData, userSelectedOutputDirectory);
                 Console.WriteLine("Awos data created.");
             }
 
