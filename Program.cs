@@ -22,7 +22,7 @@ namespace FAA_DATA_HANDLER
             bool parseAwy = false;
             bool parseArb = false;
             bool parseAwos = false;
-            bool parseClsArsp = true;
+            bool parseClsArsp = false;
             bool parseCdr = false;
             bool parseCom = false;
             bool parseDp = false;
