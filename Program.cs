@@ -153,7 +153,7 @@ namespace FAA_DATA_HANDLER
                 allParsedComData.Com = comCsvParser.ParseCom(Path.Combine(userSelectedSourceDirectory, "COM.csv")).Com;
 
                 Console.WriteLine("Generating Com.json");
-                // GenerateComJson.Generate(allParsedComData, userSelectedOutputDirectory);
+                GenerateComJson.Generate(allParsedComData, userSelectedOutputDirectory);
                 Console.WriteLine("Com data created.");
             }
 
@@ -168,7 +168,7 @@ namespace FAA_DATA_HANDLER
                 allParsedDpData.DpRte = dpCsvParser.ParseDpRte(Path.Combine(userSelectedSourceDirectory, "DP_RTE.csv")).DpRte;
 
                 Console.WriteLine("Generating Dp.json");
-                // GenerateDpJson.Generate(allParsedDpData, userSelectedOutputDirectory);
+                GenerateDpJson.Generate(allParsedDpData, userSelectedOutputDirectory);
                 Console.WriteLine("Dp data created.");
             }
 

@@ -1,5 +1,8 @@
 namespace FAA_DATA_HANDLER.Models.NASR.CSV
 {
+    /// <summary>
+    /// All model properties for the Com_*.csv files. FLIGHT SERVICE STATION COMMUNICATION FACILITIES DATA
+    /// </summary>
     public class ComDataModel
     {
         #region Common Fields
@@ -16,83 +19,82 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Ident
             /// _Src: All Com_*.csv files(COMM_LOC_ID)
             /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>A 3-4 character alphanumeric identifier. COMM_TYPE RCAG do not currently have a 3-4 character identifier stored in NASR</remarks>
             public string? CommLocId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communication Outlet Type
             /// _Src: All Com_*.csv files(COMM_TYPE)
             /// _MaxLength: 5
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>RCAG=Remote Communications Air/Ground _ RCO=Remote Communication Outlet _ RCO1=Remote Communication Outlet (alternate site sharing same ID, e.g., one with NAVAID and one on airport property)</remarks>
             public string CommType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated NAVAID Ident
             /// _Src: All Com_*.csv files(NAV_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Applies to RCO/RCO1 types only.</remarks>
             public string? NavId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated NAVAID Type
             /// _Src: All Com_*.csv files(NAV_TYPE)
             /// _MaxLength: 25
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Applies to RCO/RCO1 Types Only. CONSOLAN=Low-Frequency Long-Distance NAVAID (Transoceanic) _ DME=Distance Measuring Equipment Only _ FAN MARKER=En Route Marker Beacon (FAN, low power FAN, Z Marker) _ MARINE NDB=Marine Non-Directional Beacon _ MARINE NDB/DME=Marine NDB with DME _ NDB=Non-Directional Beacon _ NDB/DME=NDB with DME _ TACAN=Tactical Air Navigation (Azimuth + Distance) _ UHF/NDB=UHF Non-Directional Beacon _ VOR=VHF Omnidirectional Range (Azimuth only) _ VORTAC=VOR + TACAN (Azimuth and DME) _ VOR/DME=VOR with DME _ VOT=VOR Test Facility</remarks>
             public string? NavType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet City Name
             /// _Src: All Com_*.csv files(CITY)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>RCAG do not have an Associated City stored in NASR.</remarks>
             public string? City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated State Code
             /// _Src: All Com_*.csv files(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Standard two letter abbreviation for US States and Territories.</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FAA Region Responsible for Communications Outlet
             /// _Src: All Com_*.csv files(REGION_CODE)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>AAL=Alaska _ ACE=Central _ AEA=Eastern _ AGL=Great Lakes _ ANE=New England _ ANM=Northwest Mountain _ ASO=Southern _ ASW=Southwest _ AWP=Western-Pacific</remarks>
             public string? RegionCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Country Code Communications Outlet is Located.
             /// _Src: All Com_*.csv files(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CountryCode { get; set; }
 
         }
@@ -102,193 +104,182 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class Com : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Name
             /// _Src: COM.csv(COMM_OUTLET_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>The Communications Outlet Name is also used as the Communications Outlet Call.</remarks>
             public string CommOutletName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Latitude Degrees
             /// _Src: COM.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Latitude Minutes
             /// _Src: COM.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Latitude Seconds
             /// _Src: COM.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Latitude Hemisphere
             /// _Src: COM.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Latitude in Decimal Format
             /// _Src: COM.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Longitude Degrees
             /// _Src: COM.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Longitude Minutes
             /// _Src: COM.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Longitude Seconds
             /// _Src: COM.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Longitude Hemisphere
             /// _Src: COM.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communications Outlet Longitude in Decimal Format
             /// _Src: COM.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Facility ID (Associated with RCO, RCO1, or RCAG)
             /// _Src: COM.csv(FACILITY_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>For RCO and RCO1: Facility ID is the associated Flight Service Station Ident _ For RCAG: Facility ID is the associated ARTCC</remarks>
             public string FacilityId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Facility Name (Associated with RCO, RCO1, or RCAG)
             /// _Src: COM.csv(FACILITY_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>For RCO and RCO1: Facility Name is the associated Flight Service Station Name _ For RCAG: Facility Name is the associated ARTCC Name</remarks>
             public string FacilityName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated Alternate Flight Service Station Ident
             /// _Src: COM.csv(ALT_FSS_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Applies to RCO/RCO1 types only</remarks>
             public string? AltFssId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated Alternate Flight Service Station Name
             /// _Src: COM.csv(ALT_FSS_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Applies to RCO/RCO1 types only.</remarks>
             public string? AltFssName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Operating Hours
             /// _Src: COM.csv(OPR_HRS)
             /// _MaxLength: 65
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Standard Time Zone - Applies to RCO/RCO1 types only.</remarks>
             public string? OprHrs { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Communication Outlet Status (Applies to RCO/RCO1 Types Only)
             /// _Src: COM.csv(COMM_STATUS_CODE)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>A=Operational IFR _ Q=To Be Commissioned _ Z=Decommissioned</remarks>
             public string? CommStatusCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// STATUS Date of Communications Outlet
             /// _Src: COM.csv(COMM_STATUS_DATE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Applies to RCO/RCO1 types only.</remarks>
             public string? CommStatusDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark associated with Communications Outlet
             /// _Src: COM.csv(REMARK)
             /// _MaxLength: 1500
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Remark { get; set; }
 
         }
