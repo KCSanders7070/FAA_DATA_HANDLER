@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.AwosDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateAwosJson
+    public static class GenerateAwosJsonFromCsv
     {
         public static void Generate(AwosDataCollection data, string outputDirectory)
         {

@@ -1,6 +1,4 @@
-﻿// File: Generators/GenerateCdrJson.cs
-
-using FAA_DATA_HANDLER.Models.NASR.CSV;
+﻿using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.Collections.Generic;
@@ -14,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.CdrDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateCdrJson
+    public static class GenerateCdrJsonFromCsv
     {
         public static void Generate(CdrDataCollection data, string outputDirectory)
         {

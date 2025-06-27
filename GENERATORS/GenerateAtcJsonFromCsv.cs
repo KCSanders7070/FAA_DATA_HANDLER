@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateAtcJson
+    public static class GenerateAtcJsonFromCsv
     {
         public static void Generate(AtcDataCollection data, string outputDirectory)
         {

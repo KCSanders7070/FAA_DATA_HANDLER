@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.ClsArspDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateClsArspJson
+    public static class GenerateClsArspJsonFromCsv
     {
         public static void Generate(ClsArspDataCollection data, string outputDirectory)
         {

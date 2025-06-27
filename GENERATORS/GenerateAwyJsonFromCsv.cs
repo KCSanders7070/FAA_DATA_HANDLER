@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.AwyDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateAwyJson
+    public static class GenerateAwyJsonFromCsv
     {
         public static void Generate(AwyDataCollection data, string outputDirectory)
         {

@@ -1,6 +1,4 @@
-﻿// File: Generators/GenerateComJson.cs
-
-using FAA_DATA_HANDLER.Models.NASR.CSV;
+﻿using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.Collections.Generic;
@@ -14,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.ComDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateComJson
+    public static class GenerateComJsonFromCsv
     {
         public static void Generate(ComDataCollection data, string outputDirectory)
         {

@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.ArbDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateArbJson
+    public static class GenerateArbJsonFromCsv
     {
         public static void Generate(ArbDataCollection data, string outputDirectory)
         {

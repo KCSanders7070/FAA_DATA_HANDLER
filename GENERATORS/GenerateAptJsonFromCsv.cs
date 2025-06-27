@@ -12,7 +12,7 @@ using static FAA_DATA_HANDLER.Models.NASR.CSV.AptDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {
-    public static class GenerateAptJson
+    public static class GenerateAptJsonFromCsv
     {
         public static void Generate(AptDataCollection data, string outputDirectory)
         {
