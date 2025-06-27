@@ -1,6 +1,4 @@
-﻿// File: Generators/GenerateDpJson.cs
-
-using FAA_DATA_HANDLER.Models.NASR.CSV;
+﻿using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.Collections.Generic;
@@ -19,93 +17,57 @@ namespace FAA_DATA_HANDLER.Generators
         public static void Generate(DpDataCollection data, string outputDirectory)
         {
             var dpDict = data.DpBase
-                .GroupBy(b => b.DpName)
+                .GroupBy(d => d.DpName)
                 .ToDictionary(
                     g => g.Key,
                     g => new
                     {
-                        CommonFields = new
+                        commonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            DpComputerCode = g.First().DpComputerCode,
-                            DpName = g.First().DpName,
-                            Artcc = g.First().Artcc
+                            effDate = g.First().EffDate,
+                            dpComputerCode = g.First().DpComputerCode,
+                            dpName = g.First().DpName,
+                            artcc = g.First().Artcc
+                        },
+                        dpApt = data.DpApt
+                            .Where(x => x.DpName == g.Key)
+                            .Select(x => new
+                            {
+                                x.BodyName,
+                                x.AptBodySeq,
+                                x.ArptId,
+                                x.RwyEndId
+                            }).ToList(),
+
+                        dpBase = new
+                        {
+                            amendmentNo = g.First().AmendmentNo,
+                            dpAmendEffDate = g.First().DpAmendEffDate,
+                            rnavFlag = g.First().RnavFlag,
+                            graphicalDpType = g.First().GraphicalDpType,
+                            servedArpt = g.First().ServedArpt.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()).ToList()
                         },
 
-                        DpApt = data.DpApt
-                            .Where(a => a.DpName == g.Key)
-                            .GroupBy(a => a.BodyName)
-                            .ToDictionary(
-                                b => $"BodyName: {b.Key}",
-                                b => b.GroupBy(x => x.AptBodySeq)
-                                    .ToDictionary(
-                                        s => $"AptBodySeq: {s.Key}",
-                                        s => s.GroupBy(x => x.ArptId)
-                                            .ToDictionary(
-                                                a => $"ArptId: {a.Key}",
-                                                a => a.Select(x => new
-                                                {
-                                                    RwyEndId = x.RwyEndId
-                                                }).ToList()
-                                            )
-                                    )
-                            ),
-
-                        DpBase = g
-                            .GroupBy(x => x.AmendmentNo)
-                            .ToDictionary(
-                                a => $"AmendmentNo: {a.Key}",
-                                a => a.GroupBy(x => x.DpAmendEffDate)
-                                    .ToDictionary(
-                                        e => $"DpAmendEffDate: {e.Key}",
-                                        e => e.GroupBy(x => x.RnavFlag)
-                                            .ToDictionary(
-                                                r => $"RnavFlag: {r.Key}",
-                                                r => r.GroupBy(x => x.GraphicalDpType)
-                                                    .ToDictionary(
-                                                        t => $"GraphicalDpType: {t.Key}",
-                                                        t => t.Select(x => new
-                                                        {
-                                                            ServedArpt = x.ServedArpt
-                                                        }).ToList()
-                                                    )
-                                            )
-                                    )
-                            ),
-
-                        DpRte = data.DpRte
+                        dpRte = data.DpRte
                             .Where(r => r.DpName == g.Key)
-                            .GroupBy(r => r.RoutePortionType)
-                            .ToDictionary(
-                                rp => $"RoutePortionType: {rp.Key}",
-                                rp => rp.GroupBy(x => x.RouteName)
-                                    .ToDictionary(
-                                        rn => $"RouteName: {rn.Key}",
-                                        rn => rn.GroupBy(x => x.RteBodySeq)
-                                            .ToDictionary(
-                                                rb => $"RteBodySeq: {rb.Key}",
-                                                rb => rb.GroupBy(x => string.IsNullOrWhiteSpace(x.TransitionComputerCode) ? "BODY" : x.TransitionComputerCode)
-                                                    .ToDictionary(
-                                                        tc => $"TransitionComputerCode: {tc.Key}",
-                                                        tc => tc.OrderBy(x => x.PointSeq)
-                                                            .GroupBy(x => x.PointSeq)
-                                                            .ToDictionary(
-                                                                ps => $"PointSeq: {ps.Key}",
-                                                                ps => ps.Select(p => new
-                                                                {
-                                                                    Point = p.Point,
-                                                                    IcaoRegionCode = p.IcaoRegionCode,
-                                                                    PointType = p.PointType,
-                                                                    NextPoint = p.NextPoint,
-                                                                    ArptRwyAssoc = p.ArptRwyAssoc
-                                                                }).ToList()
-                                                            )
-                                                    )
-                                            )
-                                    )
-                            )
-                    }
-                );
+                            .GroupBy(r => new { r.RoutePortionType, r.RouteName, r.RteBodySeq, r.TransitionComputerCode })
+                            .Select(rg => new
+                            {
+                                rg.Key.RoutePortionType,
+                                rg.Key.RouteName,
+                                rg.Key.RteBodySeq,
+                                rg.Key.TransitionComputerCode,
+                                segments = rg.Select(r => new
+                                {
+                                    r.PointSeq,
+                                    r.Point,
+                                    r.IcaoRegionCode,
+                                    r.PointType,
+                                    r.NextPoint,
+                                    arptRwyAssoc = string.IsNullOrEmpty(r.ArptRwyAssoc) ? null : r.ArptRwyAssoc.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()).ToList()
+                                }).ToList()
+                            }).ToList()
+                    });
 
             var options = new JsonSerializerOptions
             {
