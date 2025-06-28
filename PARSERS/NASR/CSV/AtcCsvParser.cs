@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcCsvDataModel;
 
 namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class AtcCsvParser
     {
-        public AtcDataCollection ParseAtcAtis(string filePath)
+        public AtcCsvDataCollection ParseAtcAtis(string filePath)
         {
-            var result = new AtcDataCollection();
+            var result = new AtcCsvDataCollection();
 
             result.AtcAtis = FebCsvHelper.ProcessLines(
                 filePath,
@@ -33,9 +33,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AtcDataCollection ParseAtcBase(string filePath)
+        public AtcCsvDataCollection ParseAtcBase(string filePath)
         {
-            var result = new AtcDataCollection();
+            var result = new AtcCsvDataCollection();
 
             result.AtcBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -76,9 +76,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AtcDataCollection ParseAtcRmk(string filePath)
+        public AtcCsvDataCollection ParseAtcRmk(string filePath)
         {
-            var result = new AtcDataCollection();
+            var result = new AtcCsvDataCollection();
 
             result.AtcRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -102,9 +102,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AtcDataCollection ParseAtcSvc(string filePath)
+        public AtcCsvDataCollection ParseAtcSvc(string filePath)
         {
-            var result = new AtcDataCollection();
+            var result = new AtcCsvDataCollection();
 
             result.AtcSvc = FebCsvHelper.ProcessLines(
                 filePath,
@@ -126,7 +126,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class AtcDataCollection
+    public class AtcCsvDataCollection
     {
         public List<AtcAtis> AtcAtis { get; set; } = new();
         public List<AtcBase> AtcBase { get; set; } = new();

@@ -4,8 +4,8 @@ using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AptDataModel;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.AptCsvDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcCsvDataModel;
 
 namespace FAA_DATA_HANDLER
 {
@@ -28,7 +28,7 @@ namespace FAA_DATA_HANDLER
             bool parseDp = false;
             bool parseFix = false;
             bool parseFss = false;
-            bool parseFrq = false;
+            bool parseFrq = true;
             bool parseHpf = false;
             bool parseIls = false;
             bool parseLid = false;
@@ -47,7 +47,7 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing APT csv files");
                 AptCsvParser aptCsvParser = new AptCsvParser();
-                AptDataCollection allParsedAptData = new AptDataCollection();
+                AptCsvDataCollection allParsedAptData = new AptCsvDataCollection();
                 allParsedAptData.AptArs = aptCsvParser.ParseAptArs(Path.Combine(userSelectedSourceDirectory, "APT_ARS.csv")).AptArs;
                 allParsedAptData.AptAtt = aptCsvParser.ParseAptAtt(Path.Combine(userSelectedSourceDirectory, "APT_ATT.csv")).AptAtt;
                 allParsedAptData.AptBase = aptCsvParser.ParseAptBase(Path.Combine(userSelectedSourceDirectory, "APT_BASE.csv")).AptBase;
@@ -55,9 +55,9 @@ namespace FAA_DATA_HANDLER
                 allParsedAptData.AptRmk = aptCsvParser.ParseAptRmk(Path.Combine(userSelectedSourceDirectory, "APT_RMK.csv")).AptRmk;
                 allParsedAptData.AptRwy = aptCsvParser.ParseAptRwy(Path.Combine(userSelectedSourceDirectory, "APT_RWY.csv")).AptRwy;
                 allParsedAptData.AptRwyEnd = aptCsvParser.ParseAptRwyEnd(Path.Combine(userSelectedSourceDirectory, "APT_RWY_END.csv")).AptRwyEnd;
-                
+
                 Console.WriteLine("Generating Apt.json");
-                GenerateAptJson.Generate(allParsedAptData, userSelectedOutputDirectory);
+                GenerateAptJsonFromCsv.Generate(allParsedAptData, userSelectedOutputDirectory);
                 Console.WriteLine("Apt data created.");
             }
 
@@ -66,14 +66,14 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Atc csv files");
                 AtcCsvParser atcCsvParser = new AtcCsvParser();
-                AtcDataCollection allParsedAtcData = new AtcDataCollection();
+                AtcCsvDataCollection allParsedAtcData = new AtcCsvDataCollection();
                 allParsedAtcData.AtcAtis = atcCsvParser.ParseAtcAtis(Path.Combine(userSelectedSourceDirectory, "ATC_ATIS.csv")).AtcAtis;
                 allParsedAtcData.AtcBase = atcCsvParser.ParseAtcBase(Path.Combine(userSelectedSourceDirectory, "ATC_BASE.csv")).AtcBase;
                 allParsedAtcData.AtcRmk = atcCsvParser.ParseAtcRmk(Path.Combine(userSelectedSourceDirectory, "ATC_RMK.csv")).AtcRmk;
                 allParsedAtcData.AtcSvc = atcCsvParser.ParseAtcSvc(Path.Combine(userSelectedSourceDirectory, "ATC_SVC.csv")).AtcSvc;
 
                 Console.WriteLine("Generating Atc.json");
-                GenerateAtcJson.Generate(allParsedAtcData, userSelectedOutputDirectory);
+                GenerateAtcJsonFromCsv.Generate(allParsedAtcData, userSelectedOutputDirectory);
                 Console.WriteLine("Atc data created.");
             }
 
@@ -82,12 +82,12 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Awy csv files");
                 AwyCsvParser awyCsvParser = new AwyCsvParser();
-                AwyDataCollection allParsedAwyData = new AwyDataCollection();
+                AwyCsvDataCollection allParsedAwyData = new AwyCsvDataCollection();
                 allParsedAwyData.AwyBase = awyCsvParser.ParseAwyBase(Path.Combine(userSelectedSourceDirectory, "AWY_BASE.csv")).AwyBase;
                 allParsedAwyData.AwySegAlt = awyCsvParser.ParseAwySegAlt(Path.Combine(userSelectedSourceDirectory, "AWY_SEG_ALT.csv")).AwySegAlt;
 
                 Console.WriteLine("Generating Awy.json");
-                GenerateAwyJson.Generate(allParsedAwyData, userSelectedOutputDirectory);
+                GenerateAwyJsonFromCsv.Generate(allParsedAwyData, userSelectedOutputDirectory);
                 Console.WriteLine("Awy data created.");
             }
 
@@ -96,12 +96,12 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Arb csv files");
                 ArbCsvParser arbCsvParser = new ArbCsvParser();
-                ArbDataCollection allParsedArbData = new ArbDataCollection();
+                ArbCsvDataCollection allParsedArbData = new ArbCsvDataCollection();
                 allParsedArbData.ArbBase = arbCsvParser.ParseArbBase(Path.Combine(userSelectedSourceDirectory, "ARB_BASE.csv")).ArbBase;
                 allParsedArbData.ArbSeg = arbCsvParser.ParseArbSeg(Path.Combine(userSelectedSourceDirectory, "ARB_SEG.csv")).ArbSeg;
 
                 Console.WriteLine("Generating Arb.json");
-                GenerateArbJson.Generate(allParsedArbData, userSelectedOutputDirectory);
+                GenerateArbJsonFromCsv.Generate(allParsedArbData, userSelectedOutputDirectory);
                 Console.WriteLine("Arb data created.");
             }
 
@@ -110,11 +110,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Awos csv files");
                 AwosCsvParser awosCsvParser = new AwosCsvParser();
-                AwosDataCollection allParsedAwosData = new AwosDataCollection();
+                AwosCsvDataCollection allParsedAwosData = new AwosCsvDataCollection();
                 allParsedAwosData.Awos = awosCsvParser.ParseAwos(Path.Combine(userSelectedSourceDirectory, "AWOS.csv")).Awos;
 
                 Console.WriteLine("Generating Awos.json");
-                // GenerateAwosJson.Generate(allParsedAwosData, userSelectedOutputDirectory);
+                GenerateAwosJsonFromCsv.Generate(allParsedAwosData, userSelectedOutputDirectory);
                 Console.WriteLine("Awos data created.");
             }
 
@@ -123,11 +123,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing ClsArsp csv files");
                 ClsArspCsvParser ClsArspCsvParser = new ClsArspCsvParser();
-                ClsArspDataCollection allParsedClsArspData = new ClsArspDataCollection();
+                ClsArspCsvDataCollection allParsedClsArspData = new ClsArspCsvDataCollection();
                 allParsedClsArspData.ClsArsp = ClsArspCsvParser.ParseClsArsp(Path.Combine(userSelectedSourceDirectory, "CLS_ARSP.csv")).ClsArsp;
 
                 Console.WriteLine("Generating ClsArsp.json");
-                // GenerateClsArspJson.Generate(allParsedClsArspData, userSelectedOutputDirectory);
+                GenerateClsArspJsonFromCsv.Generate(allParsedClsArspData, userSelectedOutputDirectory);
                 Console.WriteLine("ClsArsp data created.");
             }
 
@@ -136,11 +136,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Cdr csv files");
                 CdrCsvParser cdrCsvParser = new CdrCsvParser();
-                CdrDataCollection allParsedCdrData = new CdrDataCollection();
+                CdrCsvDataCollection allParsedCdrData = new CdrCsvDataCollection();
                 allParsedCdrData.Cdr = cdrCsvParser.ParseCdr(Path.Combine(userSelectedSourceDirectory, "CDR.csv")).Cdr;
 
                 Console.WriteLine("Generating Cdr.json");
-                // GenerateCdrJson.Generate(allParsedCdrData, userSelectedOutputDirectory);
+                GenerateCdrJsonFromCsv.Generate(allParsedCdrData, userSelectedOutputDirectory);
                 Console.WriteLine("Cdr data created.");
             }
 
@@ -149,11 +149,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Com csv files");
                 ComCsvParser comCsvParser = new ComCsvParser();
-                ComDataCollection allParsedComData = new ComDataCollection();
+                ComCsvDataCollection allParsedComData = new ComCsvDataCollection();
                 allParsedComData.Com = comCsvParser.ParseCom(Path.Combine(userSelectedSourceDirectory, "COM.csv")).Com;
 
                 Console.WriteLine("Generating Com.json");
-                // GenerateComJson.Generate(allParsedComData, userSelectedOutputDirectory);
+                GenerateComJsonFromCsv.Generate(allParsedComData, userSelectedOutputDirectory);
                 Console.WriteLine("Com data created.");
             }
 
@@ -162,13 +162,13 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Dp csv files");
                 DpCsvParser dpCsvParser = new DpCsvParser();
-                DpDataCollection allParsedDpData = new DpDataCollection();
+                DpCsvDataCollection allParsedDpData = new DpCsvDataCollection();
                 allParsedDpData.DpApt = dpCsvParser.ParseDpApt(Path.Combine(userSelectedSourceDirectory, "DP_APT.csv")).DpApt;
                 allParsedDpData.DpBase = dpCsvParser.ParseDpBase(Path.Combine(userSelectedSourceDirectory, "DP_BASE.csv")).DpBase;
                 allParsedDpData.DpRte = dpCsvParser.ParseDpRte(Path.Combine(userSelectedSourceDirectory, "DP_RTE.csv")).DpRte;
 
                 Console.WriteLine("Generating Dp.json");
-                // GenerateDpJson.Generate(allParsedDpData, userSelectedOutputDirectory);
+                GenerateDpJsonFromCsv.Generate(allParsedDpData, userSelectedOutputDirectory);
                 Console.WriteLine("Dp data created.");
             }
 
@@ -177,13 +177,13 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Fix csv files");
                 FixCsvParser fixCsvParser = new FixCsvParser();
-                FixDataCollection allParsedFixData = new FixDataCollection();
+                FixCsvDataCollection allParsedFixData = new FixCsvDataCollection();
                 allParsedFixData.FixBase = fixCsvParser.ParseFixBase(Path.Combine(userSelectedSourceDirectory, "FIX_BASE.csv")).FixBase;
                 allParsedFixData.FixChrt = fixCsvParser.ParseFixChrt(Path.Combine(userSelectedSourceDirectory, "FIX_CHRT.csv")).FixChrt;
                 allParsedFixData.FixNav = fixCsvParser.ParseFixNav(Path.Combine(userSelectedSourceDirectory, "FIX_NAV.csv")).FixNav;
 
                 Console.WriteLine("Generating Fix.json");
-                // GenerateFixJson.Generate(allParsedFixData, userSelectedOutputDirectory);
+                GenerateFixJsonFromCsv.Generate(allParsedFixData, userSelectedOutputDirectory);
                 Console.WriteLine("Fix data created.");
             }
 
@@ -192,12 +192,12 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Fss csv files");
                 FssCsvParser fssCsvParser = new FssCsvParser();
-                FssDataCollection allParsedFssData = new FssDataCollection();
+                FssCsvDataCollection allParsedFssData = new FssCsvDataCollection();
                 allParsedFssData.FssBase = fssCsvParser.ParseFssBase(Path.Combine(userSelectedSourceDirectory, "FSS_BASE.csv")).FssBase;
                 allParsedFssData.FssRmk = fssCsvParser.ParseFssRmk(Path.Combine(userSelectedSourceDirectory, "FSS_RMK.csv")).FssRmk;
 
                 Console.WriteLine("Generating Fss.json");
-                // GenerateFssJson.Generate(allParsedFssData, userSelectedOutputDirectory);
+                GenerateFssJsonFromCsv.Generate(allParsedFssData, userSelectedOutputDirectory);
                 Console.WriteLine("Fss data created.");
             }
 
@@ -206,11 +206,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Frq csv files");
                 FrqCsvParser frqCsvParser = new FrqCsvParser();
-                FrqDataCollection allParsedFrqData = new FrqDataCollection();
+                FrqCsvDataCollection allParsedFrqData = new FrqCsvDataCollection();
                 allParsedFrqData.Frq = frqCsvParser.ParseFrq(Path.Combine(userSelectedSourceDirectory, "FRQ.csv")).Frq;
 
                 Console.WriteLine("Generating Frq.json");
-                // GenerateFrqJson.Generate(allParsedFrqData, userSelectedOutputDirectory);
+                // GenerateFrqJsonFromCsv.Generate(allParsedFrqData, userSelectedOutputDirectory);
                 Console.WriteLine("Frq data created.");
             }
 
@@ -219,14 +219,14 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Hpf csv files");
                 HpfCsvParser hpfCsvParser = new HpfCsvParser();
-                HpfDataCollection allParsedHpfData = new HpfDataCollection();
+                HpfCsvDataCollection allParsedHpfData = new HpfCsvDataCollection();
                 allParsedHpfData.HpfBase = hpfCsvParser.ParseHpfBase(Path.Combine(userSelectedSourceDirectory, "HPF_BASE.csv")).HpfBase;
                 allParsedHpfData.HpfChrt = hpfCsvParser.ParseHpfChrt(Path.Combine(userSelectedSourceDirectory, "HPF_CHRT.csv")).HpfChrt;
                 allParsedHpfData.HpfRmk = hpfCsvParser.ParseHpfRmk(Path.Combine(userSelectedSourceDirectory, "HPF_RMK.csv")).HpfRmk;
                 allParsedHpfData.HpfSpdAlt = hpfCsvParser.ParseHpfSpdAlt(Path.Combine(userSelectedSourceDirectory, "HPF_SPD_ALT.csv")).HpfSpdAlt;
 
                 Console.WriteLine("Generating Hpf.json");
-                // GenerateHpfJson.Generate(allParsedHpfData, userSelectedOutputDirectory);
+                // GenerateHpfJsonFromCsv.Generate(allParsedHpfData, userSelectedOutputDirectory);
                 Console.WriteLine("Hpf data created.");
             }
 
@@ -235,7 +235,7 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Ils csv files");
                 IlsCsvParser ilsCsvParser = new IlsCsvParser();
-                IlsDataCollection allParsedIlsData = new IlsDataCollection();
+                IlsCsvDataCollection allParsedIlsData = new IlsCsvDataCollection();
                 allParsedIlsData.IlsBase = ilsCsvParser.ParseIlsBase(Path.Combine(userSelectedSourceDirectory, "ILS_BASE.csv")).IlsBase;
                 allParsedIlsData.IlsDme = ilsCsvParser.ParseIlsDme(Path.Combine(userSelectedSourceDirectory, "ILS_DME.csv")).IlsDme;
                 allParsedIlsData.IlsGs = ilsCsvParser.ParseIlsGs(Path.Combine(userSelectedSourceDirectory, "ILS_GS.csv")).IlsGs;
@@ -243,7 +243,7 @@ namespace FAA_DATA_HANDLER
                 allParsedIlsData.IlsRmk = ilsCsvParser.ParseIlsRmk(Path.Combine(userSelectedSourceDirectory, "ILS_RMK.csv")).IlsRmk;
 
                 Console.WriteLine("Generating Ils.json");
-                // GenerateIlsJson.Generate(allParsedIlsData, userSelectedOutputDirectory);
+                // GenerateIlsJsonFromCsv.Generate(allParsedIlsData, userSelectedOutputDirectory);
                 Console.WriteLine("Ils data created.");
             }
 
@@ -252,11 +252,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Lid csv files");
                 LidCsvParser lidCsvParser = new LidCsvParser();
-                LidDataCollection allParsedLidData = new LidDataCollection();
+                LidCsvDataCollection allParsedLidData = new LidCsvDataCollection();
                 allParsedLidData.Lid = lidCsvParser.ParseLid(Path.Combine(userSelectedSourceDirectory, "LID.csv")).Lid;
 
                 Console.WriteLine("Generating Lid.json");
-                // GenerateLidJson.Generate(allParsedLidData, userSelectedOutputDirectory);
+                // GenerateLidJsonFromCsv.Generate(allParsedLidData, userSelectedOutputDirectory);
                 Console.WriteLine("Lid data created.");
             }
 
@@ -265,11 +265,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Mil csv files");
                 MilCsvParser milCsvParser = new MilCsvParser();
-                MilDataCollection allParsedMilData = new MilDataCollection();
+                MilCsvDataCollection allParsedMilData = new MilCsvDataCollection();
                 allParsedMilData.MilOps = milCsvParser.ParseMilOps(Path.Combine(userSelectedSourceDirectory, "MIL_OPS.csv")).MilOps;
 
                 Console.WriteLine("Generating Mil.json");
-                // GenerateMilJson.Generate(allParsedMilData, userSelectedOutputDirectory);
+                // GenerateMilJsonFromCsv.Generate(allParsedMilData, userSelectedOutputDirectory);
                 Console.WriteLine("Mil data created.");
             }
 
@@ -278,7 +278,7 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Mtr csv files");
                 MtrCsvParser mtrCsvParser = new MtrCsvParser();
-                MtrDataCollection allParsedMtrData = new MtrDataCollection();
+                MtrCsvDataCollection allParsedMtrData = new MtrCsvDataCollection();
                 allParsedMtrData.MtrAgy = mtrCsvParser.ParseMtrAgy(Path.Combine(userSelectedSourceDirectory, "MTR_AGY.csv")).MtrAgy;
                 allParsedMtrData.MtrBase = mtrCsvParser.ParseMtrBase(Path.Combine(userSelectedSourceDirectory, "MTR_BASE.csv")).MtrBase;
                 allParsedMtrData.MtrPt = mtrCsvParser.ParseMtrPt(Path.Combine(userSelectedSourceDirectory, "MTR_PT.csv")).MtrPt;
@@ -287,7 +287,7 @@ namespace FAA_DATA_HANDLER
                 allParsedMtrData.MtrWdth = mtrCsvParser.ParseMtrWdth(Path.Combine(userSelectedSourceDirectory, "MTR_WDTH.csv")).MtrWdth;
 
                 Console.WriteLine("Generating Mtr.json");
-                // GenerateMtrJson.Generate(allParsedMtrData, userSelectedOutputDirectory);
+                // GenerateMtrJsonFromCsv.Generate(allParsedMtrData, userSelectedOutputDirectory);
                 Console.WriteLine("Mtr data created.");
             }
 
@@ -296,14 +296,14 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Maa csv files");
                 MaaCsvParser maaCsvParser = new MaaCsvParser();
-                MaaDataCollection allParsedMaaData = new MaaDataCollection();
+                MaaCsvDataCollection allParsedMaaData = new MaaCsvDataCollection();
                 allParsedMaaData.MaaBase = maaCsvParser.ParseMaaBase(Path.Combine(userSelectedSourceDirectory, "MAA_BASE.csv")).MaaBase;
                 allParsedMaaData.MaaCon = maaCsvParser.ParseMaaCon(Path.Combine(userSelectedSourceDirectory, "MAA_CON.csv")).MaaCon;
                 allParsedMaaData.MaaRmk = maaCsvParser.ParseMaaRmk(Path.Combine(userSelectedSourceDirectory, "MAA_RMK.csv")).MaaRmk;
                 allParsedMaaData.MaaShp = maaCsvParser.ParseMaaShp(Path.Combine(userSelectedSourceDirectory, "MAA_SHP.csv")).MaaShp;
 
                 Console.WriteLine("Generating Maa.json");
-                // GenerateMaaJson.Generate(allParsedMaaData, userSelectedOutputDirectory);
+                // GenerateMaaJsonFromCsv.Generate(allParsedMaaData, userSelectedOutputDirectory);
                 Console.WriteLine("Maa data created.");
             }
 
@@ -312,13 +312,13 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Nav csv files");
                 NavCsvParser navCsvParser = new NavCsvParser();
-                NavDataCollection allParsedNavData = new NavDataCollection();
+                NavCsvDataCollection allParsedNavData = new NavCsvDataCollection();
                 allParsedNavData.NavBase = navCsvParser.ParseNavBase(Path.Combine(userSelectedSourceDirectory, "NAV_BASE.csv")).NavBase;
                 allParsedNavData.NavCkpt = navCsvParser.ParseNavCkpt(Path.Combine(userSelectedSourceDirectory, "NAV_CKPT.csv")).NavCkpt;
                 allParsedNavData.NavRmk = navCsvParser.ParseNavRmk(Path.Combine(userSelectedSourceDirectory, "NAV_RMK.csv")).NavRmk;
 
                 Console.WriteLine("Generating Nav.json");
-                // GenerateNavJson.Generate(allParsedNavData, userSelectedOutputDirectory);
+                // GenerateNavJsonFromCsv.Generate(allParsedNavData, userSelectedOutputDirectory);
                 Console.WriteLine("Nav data created.");
             }
 
@@ -327,12 +327,12 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Pja csv files");
                 PjaCsvParser pjaCsvParser = new PjaCsvParser();
-                PjaDataCollection allParsedPjaData = new PjaDataCollection();
+                PjaCsvDataCollection allParsedPjaData = new PjaCsvDataCollection();
                 allParsedPjaData.PjaBase = pjaCsvParser.ParsePjaBase(Path.Combine(userSelectedSourceDirectory, "PJA_BASE.csv")).PjaBase;
                 allParsedPjaData.PjaCon = pjaCsvParser.ParsePjaCon(Path.Combine(userSelectedSourceDirectory, "PJA_CON.csv")).PjaCon;
 
                 Console.WriteLine("Generating Pja.json");
-                // GeneratePjaJson.Generate(allParsedPjaData, userSelectedOutputDirectory);
+                // GeneratePjaJsonFromCsv.Generate(allParsedPjaData, userSelectedOutputDirectory);
                 Console.WriteLine("Pja data created.");
             }
 
@@ -341,13 +341,13 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Pfr csv files");
                 PfrCsvParser pfrCsvParser = new PfrCsvParser();
-                PfrDataCollection allParsedPfrData = new PfrDataCollection();
+                PfrCsvDataCollection allParsedPfrData = new PfrCsvDataCollection();
                 allParsedPfrData.PfrBase = pfrCsvParser.ParsePfrBase(Path.Combine(userSelectedSourceDirectory, "PFR_BASE.csv")).PfrBase;
                 allParsedPfrData.PfrRmtFmt = pfrCsvParser.ParsePfrRmtFmt(Path.Combine(userSelectedSourceDirectory, "PFR_RMT_FMT.csv")).PfrRmtFmt;
                 allParsedPfrData.PfrSeg = pfrCsvParser.ParsePfrSeg(Path.Combine(userSelectedSourceDirectory, "PFR_SEG.csv")).PfrSeg;
 
                 Console.WriteLine("Generating Pfr.json");
-                // GeneratePfrJson.Generate(allParsedPfrData, userSelectedOutputDirectory);
+                // GeneratePfrJsonFromCsv.Generate(allParsedPfrData, userSelectedOutputDirectory);
                 Console.WriteLine("Pfr data created.");
             }
 
@@ -356,11 +356,11 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Rdr csv files");
                 RdrCsvParser rdrCsvParser = new RdrCsvParser();
-                RdrDataCollection allParsedRdrData = new RdrDataCollection();
+                RdrCsvDataCollection allParsedRdrData = new RdrCsvDataCollection();
                 allParsedRdrData.Rdr = rdrCsvParser.ParseRdr(Path.Combine(userSelectedSourceDirectory, "RDR.csv")).Rdr;
 
                 Console.WriteLine("Generating Rdr.json");
-                // GenerateRdrJson.Generate(allParsedRdrData, userSelectedOutputDirectory);
+                // GenerateRdrJsonFromCsv.Generate(allParsedRdrData, userSelectedOutputDirectory);
                 Console.WriteLine("Rdr data created.");
             }
 
@@ -369,13 +369,13 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Star csv files");
                 StarCsvParser starCsvParser = new StarCsvParser();
-                StarDataCollection allParsedStarData = new StarDataCollection();
+                StarCsvDataCollection allParsedStarData = new StarCsvDataCollection();
                 allParsedStarData.StarApt = starCsvParser.ParseStarApt(Path.Combine(userSelectedSourceDirectory, "STAR_APT.csv")).StarApt;
                 allParsedStarData.StarBase = starCsvParser.ParseStarBase(Path.Combine(userSelectedSourceDirectory, "STAR_BASE.csv")).StarBase;
                 allParsedStarData.StarRte = starCsvParser.ParseStarRte(Path.Combine(userSelectedSourceDirectory, "STAR_RTE.csv")).StarRte;
 
                 Console.WriteLine("Generating Star.json");
-                // GenerateStarJson.Generate(allParsedStarData, userSelectedOutputDirectory);
+                // GenerateStarJsonFromCsv.Generate(allParsedStarData, userSelectedOutputDirectory);
                 Console.WriteLine("Star data created.");
             }
 
@@ -384,12 +384,12 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing Wxl csv files");
                 WxlCsvParser wxlCsvParser = new WxlCsvParser();
-                WxlDataCollection allParsedWxlData = new WxlDataCollection();
+                WxlCsvDataCollection allParsedWxlData = new WxlCsvDataCollection();
                 allParsedWxlData.WxlBase = wxlCsvParser.ParseWxlBase(Path.Combine(userSelectedSourceDirectory, "WXL_BASE.csv")).WxlBase;
                 allParsedWxlData.WxlSvc = wxlCsvParser.ParseWxlSvc(Path.Combine(userSelectedSourceDirectory, "WXL_SVC.csv")).WxlSvc;
 
                 Console.WriteLine("Generating Wxl.json");
-                // GenerateWxlJson.Generate(allParsedWxlData, userSelectedOutputDirectory);
+                // GenerateWxlJsonFromCsv.Generate(allParsedWxlData, userSelectedOutputDirectory);
                 Console.WriteLine("Wxl data created.");
             }
         }
