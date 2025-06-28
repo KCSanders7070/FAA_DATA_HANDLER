@@ -202,6 +202,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
+            /// <remarks>Fairly obsolete system. Ref for more info: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_90-99.pdf </remarks>
             public string PitchFlag { get; set; }
 
             /// <summary>
@@ -211,6 +212,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
+            /// <remarks>Fairly obsolete system. Ref for more info: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_90-99.pdf </remarks>
             public string CatchFlag { get; set; }
 
             /// <summary>
@@ -272,7 +274,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
         #region Fix_NAV Fields
         /// <summary>
-        /// Close NAVAID to fix; Used to describe the fix location in relation to this navaid.
+        /// Close NAVAIDS to fix; Used to describe the fix location in relation to these navaids.
         /// </summary>
         public class FixNav : CommonFields
         {

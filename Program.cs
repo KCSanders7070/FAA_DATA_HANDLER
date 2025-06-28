@@ -26,7 +26,7 @@ namespace FAA_DATA_HANDLER
             bool parseCdr = false;
             bool parseCom = false;
             bool parseDp = false;
-            bool parseFix = true;
+            bool parseFix = false;
             bool parseFss = false;
             bool parseFrq = false;
             bool parseHpf = false;
