@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class AptCsvParser
     {
-        public AptDataCollection ParseAptArs(string filePath)
+        public AptCsvDataCollection ParseAptArs(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptArs = FebCsvHelper.ProcessLines(
                 filePath,
@@ -31,9 +31,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptAtt(string filePath)
+        public AptCsvDataCollection ParseAptAtt(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptAtt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -55,9 +55,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptBase(string filePath)
+        public AptCsvDataCollection ParseAptBase(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -158,9 +158,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptCon(string filePath)
+        public AptCsvDataCollection ParseAptCon(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptCon = FebCsvHelper.ProcessLines(
                 filePath,
@@ -187,9 +187,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptRmk(string filePath)
+        public AptCsvDataCollection ParseAptRmk(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -213,9 +213,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptRwy(string filePath)
+        public AptCsvDataCollection ParseAptRwy(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptRwy = FebCsvHelper.ProcessLines(
                 filePath,
@@ -251,9 +251,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AptDataCollection ParseAptRwyEnd(string filePath)
+        public AptCsvDataCollection ParseAptRwyEnd(string filePath)
         {
-            var result = new AptDataCollection();
+            var result = new AptCsvDataCollection();
 
             result.AptRwyEnd = FebCsvHelper.ProcessLines(
                 filePath,
@@ -346,7 +346,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class AptDataCollection
+    public class AptCsvDataCollection
     {
         public List<AptArs> AptArs { get; set; } = new();
         public List<AptAtt> AptAtt { get; set; } = new();

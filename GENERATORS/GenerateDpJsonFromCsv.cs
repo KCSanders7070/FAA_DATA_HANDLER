@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateDpJsonFromCsv
     {
-        public static void Generate(DpDataCollection data, string outputDirectory)
+        public static void Generate(DpCsvDataCollection data, string outputDirectory)
         {
             var dpDict = data.DpBase
                 .GroupBy(d => d.DpName)

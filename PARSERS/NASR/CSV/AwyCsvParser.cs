@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class AwyCsvParser
     {
-        public AwyDataCollection ParseAwyBase(string filePath)
+        public AwyCsvDataCollection ParseAwyBase(string filePath)
         {
-            var result = new AwyDataCollection();
+            var result = new AwyCsvDataCollection();
 
             result.AwyBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -29,9 +29,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public AwyDataCollection ParseAwySegAlt(string filePath)
+        public AwyCsvDataCollection ParseAwySegAlt(string filePath)
         {
-            var result = new AwyDataCollection();
+            var result = new AwyCsvDataCollection();
 
             result.AwySegAlt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -91,7 +91,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class AwyDataCollection
+    public class AwyCsvDataCollection
     {
         public List<AwyBase> AwyBase { get; set; } = new();
         public List<AwySegAlt> AwySegAlt { get; set; } = new();

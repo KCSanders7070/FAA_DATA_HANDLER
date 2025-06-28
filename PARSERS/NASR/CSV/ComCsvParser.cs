@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class ComCsvParser
     {
-        public ComDataCollection ParseCom(string filePath)
+        public ComCsvDataCollection ParseCom(string filePath)
         {
-            var result = new ComDataCollection();
+            var result = new ComCsvDataCollection();
 
             result.Com = FebCsvHelper.ProcessLines(
                 filePath,
@@ -51,7 +51,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class ComDataCollection
+    public class ComCsvDataCollection
     {
         public List<Com> Com { get; set; } = new();
     }

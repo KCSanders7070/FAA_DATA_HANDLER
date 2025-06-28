@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class StarCsvParser
     {
-        public StarDataCollection ParseStarApt(string filePath)
+        public StarCsvDataCollection ParseStarApt(string filePath)
         {
-            var result = new StarDataCollection();
+            var result = new StarCsvDataCollection();
 
             result.StarApt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -28,9 +28,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public StarDataCollection ParseStarBase(string filePath)
+        public StarCsvDataCollection ParseStarBase(string filePath)
         {
-            var result = new StarDataCollection();
+            var result = new StarCsvDataCollection();
 
             result.StarBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -49,9 +49,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public StarDataCollection ParseStarRte(string filePath)
+        public StarCsvDataCollection ParseStarRte(string filePath)
         {
-            var result = new StarDataCollection();
+            var result = new StarCsvDataCollection();
 
             result.StarRte = FebCsvHelper.ProcessLines(
                 filePath,
@@ -77,7 +77,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class StarDataCollection
+    public class StarCsvDataCollection
     {
         public List<StarApt> StarApt { get; set; } = new();
         public List<StarBase> StarBase { get; set; } = new();

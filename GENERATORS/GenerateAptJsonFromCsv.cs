@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateAptJsonFromCsv
     {
-        public static void Generate(AptDataCollection data, string outputDirectory)
+        public static void Generate(AptCsvDataCollection data, string outputDirectory)
         {
             // Group all base airport records by ArptId, then create a dictionary.
             // Each dictionary key is an airport ID, and the value is an object containing grouped data

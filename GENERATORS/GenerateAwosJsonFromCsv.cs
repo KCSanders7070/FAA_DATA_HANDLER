@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateAwosJsonFromCsv
     {
-        public static void Generate(AwosDataCollection data, string outputDirectory)
+        public static void Generate(AwosCsvDataCollection data, string outputDirectory)
         {
             var awosDict = data.Awos
                 .GroupBy(a => a.AsosAwosId)

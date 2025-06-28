@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class LidCsvParser
     {
-        public LidDataCollection ParseLid(string filePath)
+        public LidCsvDataCollection ParseLid(string filePath)
         {
-            var result = new LidDataCollection();
+            var result = new LidCsvDataCollection();
 
             result.Lid = FebCsvHelper.ProcessLines(
                 filePath,
@@ -35,7 +35,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class LidDataCollection
+    public class LidCsvDataCollection
     {
         public List<Lid> Lid { get; set; } = new();
     }

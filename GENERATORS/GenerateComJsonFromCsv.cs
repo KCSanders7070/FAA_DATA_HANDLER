@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateComJsonFromCsv
     {
-        public static void Generate(ComDataCollection data, string outputDirectory)
+        public static void Generate(ComCsvDataCollection data, string outputDirectory)
         {
             var comDict = data.Com
                 .GroupBy(x => x.CommLocId)

@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class PfrCsvParser
     {
-        public PfrDataCollection ParsePfrBase(string filePath)
+        public PfrCsvDataCollection ParsePfrBase(string filePath)
         {
-            var result = new PfrDataCollection();
+            var result = new PfrCsvDataCollection();
 
             result.PfrBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -43,9 +43,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public PfrDataCollection ParsePfrRmtFmt(string filePath)
+        public PfrCsvDataCollection ParsePfrRmtFmt(string filePath)
         {
-            var result = new PfrDataCollection();
+            var result = new PfrCsvDataCollection();
 
             result.PfrRmtFmt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -68,9 +68,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public PfrDataCollection ParsePfrSeg(string filePath)
+        public PfrCsvDataCollection ParsePfrSeg(string filePath)
         {
-            var result = new PfrDataCollection();
+            var result = new PfrCsvDataCollection();
 
             result.PfrSeg = FebCsvHelper.ProcessLines(
                 filePath,
@@ -96,7 +96,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class PfrDataCollection
+    public class PfrCsvDataCollection
     {
         public List<PfrBase> PfrBase { get; set; } = new();
         public List<PfrRmtFmt> PfrRmtFmt { get; set; } = new();

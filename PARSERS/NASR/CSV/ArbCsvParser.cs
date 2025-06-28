@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class ArbCsvParser
     {
-        public ArbDataCollection ParseArbBase(string filePath)
+        public ArbCsvDataCollection ParseArbBase(string filePath)
         {
-            var result = new ArbDataCollection();
+            var result = new ArbCsvDataCollection();
 
             result.ArbBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -41,9 +41,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public ArbDataCollection ParseArbSeg(string filePath)
+        public ArbCsvDataCollection ParseArbSeg(string filePath)
         {
-            var result = new ArbDataCollection();
+            var result = new ArbCsvDataCollection();
 
             result.ArbSeg = FebCsvHelper.ProcessLines(
                 filePath,
@@ -75,7 +75,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class ArbDataCollection
+    public class ArbCsvDataCollection
     {
         public List<ArbBase> ArbBase { get; set; } = new();
         public List<ArbSeg> ArbSeg { get; set; } = new();

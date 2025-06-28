@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateAtcJsonFromCsv
     {
-        public static void Generate(AtcDataCollection data, string outputDirectory)
+        public static void Generate(AtcCsvDataCollection data, string outputDirectory)
         {
             var atcDict = data.AtcBase
                 .GroupBy(b => b.FacilityId)

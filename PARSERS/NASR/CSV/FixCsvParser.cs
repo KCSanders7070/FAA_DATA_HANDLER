@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class FixCsvParser
     {
-        public FixDataCollection ParseFixBase(string filePath)
+        public FixCsvDataCollection ParseFixBase(string filePath)
         {
-            var result = new FixDataCollection();
+            var result = new FixCsvDataCollection();
 
             result.FixBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -47,9 +47,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public FixDataCollection ParseFixChrt(string filePath)
+        public FixCsvDataCollection ParseFixChrt(string filePath)
         {
-            var result = new FixDataCollection();
+            var result = new FixCsvDataCollection();
 
             result.FixChrt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -66,9 +66,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public FixDataCollection ParseFixNav(string filePath)
+        public FixCsvDataCollection ParseFixNav(string filePath)
         {
-            var result = new FixDataCollection();
+            var result = new FixCsvDataCollection();
 
             result.FixNav = FebCsvHelper.ProcessLines(
                 filePath,
@@ -90,7 +90,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class FixDataCollection
+    public class FixCsvDataCollection
     {
         public List<FixBase> FixBase { get; set; } = new();
         public List<FixChrt> FixChrt { get; set; } = new();

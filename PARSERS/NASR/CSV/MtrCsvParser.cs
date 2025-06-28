@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class MtrCsvParser
     {
-        public MtrDataCollection ParseMtrAgy(string filePath)
+        public MtrCsvDataCollection ParseMtrAgy(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrAgy = FebCsvHelper.ProcessLines(
                 filePath,
@@ -35,9 +35,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MtrDataCollection ParseMtrBase(string filePath)
+        public MtrCsvDataCollection ParseMtrBase(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -54,9 +54,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MtrDataCollection ParseMtrPt(string filePath)
+        public MtrCsvDataCollection ParseMtrPt(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrPt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -88,9 +88,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MtrDataCollection ParseMtrSop(string filePath)
+        public MtrCsvDataCollection ParseMtrSop(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrSop = FebCsvHelper.ProcessLines(
                 filePath,
@@ -107,9 +107,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MtrDataCollection ParseMtrTerr(string filePath)
+        public MtrCsvDataCollection ParseMtrTerr(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrTerr = FebCsvHelper.ProcessLines(
                 filePath,
@@ -126,9 +126,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MtrDataCollection ParseMtrWdth(string filePath)
+        public MtrCsvDataCollection ParseMtrWdth(string filePath)
         {
-            var result = new MtrDataCollection();
+            var result = new MtrCsvDataCollection();
 
             result.MtrWdth = FebCsvHelper.ProcessLines(
                 filePath,
@@ -147,7 +147,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class MtrDataCollection
+    public class MtrCsvDataCollection
     {
         public List<MtrAgy> MtrAgy { get; set; } = new();
         public List<MtrBase> MtrBase { get; set; } = new();

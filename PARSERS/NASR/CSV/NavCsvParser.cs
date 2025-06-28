@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class NavCsvParser
     {
-        public NavDataCollection ParseNavBase(string filePath)
+        public NavCsvDataCollection ParseNavBase(string filePath)
         {
-            var result = new NavDataCollection();
+            var result = new NavCsvDataCollection();
 
             result.NavBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -93,9 +93,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public NavDataCollection ParseNavCkpt(string filePath)
+        public NavCsvDataCollection ParseNavCkpt(string filePath)
         {
-            var result = new NavDataCollection();
+            var result = new NavCsvDataCollection();
 
             result.NavCkpt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -118,9 +118,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public NavDataCollection ParseNavRmk(string filePath)
+        public NavCsvDataCollection ParseNavRmk(string filePath)
         {
-            var result = new NavDataCollection();
+            var result = new NavCsvDataCollection();
 
             result.NavRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -143,7 +143,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class NavDataCollection
+    public class NavCsvDataCollection
     {
         public List<NavBase> NavBase { get; set; } = new();
         public List<NavCkpt> NavCkpt { get; set; } = new();

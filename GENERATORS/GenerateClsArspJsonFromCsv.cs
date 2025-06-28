@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateClsArspJsonFromCsv
     {
-        public static void Generate(ClsArspDataCollection data, string outputDirectory)
+        public static void Generate(ClsArspCsvDataCollection data, string outputDirectory)
         {
             var airspaceDict = data.ClsArsp
                 .GroupBy(x => x.ArptId)

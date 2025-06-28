@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateArbJsonFromCsv
     {
-        public static void Generate(ArbDataCollection data, string outputDirectory)
+        public static void Generate(ArbCsvDataCollection data, string outputDirectory)
         {
             var arbDict = data.ArbBase
                 .GroupBy(b => b.LocationId)

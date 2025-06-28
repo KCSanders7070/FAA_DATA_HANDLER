@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class HpfCsvParser
     {
-        public HpfDataCollection ParseHpfBase(string filePath)
+        public HpfCsvDataCollection ParseHpfBase(string filePath)
         {
-            var result = new HpfDataCollection();
+            var result = new HpfCsvDataCollection();
 
             result.HpfBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -36,9 +36,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public HpfDataCollection ParseHpfChrt(string filePath)
+        public HpfCsvDataCollection ParseHpfChrt(string filePath)
         {
-            var result = new HpfDataCollection();
+            var result = new HpfCsvDataCollection();
 
             result.HpfChrt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -55,9 +55,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public HpfDataCollection ParseHpfRmk(string filePath)
+        public HpfCsvDataCollection ParseHpfRmk(string filePath)
         {
-            var result = new HpfDataCollection();
+            var result = new HpfCsvDataCollection();
 
             result.HpfRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -77,9 +77,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public HpfDataCollection ParseHpfSpdAlt(string filePath)
+        public HpfCsvDataCollection ParseHpfSpdAlt(string filePath)
         {
-            var result = new HpfDataCollection();
+            var result = new HpfCsvDataCollection();
 
             result.HpfSpdAlt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -99,7 +99,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class HpfDataCollection
+    public class HpfCsvDataCollection
     {
         public List<HpfBase> HpfBase { get; set; } = new();
         public List<HpfChrt> HpfChrt { get; set; } = new();

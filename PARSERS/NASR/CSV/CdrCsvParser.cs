@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class CdrCsvParser
     {
-        public CdrDataCollection ParseCdr(string filePath)
+        public CdrCsvDataCollection ParseCdr(string filePath)
         {
-            var result = new CdrDataCollection();
+            var result = new CdrCsvDataCollection();
 
             result.Cdr = FebCsvHelper.ProcessLines(
                 filePath,
@@ -35,7 +35,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class CdrDataCollection
+    public class CdrCsvDataCollection
     {
         public List<Cdr> Cdr { get; set; } = new();
     }

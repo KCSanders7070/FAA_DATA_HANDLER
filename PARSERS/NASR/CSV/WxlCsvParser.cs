@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class WxlCsvParser
     {
-        public WxlDataCollection ParseWxlBase(string filePath)
+        public WxlCsvDataCollection ParseWxlBase(string filePath)
         {
-            var result = new WxlDataCollection();
+            var result = new WxlCsvDataCollection();
 
             result.WxlBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -38,9 +38,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public WxlDataCollection ParseWxlSvc(string filePath)
+        public WxlCsvDataCollection ParseWxlSvc(string filePath)
         {
-            var result = new WxlDataCollection();
+            var result = new WxlCsvDataCollection();
 
             result.WxlSvc = FebCsvHelper.ProcessLines(
                 filePath,
@@ -60,7 +60,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class WxlDataCollection
+    public class WxlCsvDataCollection
     {
         public List<WxlBase> WxlBase { get; set; } = new();
         public List<WxlSvc> WxlSvc { get; set; } = new();

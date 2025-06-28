@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class MilCsvParser
     {
-        public MilDataCollection ParseMilOps(string filePath)
+        public MilCsvDataCollection ParseMilOps(string filePath)
         {
-            var result = new MilDataCollection();
+            var result = new MilCsvDataCollection();
 
             result.MilOps = FebCsvHelper.ProcessLines(
                 filePath,
@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class MilDataCollection
+    public class MilCsvDataCollection
     {
         public List<MilOps> MilOps { get; set; } = new();
     }

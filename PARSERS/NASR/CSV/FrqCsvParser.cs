@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class FrqCsvParser
     {
-        public FrqDataCollection ParseFrq(string filePath)
+        public FrqCsvDataCollection ParseFrq(string filePath)
         {
-            var result = new FrqDataCollection();
+            var result = new FrqCsvDataCollection();
 
             result.Frq = FebCsvHelper.ProcessLines(
                 filePath,
@@ -44,7 +44,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class FrqDataCollection
+    public class FrqCsvDataCollection
     {
         public List<Frq> Frq { get; set; } = new();
     }

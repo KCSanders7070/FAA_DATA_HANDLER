@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class IlsCsvParser
     {
-        public IlsDataCollection ParseIlsBase(string filePath)
+        public IlsCsvDataCollection ParseIlsBase(string filePath)
         {
-            var result = new IlsDataCollection();
+            var result = new IlsCsvDataCollection();
 
             result.IlsBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -57,9 +57,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public IlsDataCollection ParseIlsDme(string filePath)
+        public IlsCsvDataCollection ParseIlsDme(string filePath)
         {
-            var result = new IlsDataCollection();
+            var result = new IlsCsvDataCollection();
 
             result.IlsDme = FebCsvHelper.ProcessLines(
                 filePath,
@@ -95,9 +95,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public IlsDataCollection ParseIlsGs(string filePath)
+        public IlsCsvDataCollection ParseIlsGs(string filePath)
         {
-            var result = new IlsDataCollection();
+            var result = new IlsCsvDataCollection();
 
             result.IlsGs = FebCsvHelper.ProcessLines(
                 filePath,
@@ -135,9 +135,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public IlsDataCollection ParseIlsMkr(string filePath)
+        public IlsCsvDataCollection ParseIlsMkr(string filePath)
         {
-            var result = new IlsDataCollection();
+            var result = new IlsCsvDataCollection();
 
             result.IlsMkr = FebCsvHelper.ProcessLines(
                 filePath,
@@ -180,9 +180,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public IlsDataCollection ParseIlsRmk(string filePath)
+        public IlsCsvDataCollection ParseIlsRmk(string filePath)
         {
-            var result = new IlsDataCollection();
+            var result = new IlsCsvDataCollection();
 
             result.IlsRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -210,7 +210,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class IlsDataCollection
+    public class IlsCsvDataCollection
     {
         public List<IlsBase> IlsBase { get; set; } = new();
         public List<IlsDme> IlsDme { get; set; } = new();

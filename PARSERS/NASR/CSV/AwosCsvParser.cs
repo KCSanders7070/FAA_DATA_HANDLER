@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class AwosCsvParser
     {
-        public AwosDataCollection ParseAwos(string filePath)
+        public AwosCsvDataCollection ParseAwos(string filePath)
         {
-            var result = new AwosDataCollection();
+            var result = new AwosCsvDataCollection();
 
             result.Awos = FebCsvHelper.ProcessLines(
                 filePath,
@@ -48,7 +48,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class AwosDataCollection
+    public class AwosCsvDataCollection
     {
         public List<Awos> Awos { get; set; } = new();
     }

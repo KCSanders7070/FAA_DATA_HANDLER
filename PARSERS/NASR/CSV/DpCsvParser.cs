@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class DpCsvParser
     {
-        public DpDataCollection ParseDpApt(string filePath)
+        public DpCsvDataCollection ParseDpApt(string filePath)
         {
-            var result = new DpDataCollection();
+            var result = new DpCsvDataCollection();
 
             result.DpApt = FebCsvHelper.ProcessLines(
                 filePath,
@@ -29,9 +29,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public DpDataCollection ParseDpBase(string filePath)
+        public DpCsvDataCollection ParseDpBase(string filePath)
         {
-            var result = new DpDataCollection();
+            var result = new DpCsvDataCollection();
 
             result.DpBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -50,9 +50,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public DpDataCollection ParseDpRte(string filePath)
+        public DpCsvDataCollection ParseDpRte(string filePath)
         {
-            var result = new DpDataCollection();
+            var result = new DpCsvDataCollection();
 
             result.DpRte = FebCsvHelper.ProcessLines(
                 filePath,
@@ -79,7 +79,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class DpDataCollection
+    public class DpCsvDataCollection
     {
         public List<DpApt> DpApt { get; set; } = new();
         public List<DpBase> DpBase { get; set; } = new();

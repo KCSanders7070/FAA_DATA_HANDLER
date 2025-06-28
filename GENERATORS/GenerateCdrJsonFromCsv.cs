@@ -14,7 +14,7 @@ namespace FAA_DATA_HANDLER.Generators
 {
     public static class GenerateCdrJsonFromCsv
     {
-        public static void Generate(CdrDataCollection data, string outputDirectory)
+        public static void Generate(CdrCsvDataCollection data, string outputDirectory)
         {
             var cdrDict = data.Cdr
                 .GroupBy(x => x.Rcode)

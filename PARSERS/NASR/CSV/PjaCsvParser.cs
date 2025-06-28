@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class PjaCsvParser
     {
-        public PjaDataCollection ParsePjaBase(string filePath)
+        public PjaCsvDataCollection ParsePjaBase(string filePath)
         {
-            var result = new PjaDataCollection();
+            var result = new PjaCsvDataCollection();
 
             result.PjaBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -51,9 +51,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public PjaDataCollection ParsePjaCon(string filePath)
+        public PjaCsvDataCollection ParsePjaCon(string filePath)
         {
-            var result = new PjaDataCollection();
+            var result = new PjaCsvDataCollection();
 
             result.PjaCon = FebCsvHelper.ProcessLines(
                 filePath,
@@ -77,7 +77,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class PjaDataCollection
+    public class PjaCsvDataCollection
     {
         public List<PjaBase> PjaBase { get; set; } = new();
         public List<PjaCon> PjaCon { get; set; } = new();

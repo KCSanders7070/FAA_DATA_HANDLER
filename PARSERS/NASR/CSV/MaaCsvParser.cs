@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class MaaCsvParser
     {
-        public MaaDataCollection ParseMaaBase(string filePath)
+        public MaaCsvDataCollection ParseMaaBase(string filePath)
         {
-            var result = new MaaDataCollection();
+            var result = new MaaCsvDataCollection();
 
             result.MaaBase = FebCsvHelper.ProcessLines(
                 filePath,
@@ -45,9 +45,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MaaDataCollection ParseMaaCon(string filePath)
+        public MaaCsvDataCollection ParseMaaCon(string filePath)
         {
-            var result = new MaaDataCollection();
+            var result = new MaaCsvDataCollection();
 
             result.MaaCon = FebCsvHelper.ProcessLines(
                 filePath,
@@ -67,9 +67,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MaaDataCollection ParseMaaRmk(string filePath)
+        public MaaCsvDataCollection ParseMaaRmk(string filePath)
         {
-            var result = new MaaDataCollection();
+            var result = new MaaCsvDataCollection();
 
             result.MaaRmk = FebCsvHelper.ProcessLines(
                 filePath,
@@ -86,9 +86,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
             return result;
         }
 
-        public MaaDataCollection ParseMaaShp(string filePath)
+        public MaaCsvDataCollection ParseMaaShp(string filePath)
         {
-            var result = new MaaDataCollection();
+            var result = new MaaCsvDataCollection();
 
             result.MaaShp = FebCsvHelper.ProcessLines(
                 filePath,
@@ -106,7 +106,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class MaaDataCollection
+    public class MaaCsvDataCollection
     {
         public List<MaaBase> MaaBase { get; set; } = new();
         public List<MaaCon> MaaCon { get; set; } = new();

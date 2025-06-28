@@ -8,9 +8,9 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
     public class ClsArspCsvParser
     {
-        public ClsArspDataCollection ParseClsArsp(string filePath)
+        public ClsArspCsvDataCollection ParseClsArsp(string filePath)
         {
-            var result = new ClsArspDataCollection();
+            var result = new ClsArspCsvDataCollection();
 
             result.ClsArsp = FebCsvHelper.ProcessLines(
                 filePath,
@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class ClsArspDataCollection
+    public class ClsArspCsvDataCollection
     {
         public List<ClsArsp> ClsArsp { get; set; } = new();
     }
