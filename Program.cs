@@ -29,7 +29,7 @@ namespace FAA_DATA_HANDLER
             bool parseFix = false;
             bool parseFss = false;
             bool parseFrq = false;
-            bool parseHpf = false;
+            bool parseHpf = true;
             bool parseIls = false;
             bool parseLid = false;
             bool parseMilOps = false;
@@ -226,7 +226,7 @@ namespace FAA_DATA_HANDLER
                 allParsedHpfData.HpfSpdAlt = hpfCsvParser.ParseHpfSpdAlt(Path.Combine(userSelectedSourceDirectory, "HPF_SPD_ALT.csv")).HpfSpdAlt;
 
                 Console.WriteLine("Generating Hpf.json");
-                // GenerateHpfJsonFromCsv.Generate(allParsedHpfData, userSelectedOutputDirectory);
+                GenerateHpfJsonFromCsv.Generate(allParsedHpfData, userSelectedOutputDirectory);
                 Console.WriteLine("Hpf data created.");
             }
 
