@@ -28,7 +28,7 @@ namespace FAA_DATA_HANDLER
             bool parseDp = false;
             bool parseFix = false;
             bool parseFss = false;
-            bool parseFrq = true;
+            bool parseFrq = false;
             bool parseHpf = false;
             bool parseIls = false;
             bool parseLid = false;
@@ -210,7 +210,7 @@ namespace FAA_DATA_HANDLER
                 allParsedFrqData.Frq = frqCsvParser.ParseFrq(Path.Combine(userSelectedSourceDirectory, "FRQ.csv")).Frq;
 
                 Console.WriteLine("Generating Frq.json");
-                // GenerateFrqJsonFromCsv.Generate(allParsedFrqData, userSelectedOutputDirectory);
+                GenerateFrqJsonFromCsv.Generate(allParsedFrqData, userSelectedOutputDirectory);
                 Console.WriteLine("Frq data created.");
             }
 
