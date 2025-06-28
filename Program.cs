@@ -29,9 +29,9 @@ namespace FAA_DATA_HANDLER
             bool parseFix = false;
             bool parseFss = false;
             bool parseFrq = false;
-            bool parseHpf = true;
+            bool parseHpf = false;
             bool parseIls = false;
-            bool parseLid = false;
+            bool parseLid = true;
             bool parseMilOps = false;
             bool parseMtr = false;
             bool parseMaa = false;
@@ -243,7 +243,7 @@ namespace FAA_DATA_HANDLER
                 allParsedIlsData.IlsRmk = ilsCsvParser.ParseIlsRmk(Path.Combine(userSelectedSourceDirectory, "ILS_RMK.csv")).IlsRmk;
 
                 Console.WriteLine("Generating Ils.json");
-                // GenerateIlsJsonFromCsv.Generate(allParsedIlsData, userSelectedOutputDirectory);
+                GenerateIlsJsonFromCsv.Generate(allParsedIlsData, userSelectedOutputDirectory);
                 Console.WriteLine("Ils data created.");
             }
 
