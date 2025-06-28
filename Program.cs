@@ -256,7 +256,7 @@ namespace FAA_DATA_HANDLER
                 allParsedLidData.Lid = lidCsvParser.ParseLid(Path.Combine(userSelectedSourceDirectory, "LID.csv")).Lid;
 
                 Console.WriteLine("Generating Lid.json");
-                // GenerateLidJsonFromCsv.Generate(allParsedLidData, userSelectedOutputDirectory);
+                GenerateLidJsonFromCsv.Generate(allParsedLidData, userSelectedOutputDirectory);
                 Console.WriteLine("Lid data created.");
             }
 
