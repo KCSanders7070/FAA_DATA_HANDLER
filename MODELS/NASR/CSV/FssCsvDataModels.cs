@@ -16,53 +16,49 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Identifier
             /// _Src: All Fss_*.csv files(FSS_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string FssId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Name
             /// _Src: All Fss_*.csv files(NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string Name { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Associated City Name
             /// _Src: All Fss_*.csv files(CITY)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State Code
             /// _Src: All Fss_*.csv files(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Associated State Post Office Code standard two letter abbreviation for US States and Territories.</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Country Post Office Code
             /// _Src: All Fss_*.csv files(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CountryCode { get; set; }
 
         }
@@ -72,193 +68,178 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class FssBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Last Date on which the Record was updated
             /// _Src: FSS_BASE.csv(UPDATE_DATE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? UpdateDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Facility Type
             /// _Src: FSS_BASE.csv(FSS_FAC_TYPE)
             /// _MaxLength: 8
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Flight Service Station (FSS), FS21 HUB Station (HUB) or FS21 Radio Service Area (RADIO)</remarks>
             public string FssFacType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FSS Voice Call
             /// _Src: FSS_BASE.csv(VOICE_CALL)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Examples: "BOISE", "BARROW", "BURLINGTON"</remarks>
             public string? VoiceCall { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Latitude Degrees
             /// _Src: FSS_BASE.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Latitude Minutes
             /// _Src: FSS_BASE.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Latitude Seconds
             /// _Src: FSS_BASE.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Latitude Hemisphere
             /// _Src: FSS_BASE.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Latitude in Decimal Format
             /// _Src: FSS_BASE.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Longitude Degrees
             /// _Src: FSS_BASE.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Longitude Minutes
             /// _Src: FSS_BASE.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Longitude Seconds
             /// _Src: FSS_BASE.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Longitude Hemisphere
             /// _Src: FSS_BASE.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Flight Service Station Longitude in Decimal Format
             /// _Src: FSS_BASE.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FSS Hours of Operation
             /// _Src: FSS_BASE.csv(OPR_HOURS)
             /// _MaxLength: 65
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string OprHours { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Status of Facility
             /// _Src: FSS_BASE.csv(FAC_STATUS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? FacStatus { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Alternate FSS Identifier
             /// _Src: FSS_BASE.csv(ALTERNATE_FSS)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Indicates the alternate FSS used when the primary facility lacks Circuit B teletype capability for transmitting/receiving flight plan messages</remarks>
             public string? AlternateFss { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Availability of Weather Radar
             /// _Src: FSS_BASE.csv(WEA_RADAR_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>(N)=None, Null/Empty=Available</remarks>
             public string? WeaRadarFlag { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Telephone Number used to reach FSS
             /// _Src: FSS_BASE.csv(PHONE_NO)
             /// _MaxLength: 16
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? PhoneNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Toll Free Telephone Number used to reach FSS
             /// _Src: FSS_BASE.csv(TOLL_FREE_NO)
             /// _MaxLength: 16
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? TollFreeNo { get; set; }
 
         }
@@ -268,33 +249,32 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class FssRmk : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// NASR Column Name Associated with Remark
             /// _Src: FSS_RMK.csv(REF_COL_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Indicates the specific NASR column name related to the remark; non-specific remarks are labeled as GENERAL_REMARK</remarks>
             public string RefColName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Sequence number assigned to Reference Column Remark
             /// _Src: FSS_RMK.csv(REF_COL_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int RefColSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark
             /// _Src: FSS_RMK.csv(REMARK)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Remark Text (Free Form Text that further describes a specific Information Item.)</remarks>
             public string Remark { get; set; }
 
         }

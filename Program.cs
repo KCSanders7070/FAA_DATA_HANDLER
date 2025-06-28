@@ -28,7 +28,7 @@ namespace FAA_DATA_HANDLER
             bool parseDp = false;
             bool parseFix = false;
             bool parseFss = false;
-            bool parseFrq = false;
+            bool parseFrq = true;
             bool parseHpf = false;
             bool parseIls = false;
             bool parseLid = false;
@@ -197,7 +197,7 @@ namespace FAA_DATA_HANDLER
                 allParsedFssData.FssRmk = fssCsvParser.ParseFssRmk(Path.Combine(userSelectedSourceDirectory, "FSS_RMK.csv")).FssRmk;
 
                 Console.WriteLine("Generating Fss.json");
-                // GenerateFssJsonFromCsv.Generate(allParsedFssData, userSelectedOutputDirectory);
+                GenerateFssJsonFromCsv.Generate(allParsedFssData, userSelectedOutputDirectory);
                 Console.WriteLine("Fss data created.");
             }
 
