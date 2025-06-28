@@ -4,8 +4,8 @@ using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AptDataModel;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.AptCsvDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcCsvDataModel;
 
 namespace FAA_DATA_HANDLER
 {
@@ -26,7 +26,7 @@ namespace FAA_DATA_HANDLER
             bool parseCdr = false;
             bool parseCom = false;
             bool parseDp = false;
-            bool parseFix = false;
+            bool parseFix = true;
             bool parseFss = false;
             bool parseFrq = false;
             bool parseHpf = false;
@@ -183,7 +183,7 @@ namespace FAA_DATA_HANDLER
                 allParsedFixData.FixNav = fixCsvParser.ParseFixNav(Path.Combine(userSelectedSourceDirectory, "FIX_NAV.csv")).FixNav;
 
                 Console.WriteLine("Generating Fix.json");
-                // GenerateFixJsonFromCsv.Generate(allParsedFixData, userSelectedOutputDirectory);
+                GenerateFixJsonFromCsv.Generate(allParsedFixData, userSelectedOutputDirectory);
                 Console.WriteLine("Fix data created.");
             }
 

@@ -2,7 +2,7 @@ using FAA_DATA_HANDLER.Models.NASR.CSV;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.WxlDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.WxlCsvDataModel;
 
 namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {

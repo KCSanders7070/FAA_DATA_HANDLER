@@ -8,7 +8,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.CdrDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.CdrCsvDataModel;
 
 namespace FAA_DATA_HANDLER.Generators
 {

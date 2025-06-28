@@ -1,6 +1,6 @@
 namespace FAA_DATA_HANDLER.Models.NASR.CSV
 {
-    public class FixDataModel
+    public class FssCsvDataModel
     {
         #region Common Fields
         public class CommonFields
@@ -17,27 +17,37 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: All Fix_*.csv files(FIX_ID)
+            /// _Src: All Fss_*.csv files(FSS_ID)
+            /// _MaxLength: 4
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string FssId { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: All Fss_*.csv files(NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string FixId { get; set; }
+            public string Name { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: All Fix_*.csv files(ICAO_REGION_CODE)
-            /// _MaxLength: 2
+            /// _Src: All Fss_*.csv files(CITY)
+            /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string IcaoRegionCode { get; set; }
+            public string City { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: All Fix_*.csv files(STATE_CODE)
+            /// _Src: All Fss_*.csv files(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
@@ -47,7 +57,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: All Fix_*.csv files(COUNTRY_CODE)
+            /// _Src: All Fss_*.csv files(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
@@ -58,12 +68,42 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         }
         #endregion
 
-        #region Fix_BASE Fields
-        public class FixBase : CommonFields
+        #region Fss_BASE Fields
+        public class FssBase : CommonFields
         {
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LAT_DEG)
+            /// _Src: FSS_BASE.csv(UPDATE_DATE)
+            /// _MaxLength: 10
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? UpdateDate { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(FSS_FAC_TYPE)
+            /// _MaxLength: 8
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string FssFacType { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(VOICE_CALL)
+            /// _MaxLength: 30
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? VoiceCall { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
@@ -73,7 +113,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LAT_MIN)
+            /// _Src: FSS_BASE.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
@@ -83,7 +123,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LAT_SEC)
+            /// _Src: FSS_BASE.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
@@ -93,7 +133,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LAT_HEMIS)
+            /// _Src: FSS_BASE.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
@@ -103,7 +143,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LAT_DECIMAL)
+            /// _Src: FSS_BASE.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
             /// _Nullable: No
@@ -113,7 +153,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LONG_DEG)
+            /// _Src: FSS_BASE.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
@@ -123,7 +163,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LONG_MIN)
+            /// _Src: FSS_BASE.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
@@ -133,7 +173,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LONG_SEC)
+            /// _Src: FSS_BASE.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
@@ -143,7 +183,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LONG_HEMIS)
+            /// _Src: FSS_BASE.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
@@ -153,7 +193,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(LONG_DECIMAL)
+            /// _Src: FSS_BASE.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
             /// _Nullable: No
@@ -163,175 +203,99 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(FIX_ID_OLD)
+            /// _Src: FSS_BASE.csv(OPR_HOURS)
+            /// _MaxLength: 65
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string OprHours { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(FAC_STATUS)
+            /// _MaxLength: 1
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? FacStatus { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(ALTERNATE_FSS)
+            /// _MaxLength: 4
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? AlternateFss { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(WEA_RADAR_FLAG)
+            /// _MaxLength: 1
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? WeaRadarFlag { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(PHONE_NO)
+            /// _MaxLength: 16
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? PhoneNo { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_BASE.csv(TOLL_FREE_NO)
+            /// _MaxLength: 16
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? TollFreeNo { get; set; }
+
+        }
+        #endregion
+
+        #region Fss_RMK Fields
+        public class FssRmk : CommonFields
+        {
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: FSS_RMK.csv(REF_COL_NAME)
             /// _MaxLength: 30
             /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? FixIdOld { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(CHARTING_REMARK)
-            /// _MaxLength: 38
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? ChartingRemark { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(FIX_USE_CODE)
-            /// _MaxLength: 5
-            /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string FixUseCode { get; set; }
+            public string RefColName { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(ARTCC_ID_HIGH)
-            /// _MaxLength: 4
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? ArtccIdHigh { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(ARTCC_ID_LOW)
-            /// _MaxLength: 4
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string ArtccIdLow { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(PITCH_FLAG)
-            /// _MaxLength: 1
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string PitchFlag { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(CATCH_FLAG)
-            /// _MaxLength: 1
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string CatchFlag { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(SUA_ATCAA_FLAG)
-            /// _MaxLength: 1
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string SuaAtcaaFlag { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(MIN_RECEP_ALT)
-            /// _MaxLength: (5,0)
+            /// _Src: FSS_RMK.csv(REF_COL_SEQ_NO)
+            /// _MaxLength: (3,0)
             /// _DataType: int
-            /// _Nullable: Yes
+            /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public int? MinRecepAlt { get; set; }
+            public int RefColSeqNo { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: FIX_BASE.csv(COMPULSORY)
-            /// _MaxLength: 8
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Compulsory { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_BASE.csv(CHARTS)
-            /// _MaxLength: 600
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Charts { get; set; }
-
-        }
-        #endregion
-
-        #region Fix_CHRT Fields
-        public class FixChrt : CommonFields
-        {
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_CHRT.csv(CHARTING_TYPE_DESC)
-            /// _MaxLength: 22
+            /// _Src: FSS_RMK.csv(REMARK)
+            /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string ChartingTypeDesc { get; set; }
-
-        }
-        #endregion
-
-        #region Fix_NAV Fields
-        public class FixNav : CommonFields
-        {
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_NAV.csv(NAV_ID)
-            /// _MaxLength: 6
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string NavId { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_NAV.csv(NAV_TYPE)
-            /// _MaxLength: 25
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string NavType { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_NAV.csv(BEARING)
-            /// _MaxLength: (5,2)
-            /// _DataType: double
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double? Bearing { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: FIX_NAV.csv(DISTANCE)
-            /// _MaxLength: (7,2)
-            /// _DataType: double
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double? Distance { get; set; }
+            public string Remark { get; set; }
 
         }
         #endregion

@@ -3,7 +3,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
     /// <summary>
     /// All model properties for the Com_*.csv files. FLIGHT SERVICE STATION COMMUNICATION FACILITIES DATA
     /// </summary>
-    public class ComDataModel
+    public class ComCsvDataModel
     {
         #region Common Fields
         public class CommonFields

@@ -1,6 +1,6 @@
 namespace FAA_DATA_HANDLER.Models.NASR.CSV
 {
-    public class MtrDataModel
+    public class MaaCsvDataModel
     {
         #region Common Fields
         public class CommonFields
@@ -17,315 +17,33 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: All Mtr_*.csv files(ROUTE_TYPE_CODE)
-            /// _MaxLength: 2
+            /// _Src: All Maa_*.csv files(MAA_ID)
+            /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string RouteTypeCode { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: All Mtr_*.csv files(ROUTE_ID)
-            /// _MaxLength: 5
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string RouteId { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: All Mtr_*.csv files(ARTCC)
-            /// _MaxLength: 80
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Artcc { get; set; }
+            public string MaaId { get; set; }
 
         }
         #endregion
 
-        #region Mtr_AGY Fields
-        public class MtrAgy : CommonFields
+        #region Maa_BASE Fields
+        public class MaaBase : CommonFields
         {
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_AGY.csv(AGENCY_TYPE)
-            /// _MaxLength: 2
+            /// _Src: MAA_BASE.csv(MAA_TYPE_NAME)
+            /// _MaxLength: 20
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string AgencyType { get; set; }
+            public string MaaTypeName { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_AGY.csv(AGENCY_NAME)
-            /// _MaxLength: 30
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string AgencyName { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(STATION)
-            /// _MaxLength: 30
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Station { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(ADDRESS)
-            /// _MaxLength: 35
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Address { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(CITY)
-            /// _MaxLength: 30
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? City { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(STATE_CODE)
-            /// _MaxLength: 2
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? StateCode { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(ZIP_CODE)
-            /// _MaxLength: 10
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? ZipCode { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(COMMERCIAL_NO)
-            /// _MaxLength: 40
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? CommercialNo { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(DSN_NO)
-            /// _MaxLength: 40
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? DsnNo { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_AGY.csv(HOURS)
-            /// _MaxLength: 175
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Hours { get; set; }
-
-        }
-        #endregion
-
-        #region Mtr_BASE Fields
-        public class MtrBase : CommonFields
-        {
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_BASE.csv(FSS)
-            /// _MaxLength: 160
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? Fss { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_BASE.csv(TIME_OF_USE)
-            /// _MaxLength: 175
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? TimeOfUse { get; set; }
-
-        }
-        #endregion
-
-        #region Mtr_PT Fields
-        public class MtrPt : CommonFields
-        {
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(ROUTE_PT_SEQ)
-            /// _MaxLength: (3,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int RoutePtSeq { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(ROUTE_PT_ID)
-            /// _MaxLength: 4
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string RoutePtId { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(NEXT_ROUTE_PT_ID)
-            /// _MaxLength: 4
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? NextRoutePtId { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(SEGMENT_TEXT)
-            /// _MaxLength: 228
-            /// _DataType: string
-            /// _Nullable: Yes
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string? SegmentText { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LAT_DEG)
-            /// _MaxLength: (2,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int LatDeg { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LAT_MIN)
-            /// _MaxLength: (2,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int LatMin { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LAT_SEC)
-            /// _MaxLength: (6,4)
-            /// _DataType: double
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double LatSec { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LAT_HEMIS)
-            /// _MaxLength: 1
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string LatHemis { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LAT_DECIMAL)
-            /// _MaxLength: (10,8)
-            /// _DataType: double
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double LatDecimal { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LONG_DEG)
-            /// _MaxLength: (3,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int LongDeg { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LONG_MIN)
-            /// _MaxLength: (2,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int LongMin { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LONG_SEC)
-            /// _MaxLength: (6,4)
-            /// _DataType: double
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double LongSec { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LONG_HEMIS)
-            /// _MaxLength: 1
-            /// _DataType: string
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string LongHemis { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(LONG_DECIMAL)
-            /// _MaxLength: (11,8)
-            /// _DataType: double
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public double LongDecimal { get; set; }
-
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_PT.csv(NAV_ID)
+            /// _Src: MAA_BASE.csv(NAV_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
@@ -335,101 +53,361 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_PT.csv(NAVAID_BEARING)
-            /// _MaxLength: (3,0)
-            /// _DataType: int
+            /// _Src: MAA_BASE.csv(NAV_TYPE)
+            /// _MaxLength: 25
+            /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public int? NavaidBearing { get; set; }
+            public string? NavType { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_PT.csv(NAVAID_DIST)
-            /// _MaxLength: (4,0)
-            /// _DataType: int
+            /// _Src: MAA_BASE.csv(NAV_RADIAL)
+            /// _MaxLength: (5,2)
+            /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public int? NavaidDist { get; set; }
+            public double? NavRadial { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(NAV_DISTANCE)
+            /// _MaxLength: (7,2)
+            /// _DataType: double
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public double? NavDistance { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(STATE_CODE)
+            /// _MaxLength: 2
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string StateCode { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(CITY)
+            /// _MaxLength: 30
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? City { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(LATITUDE)
+            /// _MaxLength: 14
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>PropertyName changed due to identical column name in other MAA_*.csv files</remarks>
+            public string? BaseLatitude { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(LONGITUDE)
+            /// _MaxLength: 15
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>PropertyName changed due to identical column name in other MAA_*.csv files</remarks>
+            public string? BaseLongitude { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(ARPT_IDS)
+            /// _MaxLength: 50
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? ArptIds { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(NEAREST_ARPT)
+            /// _MaxLength: 4
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? NearestArpt { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(NEAREST_ARPT_DIST)
+            /// _MaxLength: (7,2)
+            /// _DataType: double
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public double? NearestArptDist { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(NEAREST_ARPT_DIR)
+            /// _MaxLength: 2
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? NearestArptDir { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(MAA_NAME)
+            /// _MaxLength: 120
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? MaaName { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(MAX_ALT)
+            /// _MaxLength: 8
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? MaxAlt { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(MIN_ALT)
+            /// _MaxLength: 8
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? MinAlt { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(MAA_RADIUS)
+            /// _MaxLength: (4,2)
+            /// _DataType: double
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public double? MaaRadius { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(DESCRIPTION)
+            /// _MaxLength: 450
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? Description { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(MAA_USE)
+            /// _MaxLength: 8
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? MaaUse { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(CHECK_NOTAMS)
+            /// _MaxLength: 50
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? CheckNotams { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(TIME_OF_USE)
+            /// _MaxLength: 300
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? TimeOfUse { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_BASE.csv(USER_GROUP_NAME)
+            /// _MaxLength: 300
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? UserGroupName { get; set; }
 
         }
         #endregion
 
-        #region Mtr_SOP Fields
-        public class MtrSop : CommonFields
+        #region Maa_CON Fields
+        public class MaaCon : CommonFields
         {
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_SOP.csv(SOP_SEQ_NO)
+            /// _Src: MAA_CON.csv(FREQ_SEQ)
+            /// _MaxLength: (2,0)
+            /// _DataType: int
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public int FreqSeq { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(FAC_ID)
+            /// _MaxLength: 4
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? FacId { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(FAC_NAME)
+            /// _MaxLength: 30
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string FacName { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(COMMERCIAL_FREQ)
+            /// _MaxLength: (7,3)
+            /// _DataType: double
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public double CommercialFreq { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(COMMERCIAL_CHART_FLAG)
+            /// _MaxLength: 1
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? CommercialChartFlag { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(MIL_FREQ)
+            /// _MaxLength: (7,3)
+            /// _DataType: double
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public double? MilFreq { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_CON.csv(MIL_CHART_FLAG)
+            /// _MaxLength: 1
+            /// _DataType: string
+            /// _Nullable: Yes
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string? MilChartFlag { get; set; }
+
+        }
+        #endregion
+
+        #region Maa_RMK Fields
+        public class MaaRmk : CommonFields
+        {
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_RMK.csv(TAB_NAME)
+            /// _MaxLength: 30
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string TabName { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_RMK.csv(REF_COL_NAME)
+            /// _MaxLength: 30
+            /// _DataType: string
+            /// _Nullable: No
+            /// </summary>
+            /// <remarks>NoRemarksYet</remarks>
+            public string RefColName { get; set; }
+
+            /// <summary>
+            /// NoTitleYet
+            /// _Src: MAA_RMK.csv(REF_COL_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public int SopSeqNo { get; set; }
+            public int RefColSeqNo { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_SOP.csv(SOP_TEXT)
-            /// _MaxLength: 100
+            /// _Src: MAA_RMK.csv(REMARK)
+            /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public string SopText { get; set; }
+            public string Remark { get; set; }
 
         }
         #endregion
 
-        #region Mtr_TERR Fields
-        public class MtrTerr : CommonFields
+        #region Maa_SHP Fields
+        public class MaaShp : CommonFields
         {
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_TERR.csv(TERRAIN_SEQ_NO)
-            /// _MaxLength: (3,0)
+            /// _Src: MAA_SHP.csv(POINT_SEQ)
+            /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
             /// <remarks>NoRemarksYet</remarks>
-            public int TerrainSeqNo { get; set; }
+            public int PointSeq { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_TERR.csv(TERRAIN_TEXT)
-            /// _MaxLength: 100
+            /// _Src: MAA_SHP.csv(LATITUDE)
+            /// _MaxLength: 14
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string TerrainText { get; set; }
-
-        }
-        #endregion
-
-        #region Mtr_WDTH Fields
-        public class MtrWdth : CommonFields
-        {
-            /// <summary>
-            /// NoTitleYet
-            /// _Src: MTR_WDTH.csv(WIDTH_SEQ_NO)
-            /// _MaxLength: (3,0)
-            /// _DataType: int
-            /// _Nullable: No
-            /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public int WidthSeqNo { get; set; }
+            /// <remarks>PropertyName changed due to identical column name in other MAA_*.csv files</remarks>
+            public string ShpLatitude { get; set; }
 
             /// <summary>
             /// NoTitleYet
-            /// _Src: MTR_WDTH.csv(WIDTH_TEXT)
-            /// _MaxLength: 100
+            /// _Src: MAA_SHP.csv(LONGITUDE)
+            /// _MaxLength: 15
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
-            public string WidthText { get; set; }
+            /// <remarks>PropertyName changed due to identical column name in other MAA_*.csv files</remarks>
+            public string ShpLongitude { get; set; }
 
         }
         #endregion

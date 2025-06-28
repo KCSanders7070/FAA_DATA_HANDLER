@@ -1,6 +1,6 @@
 namespace FAA_DATA_HANDLER.Models.NASR.CSV
 {
-    public class AwyDataModel
+    public class AwyCsvDataModel
     {
         #region Common Fields
         public class CommonFields

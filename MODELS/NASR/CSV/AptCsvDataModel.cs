@@ -3,7 +3,7 @@
     /// <summary>
     /// All model properties for the Apt_*.csv files.
     /// </summary>
-    public class AptDataModel
+    public class AptCsvDataModel
     {
         #region Common Fields
         /// <summary>

@@ -1,6 +1,6 @@
 namespace FAA_DATA_HANDLER.Models.NASR.CSV
 {
-    public class ArbDataModel
+    public class ArbCsvDataModel
     {
         #region Common Fields
         public class CommonFields
