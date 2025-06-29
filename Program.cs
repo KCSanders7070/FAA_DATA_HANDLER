@@ -299,7 +299,7 @@ namespace FAA_DATA_HANDLER
                 allParsedMaaData.MaaShp = maaCsvParser.ParseMaaShp(Path.Combine(userSelectedSourceDirectory, "MAA_SHP.csv")).MaaShp;
 
                 Console.WriteLine("Generating Maa.json");
-                // GenerateMaaJsonFromCsv.Generate(allParsedMaaData, userSelectedOutputDirectory);
+                GenerateMaaJsonFromCsv.Generate(allParsedMaaData, userSelectedOutputDirectory);
                 Console.WriteLine("Maa data created.");
             }
 
