@@ -16,33 +16,33 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Type Code
             /// _Src: All Mtr_*.csv files(ROUTE_TYPE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>IR=IFR _ VR=VFR</remarks>
             public string RouteTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Route Identifier
             /// _Src: All Mtr_*.csv files(ROUTE_ID)
             /// _MaxLength: 5
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Example "012". Note: Combine this along with the ROUTE_TYPE_CODE for a unique MTR identifier Ex: "IR012".</remarks>
             public string RouteId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Traversed ARTCCs
             /// _Src: All Mtr_*.csv files(ARTCC)
             /// _MaxLength: 80
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>List of ARTCC Idents that MTR traverses</remarks>
             public string? Artcc { get; set; }
 
         }
@@ -52,103 +52,94 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrAgy : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// MTR Agency Type Code
             /// _Src: MTR_AGY.csv(AGENCY_TYPE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>O=Originating _ S1=Scheduling-1 _ S2=Scheduling-2 _ S3=Scheduling-3 _ S4=Scheduling-4</remarks>
             public string AgencyType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Organization Name
             /// _Src: MTR_AGY.csv(AGENCY_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string AgencyName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Station
             /// _Src: MTR_AGY.csv(STATION)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Station { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Address
             /// _Src: MTR_AGY.csv(ADDRESS)
             /// _MaxLength: 35
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Address { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency City
             /// _Src: MTR_AGY.csv(CITY)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency State Code
             /// _Src: MTR_AGY.csv(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Zip Code
             /// _Src: MTR_AGY.csv(ZIP_CODE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? ZipCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Commercial Phone Number
             /// _Src: MTR_AGY.csv(COMMERCIAL_NO)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? CommercialNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency DSN Phone Number
             /// _Src: MTR_AGY.csv(DSN_NO)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? DsnNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Agency Hours
             /// _Src: MTR_AGY.csv(HOURS)
             /// _MaxLength: 175
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Hours { get; set; }
 
         }
@@ -158,23 +149,22 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// FSS Stations Along Route
             /// _Src: MTR_BASE.csv(FSS)
             /// _MaxLength: 160
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>All FSSs Within 150nm of The Route</remarks>
             public string? Fss { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Times of Use Text Information
             /// _Src: MTR_BASE.csv(TIME_OF_USE)
             /// _MaxLength: 175
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? TimeOfUse { get; set; }
 
         }
@@ -184,173 +174,159 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrPt : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Point Sequencing Number
             /// _Src: MTR_PT.csv(ROUTE_PT_SEQ)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>In multiples of ten. Points are in order adapted for given MTR. Note: For key, use ROUTE_PT_ID instead of ROUTE_PT_SEQ.</remarks>
             public int RoutePtSeq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Route Point Identifier
             /// _Src: MTR_PT.csv(ROUTE_PT_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Note: For key, use ROUTE_PT_ID instead of ROUTE_PT_SEQ.</remarks>
             public string RoutePtId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// The Next Sequential Route Point Identifier
             /// _Src: MTR_PT.csv(NEXT_ROUTE_PT_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NextRoutePtId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Segment Text
             /// _Src: MTR_PT.csv(SEGMENT_TEXT)
             /// _MaxLength: 228
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Concatenation of Segment Text preceded by the Segment Text Sequence Number</remarks>
             public string? SegmentText { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Latitude Degrees
             /// _Src: MTR_PT.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Latitude Minutes
             /// _Src: MTR_PT.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Latitude Seconds
             /// _Src: MTR_PT.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Latitude Hemisphere
             /// _Src: MTR_PT.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Latitude in Decimal Format
             /// _Src: MTR_PT.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Longitude Degrees
             /// _Src: MTR_PT.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Longitude Minutes
             /// _Src: MTR_PT.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int LongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Longitude Seconds
             /// _Src: MTR_PT.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Longitude Hemisphere
             /// _Src: MTR_PT.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MTR Route Point Longitude in Decimal Format
             /// _Src: MTR_PT.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Navaid Identifier
             /// _Src: MTR_PT.csv(NAV_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NavId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Bearing of NAVAID from Point
             /// _Src: MTR_PT.csv(NAVAID_BEARING)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int? NavaidBearing { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Distance of NAVAID from Point
             /// _Src: MTR_PT.csv(NAVAID_DIST)
             /// _MaxLength: (4,0)
             /// _DataType: int
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int? NavaidDist { get; set; }
 
         }
@@ -360,23 +336,21 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrSop : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// SOP Text Computer assigned Sequence Number
             /// _Src: MTR_SOP.csv(SOP_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int SopSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Standard Operating Procedure Text
             /// _Src: MTR_SOP.csv(SOP_TEXT)
             /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string SopText { get; set; }
 
         }
@@ -386,23 +360,21 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrTerr : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// TERRAIN Text Computer assigned Sequence Number
             /// _Src: MTR_TERR.csv(TERRAIN_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int TerrainSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Terrain Following Operations Text
             /// _Src: MTR_TERR.csv(TERRAIN_TEXT)
             /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string TerrainText { get; set; }
 
         }
@@ -412,23 +384,21 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MtrWdth : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// WIDTH Text Computer assigned Sequence Number
             /// _Src: MTR_WDTH.csv(WIDTH_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int WidthSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Route Width Description Text
             /// _Src: MTR_WDTH.csv(WIDTH_TEXT)
             /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string WidthText { get; set; }
 
         }

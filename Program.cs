@@ -30,7 +30,7 @@ namespace FAA_DATA_HANDLER
             bool parseLid = false;
             bool parseMilOps = false;
             bool parseMtr = false;
-            bool parseMaa = false;
+            bool parseMaa = true;
             bool parseNav = false;
             bool parsePja = false;
             bool parsePfr = false;
@@ -283,7 +283,7 @@ namespace FAA_DATA_HANDLER
                 allParsedMtrData.MtrWdth = mtrCsvParser.ParseMtrWdth(Path.Combine(userSelectedSourceDirectory, "MTR_WDTH.csv")).MtrWdth;
 
                 Console.WriteLine("Generating Mtr.json");
-                // GenerateMtrJsonFromCsv.Generate(allParsedMtrData, userSelectedOutputDirectory);
+                GenerateMtrJsonFromCsv.Generate(allParsedMtrData, userSelectedOutputDirectory);
                 Console.WriteLine("Mtr data created.");
             }
 
