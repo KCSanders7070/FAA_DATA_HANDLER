@@ -1,11 +1,7 @@
-﻿using CsvHelper;
-using FAA_DATA_HANDLER.Generators;
-using FAA_DATA_HANDLER.Models.NASR.CSV;
+﻿using FAA_DATA_HANDLER.Generators;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AptCsvDataModel;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcCsvDataModel;
 
 namespace FAA_DATA_HANDLER
 {
@@ -31,7 +27,7 @@ namespace FAA_DATA_HANDLER
             bool parseFrq = false;
             bool parseHpf = false;
             bool parseIls = false;
-            bool parseLid = true;
+            bool parseLid = false;
             bool parseMilOps = false;
             bool parseMtr = false;
             bool parseMaa = false;
@@ -263,14 +259,14 @@ namespace FAA_DATA_HANDLER
             // DOMAIN: MIL_OPS
             if (parseMilOps)
             {
-                Console.WriteLine("Parsing Mil csv files");
-                MilCsvParser milCsvParser = new MilCsvParser();
-                MilCsvDataCollection allParsedMilData = new MilCsvDataCollection();
+                Console.WriteLine("Parsing MilOps csv files");
+                MilOpsCsvParser milCsvParser = new MilOpsCsvParser();
+                MilOpsCsvDataCollection allParsedMilData = new MilOpsCsvDataCollection();
                 allParsedMilData.MilOps = milCsvParser.ParseMilOps(Path.Combine(userSelectedSourceDirectory, "MIL_OPS.csv")).MilOps;
 
-                Console.WriteLine("Generating Mil.json");
-                // GenerateMilJsonFromCsv.Generate(allParsedMilData, userSelectedOutputDirectory);
-                Console.WriteLine("Mil data created.");
+                Console.WriteLine("Generating MilOps.json");
+                GenerateMilOpsJsonFromCsv.Generate(allParsedMilData, userSelectedOutputDirectory);
+                Console.WriteLine("MilOps data created.");
             }
 
             // DOMAIN: MTR
