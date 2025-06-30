@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER
             bool parsePfr = false;
             bool parseRdr = false;
             bool parseStar = false;
-            bool parseWxl = true;
+            bool parseWxl = false;
 
             // DOMAIN: APT
             if (parseApt)
@@ -385,7 +385,7 @@ namespace FAA_DATA_HANDLER
                 allParsedWxlData.WxlSvc = wxlCsvParser.ParseWxlSvc(Path.Combine(userSelectedSourceDirectory, "WXL_SVC.csv")).WxlSvc;
 
                 Console.WriteLine("Generating Wxl.json");
-                // GenerateWxlJsonFromCsv.Generate(allParsedWxlData, userSelectedOutputDirectory);
+                GenerateWxlJsonFromCsv.Generate(allParsedWxlData, userSelectedOutputDirectory);
                 Console.WriteLine("Wxl data created.");
             }
         }
