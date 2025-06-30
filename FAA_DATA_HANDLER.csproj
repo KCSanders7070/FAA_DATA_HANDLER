@@ -18,11 +18,9 @@
   <ItemGroup>
     <Folder Include="MODELS\CIFP\" />
     <Folder Include="MODELS\D-TPP\" />
-    <Folder Include="MODELS\NASR\AXIM\" />
     <Folder Include="MODELS\NASR\ShapeFiles\" />
     <Folder Include="PARSERS\CIFP\" />
     <Folder Include="PARSERS\D-TPP\" />
-    <Folder Include="PARSERS\NASR\AXIM\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
   </ItemGroup>
 

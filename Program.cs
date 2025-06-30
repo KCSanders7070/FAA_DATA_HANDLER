@@ -10,36 +10,35 @@ namespace FAA_DATA_HANDLER
         static void Main(string[] args)
         {
             // Input/output directories
-            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads\10_Jul_2025_CSV";
+            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads";
             string userSelectedOutputDirectory = @"C:\Users\ksand\Downloads";
 
-            bool parseApt = false;
-            bool parseAtc = false;
-            bool parseAwy = false;
-            bool parseArb = false;
-            bool parseAwos = false;
-            bool parseClsArsp = false;
-            bool parseCdr = false;
-            bool parseCom = false;
-            bool parseDp = false;
-            bool parseFix = false;
-            bool parseFss = false;
-            bool parseFrq = false;
-            bool parseHpf = false;
-            bool parseIls = false;
-            bool parseLid = false;
-            bool parseMilOps = false;
-            bool parseMtr = false;
-            bool parseMaa = false;
-            bool parseNav = false;
-            bool parsePja = false;
-            bool parsePfr = false;
-            bool parseRdr = false;
-            bool parseStar = false;
-            bool parseWxl = true;
+            bool parseAptNasrCsv = false;
+            bool parseAtcNasrCsv = false;
+            bool parseAwyNasrCsv = false;
+            bool parseArbNasrCsv = false;
+            bool parseAwosNasrCsv = false;
+            bool parseClsArspNasrCsv = false;
+            bool parseCdrNasrCsv = false;
+            bool parseComNasrCsv = false;
+            bool parseDpNasrCsv = false;
+            bool parseFixNasrCsv = false;
+            bool parseFssNasrCsv = false;
+            bool parseFrqNasrCsv = false;
+            bool parseHpfNasrCsv = false;
+            bool parseIlsNasrCsv = false;
+            bool parseLidNasrCsv = false;
+            bool parseMilOpsNasrCsv = false;
+            bool parseMtrNasrCsv = false;
+            bool parseMaaNasrCsv = false;
+            bool parseNavNasrCsv = false;
+            bool parsePjaNasrCsv = false;
+            bool parsePfrNasrCsv = false;
+            bool parseRdrNasrCsv = false;
+            bool parseStarNasrCsv = false;
+            bool parseWxlNasrCsv = false;
 
-            // DOMAIN: APT
-            if (parseApt)
+            if (parseAptNasrCsv)
             {
                 Console.WriteLine("Parsing APT csv files");
                 AptCsvParser aptCsvParser = new AptCsvParser();
@@ -57,8 +56,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Apt data created.");
             }
 
-            // DOMAIN: ATC
-            if (parseAtc)
+            if (parseAtcNasrCsv)
             {
                 Console.WriteLine("Parsing Atc csv files");
                 AtcCsvParser atcCsvParser = new AtcCsvParser();
@@ -73,8 +71,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Atc data created.");
             }
 
-            // DOMAIN: AWY
-            if (parseAwy)
+            if (parseAwyNasrCsv)
             {
                 Console.WriteLine("Parsing Awy csv files");
                 AwyCsvParser awyCsvParser = new AwyCsvParser();
@@ -87,8 +84,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Awy data created.");
             }
 
-            // DOMAIN: ARB
-            if (parseArb)
+            if (parseArbNasrCsv)
             {
                 Console.WriteLine("Parsing Arb csv files");
                 ArbCsvParser arbCsvParser = new ArbCsvParser();
@@ -101,8 +97,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Arb data created.");
             }
 
-            // DOMAIN: AWOS
-            if (parseAwos)
+            if (parseAwosNasrCsv)
             {
                 Console.WriteLine("Parsing Awos csv files");
                 AwosCsvParser awosCsvParser = new AwosCsvParser();
@@ -114,8 +109,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Awos data created.");
             }
 
-            // DOMAIN: CLS_ARSP
-            if (parseClsArsp)
+            if (parseClsArspNasrCsv)
             {
                 Console.WriteLine("Parsing ClsArsp csv files");
                 ClsArspCsvParser ClsArspCsvParser = new ClsArspCsvParser();
@@ -127,8 +121,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("ClsArsp data created.");
             }
 
-            // DOMAIN: CDR
-            if (parseCdr)
+            if (parseCdrNasrCsv)
             {
                 Console.WriteLine("Parsing Cdr csv files");
                 CdrCsvParser cdrCsvParser = new CdrCsvParser();
@@ -140,8 +133,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Cdr data created.");
             }
 
-            // DOMAIN: COM
-            if (parseCom)
+            if (parseComNasrCsv)
             {
                 Console.WriteLine("Parsing Com csv files");
                 ComCsvParser comCsvParser = new ComCsvParser();
@@ -153,8 +145,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Com data created.");
             }
 
-            // DOMAIN: DP
-            if (parseDp)
+            if (parseDpNasrCsv)
             {
                 Console.WriteLine("Parsing Dp csv files");
                 DpCsvParser dpCsvParser = new DpCsvParser();
@@ -168,8 +159,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Dp data created.");
             }
 
-            // DOMAIN: FIX
-            if (parseFix)
+            if (parseFixNasrCsv)
             {
                 Console.WriteLine("Parsing Fix csv files");
                 FixCsvParser fixCsvParser = new FixCsvParser();
@@ -183,8 +173,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Fix data created.");
             }
 
-            // DOMAIN: FSS
-            if (parseFss)
+            if (parseFssNasrCsv)
             {
                 Console.WriteLine("Parsing Fss csv files");
                 FssCsvParser fssCsvParser = new FssCsvParser();
@@ -197,8 +186,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Fss data created.");
             }
 
-            // DOMAIN: FRQ
-            if (parseFrq)
+            if (parseFrqNasrCsv)
             {
                 Console.WriteLine("Parsing Frq csv files");
                 FrqCsvParser frqCsvParser = new FrqCsvParser();
@@ -210,8 +198,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Frq data created.");
             }
 
-            // DOMAIN: HPF
-            if (parseHpf)
+            if (parseHpfNasrCsv)
             {
                 Console.WriteLine("Parsing Hpf csv files");
                 HpfCsvParser hpfCsvParser = new HpfCsvParser();
@@ -226,8 +213,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Hpf data created.");
             }
 
-            // DOMAIN: ILS
-            if (parseIls)
+            if (parseIlsNasrCsv)
             {
                 Console.WriteLine("Parsing Ils csv files");
                 IlsCsvParser ilsCsvParser = new IlsCsvParser();
@@ -243,8 +229,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Ils data created.");
             }
 
-            // DOMAIN: LID
-            if (parseLid)
+            if (parseLidNasrCsv)
             {
                 Console.WriteLine("Parsing Lid csv files");
                 LidCsvParser lidCsvParser = new LidCsvParser();
@@ -256,8 +241,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Lid data created.");
             }
 
-            // DOMAIN: MIL_OPS
-            if (parseMilOps)
+            if (parseMilOpsNasrCsv)
             {
                 Console.WriteLine("Parsing MilOps csv files");
                 MilOpsCsvParser milCsvParser = new MilOpsCsvParser();
@@ -269,8 +253,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("MilOps data created.");
             }
 
-            // DOMAIN: MTR
-            if (parseMtr)
+            if (parseMtrNasrCsv)
             {
                 Console.WriteLine("Parsing Mtr csv files");
                 MtrCsvParser mtrCsvParser = new MtrCsvParser();
@@ -287,8 +270,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Mtr data created.");
             }
 
-            // DOMAIN: MAA
-            if (parseMaa)
+            if (parseMaaNasrCsv)
             {
                 Console.WriteLine("Parsing Maa csv files");
                 MaaCsvParser maaCsvParser = new MaaCsvParser();
@@ -303,8 +285,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Maa data created.");
             }
 
-            // DOMAIN: NAV
-            if (parseNav)
+            if (parseNavNasrCsv)
             {
                 Console.WriteLine("Parsing Nav csv files");
                 NavCsvParser navCsvParser = new NavCsvParser();
@@ -318,8 +299,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Nav data created.");
             }
 
-            // DOMAIN: PJA
-            if (parsePja)
+            if (parsePjaNasrCsv)
             {
                 Console.WriteLine("Parsing Pja csv files");
                 PjaCsvParser pjaCsvParser = new PjaCsvParser();
@@ -332,8 +312,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Pja data created.");
             }
 
-            // DOMAIN: PFR
-            if (parsePfr)
+            if (parsePfrNasrCsv)
             {
                 Console.WriteLine("Parsing Pfr csv files");
                 PfrCsvParser pfrCsvParser = new PfrCsvParser();
@@ -347,8 +326,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Pfr data created.");
             }
 
-            // DOMAIN: RDR
-            if (parseRdr)
+            if (parseRdrNasrCsv)
             {
                 Console.WriteLine("Parsing Rdr csv files");
                 RdrCsvParser rdrCsvParser = new RdrCsvParser();
@@ -360,8 +338,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Rdr data created.");
             }
 
-            // DOMAIN: STAR
-            if (parseStar)
+            if (parseStarNasrCsv)
             {
                 Console.WriteLine("Parsing Star csv files");
                 StarCsvParser starCsvParser = new StarCsvParser();
@@ -375,8 +352,7 @@ namespace FAA_DATA_HANDLER
                 Console.WriteLine("Star data created.");
             }
 
-            // DOMAIN: WXL
-            if (parseWxl)
+            if (parseWxlNasrCsv)
             {
                 Console.WriteLine("Parsing Wxl csv files");
                 WxlCsvParser wxlCsvParser = new WxlCsvParser();
