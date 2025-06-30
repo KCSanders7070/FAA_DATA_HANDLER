@@ -2,15 +2,15 @@ using FAA_DATA_HANDLER.Models.NASR.CSV;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.MilCsvDataModel;
+using static FAA_DATA_HANDLER.Models.NASR.CSV.MilOpsCsvDataModel;
 
 namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 {
-    public class MilCsvParser
+    public class MilOpsCsvParser
     {
-        public MilCsvDataCollection ParseMilOps(string filePath)
+        public MilOpsCsvDataCollection ParseMilOps(string filePath)
         {
-            var result = new MilCsvDataCollection();
+            var result = new MilOpsCsvDataCollection();
 
             result.MilOps = FebCsvHelper.ProcessLines(
                 filePath,
@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
 
     }
 
-    public class MilCsvDataCollection
+    public class MilOpsCsvDataCollection
     {
         public List<MilOps> MilOps { get; set; } = new();
     }

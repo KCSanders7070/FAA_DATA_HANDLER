@@ -16,93 +16,88 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Landing Facility Site Number
             /// _Src: All Ils_*.csv files(SITE_NO)
             /// _MaxLength: 9
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>A unique identifying number</remarks>
             public string SiteNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Landing Facility Type Code
             /// _Src: All Ils_*.csv files(SITE_TYPE_CODE)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>A=Airport _ B=Balloonport _ C=Seaplane Base _ G=Gliderport _ H=Heliport _ U=Ultralight</remarks>
             public string SiteTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State Code
             /// _Src: All Ils_*.csv files(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Identifier
             /// _Src: All Ils_*.csv files(ARPT_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Unique 3-4 character alphanumeric identifier assigned to the Landing Facility.</remarks>
             public string ArptId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// City
             /// _Src: All Ils_*.csv files(CITY)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Country Code
             /// _Src: All Ils_*.csv files(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CountryCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS Runway End Identifier
             /// _Src: All Ils_*.csv files(RWY_END_ID)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string RwyEndId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS Identification
             /// _Src: All Ils_*.csv files(ILS_LOC_ID)
             /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string IlsLocId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS System Type
             /// _Src: All Ils_*.csv files(SYSTEM_TYPE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>LS=ILS (Instrument Landing System) _ SF=SDF (Simplified Directional Facility) _ LC=LOC (Localizer) _ LA=LDA (Localizer-Type Directional Aid) _ LD=ILS/DME (ILS with Distance Measuring Equipment) _ SD=SDF/DME (SDF with Distance Measuring Equipment) _ LE=LOC/DME (Localizer with Distance Measuring Equipment) _ LG=LOC/GS (Localizer/Glide Slope) _ DD=LDA/DME (LDA with Distance Measuring Equipment)</remarks>
             public string SystemTypeCode { get; set; }
 
         }
@@ -112,107 +107,101 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class IlsBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// State Name
             /// _Src: ILS_BASE.csv(STATE_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? StateName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FAA Region Responsible for NAVAID
             /// _Src: ILS_BASE.csv(REGION_CODE)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>AAL=Alaska _ ACE=Central _ AEA=Eastern _ AGL=Great Lakes _ ANE=New England _ ANM=Northwest Mountain _ ASO=Southern _ ASW=Southwest _ AWP=Western-Pacific</remarks>
             public string RegionCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS Runway Length in Whole Feet
             /// _Src: ILS_BASE.csv(RWY_LEN)
             /// _MaxLength: (5,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int RwyLen { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS Runway Width in Whole Feet
             /// _Src: ILS_BASE.csv(RWY_WIDTH)
             /// _MaxLength: (4,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int RwyWidth { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Category of the ILS
             /// _Src: ILS_BASE.csv(CATEGORY)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Category { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Operator Name and Code
             /// _Src: ILS_BASE.csv(OWNER)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Concatenation of the ILS OWNER CODE - ILS OWNER NAME. Examples: "F-FEDERAL AVIATION ADMIN" "R-U.S. ARMY"</remarks>
             public string Owner { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Operator of the ILS
             /// _Src: ILS_BASE.csv(OPERATOR)
             /// _MaxLength: 40
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Concatenation of the ILS OPERATOR CODE - ILS OPERATOR NAME</remarks>
             public string Operator { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Approach Bearing
             /// _Src: ILS_BASE.csv(APCH_BEAR)
             /// _MaxLength: (5,2)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>ILS Approach Bearing in Degrees Magnetic</remarks>
             public double ApchBear { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Magnetic Variation Degrees
             /// _Src: ILS_BASE.csv(MAG_VAR)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int MagVar { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Magnetic Variation Direction
             /// _Src: ILS_BASE.csv(MAG_VAR_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string MagVarHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Operational Status of Localizer
             /// _Src: ILS_BASE.csv(COMPONENT_STATUS)
             /// _MaxLength: 30
             /// _DataType: string
@@ -222,7 +211,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseComponentStatus { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Effective Date of Localizer Operational Status
             /// _Src: ILS_BASE.csv(COMPONENT_STATUS_DATE)
             /// _MaxLength: 10
             /// _DataType: string
@@ -232,7 +221,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseComponentStatusDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Latitude Degrees
             /// _Src: ILS_BASE.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -242,7 +231,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Latitude Minutes
             /// _Src: ILS_BASE.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -252,7 +241,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Latitude Seconds
             /// _Src: ILS_BASE.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -262,7 +251,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Latitude Hemisphere
             /// _Src: ILS_BASE.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -272,7 +261,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Latitude in Decimal Format
             /// _Src: ILS_BASE.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -282,7 +271,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Longitude Degrees
             /// _Src: ILS_BASE.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -292,7 +281,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Longitude Minutes
             /// _Src: ILS_BASE.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -302,7 +291,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int BaseLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Longitude Seconds
             /// _Src: ILS_BASE.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -312,7 +301,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Longitude Hemisphere
             /// _Src: ILS_BASE.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -322,7 +311,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string BaseLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Antenna Longitude in Decimal Format
             /// _Src: ILS_BASE.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -332,17 +321,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double BaseLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Latitude/Longitude Source Code
             /// _Src: ILS_BASE.csv(LAT_LONG_SOURCE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. A=Air Force _ C=Coast Guard _ D=Canadian AIRAC _ F=FAA _ FS=Tech Ops (AFS-530) _ G=NOS (Historical) _ K=NGS _ M=DoD (NGA) _ N=U.S. Navy _ O=Owner _ P=NOS Photo Survey (Historical) _ Q=Quad Plot (Historical) _ R=Army _ S=SIAP _ T=3rd Party Survey _ Z=Surveyed</remarks>
             public string? BaseLatLongSourceCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Site Elevation of Localizer Antenna in Tenth of a Foot (MSL).
             /// _Src: ILS_BASE.csv(SITE_ELEVATION)
             /// _MaxLength: (6,1)
             /// _DataType: double
@@ -352,23 +341,22 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double? BaseSiteElevation { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Frequency (MHZ)
             /// _Src: ILS_BASE.csv(LOC_FREQ)
             /// _MaxLength: (6,2)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LocFreq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Localizer Back Course Status
             /// _Src: ILS_BASE.csv(BK_COURSE_STATUS_CODE)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>N=No Restrictions _ R=Restricted _ U=Unusable _ Y=Usable</remarks>
             public string? BkCourseStatusCode { get; set; }
 
         }
@@ -378,7 +366,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class IlsDme : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Operational Status of DME
             /// _Src: ILS_DME.csv(COMPONENT_STATUS)
             /// _MaxLength: 30
             /// _DataType: string
@@ -388,7 +376,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string DmeComponentStatus { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Effective Date of DME Operational Status
             /// _Src: ILS_DME.csv(COMPONENT_STATUS_DATE)
             /// _MaxLength: 10
             /// _DataType: string
@@ -398,7 +386,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string DmeComponentStatusDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Latitude Degrees
             /// _Src: ILS_DME.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -408,7 +396,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int DmeLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Latitude Minutes
             /// _Src: ILS_DME.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -418,7 +406,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int DmeLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Latitude Seconds
             /// _Src: ILS_DME.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -428,7 +416,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double DmeLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Latitude Hemisphere
             /// _Src: ILS_DME.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -438,7 +426,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string DmeLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Latitude in Decimal Format
             /// _Src: ILS_DME.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -448,7 +436,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double DmeLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Longitude Degrees
             /// _Src: ILS_DME.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -458,7 +446,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int DmeLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Longitude Minutes
             /// _Src: ILS_DME.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -468,7 +456,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int DmeLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Longitude Seconds
             /// _Src: ILS_DME.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -478,7 +466,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double DmeLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Longitude Hemisphere
             /// _Src: ILS_DME.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -488,7 +476,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string DmeLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// DME Transponder Antenna Longitude in Decimal Format
             /// _Src: ILS_DME.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -498,17 +486,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double DmeLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Code Indication Source of Latitude/Longitude Information
             /// _Src: ILS_DME.csv(LAT_LONG_SOURCE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. A=Air Force _ C=Coast Guard _ D=Canadian AIRAC _ F=FAA _ FS=Tech Ops (AFS-530) _ G=NOS (Historical) _ K=NGS _ M=DoD (NGA) _ N=U.S. Navy _ O=Owner _ P=NOS Photo Survey (Historical) _ Q=Quad Plot (Historical) _ R=Army _ S=SIAP _ T=3rd Party Survey _ Z=Surveyed</remarks>
             public string? DmeLatLongSourceCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Site Elevation of DME Transponder Antenna in Tenth of a Foot (MSL)
             /// _Src: ILS_DME.csv(SITE_ELEVATION)
             /// _MaxLength: (6,1)
             /// _DataType: double
@@ -518,13 +506,12 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double? DmeSiteElevation { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NAS Channel on Which Distance Data is Transmitted
             /// _Src: ILS_DME.csv(CHANNEL)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string Channel { get; set; }
 
         }
@@ -534,7 +521,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class IlsGs : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Operational Status of Glide Slope
             /// _Src: ILS_GS.csv(COMPONENT_STATUS)
             /// _MaxLength: 30
             /// _DataType: string
@@ -544,7 +531,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string GsComponentStatus { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Effective Date of Glide Slope Operational Status
             /// _Src: ILS_GS.csv(COMPONENT_STATUS_DATE)
             /// _MaxLength: 10
             /// _DataType: string
@@ -554,7 +541,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string GsComponentStatusDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Latitude Degrees
             /// _Src: ILS_GS.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -564,7 +551,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int GsLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Latitude Minutes
             /// _Src: ILS_GS.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -574,7 +561,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int GsLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Latitude Seconds
             /// _Src: ILS_GS.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -584,7 +571,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double GsLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Latitude Hemisphere
             /// _Src: ILS_GS.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -594,7 +581,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string GsLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Latitude in Decimal Format
             /// _Src: ILS_GS.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -604,7 +591,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double GsLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Longitude Degrees
             /// _Src: ILS_GS.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -614,7 +601,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int GsLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Longitude Minutes
             /// _Src: ILS_GS.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -624,7 +611,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int GsLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Longitude Seconds
             /// _Src: ILS_GS.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -634,7 +621,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double GsLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Longitude Hemisphere
             /// _Src: ILS_GS.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -644,7 +631,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string GsLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmitter Antenna Longitude in Decimal Format
             /// _Src: ILS_GS.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -654,17 +641,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double GsLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Code Indication Source of Latitude/Longitude Information
             /// _Src: ILS_GS.csv(LAT_LONG_SOURCE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. A=Air Force _ C=Coast Guard _ D=Canadian AIRAC _ F=FAA _ FS=Tech Ops (AFS-530) _ G=NOS (Historical) _ K=NGS _ M=DoD (NGA) _ N=U.S. Navy _ O=Owner _ P=NOS Photo Survey (Historical) _ Q=Quad Plot (Historical) _ R=Army _ S=SIAP _ T=3rd Party Survey _ Z=Surveyed</remarks>
             public string? GsLatLongSourceCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Site Elevation of Glide Slope Transmitter Antenna in Tenth of a Foot (MSL)
             /// _Src: ILS_GS.csv(SITE_ELEVATION)
             /// _MaxLength: (6,1)
             /// _DataType: double
@@ -674,33 +661,31 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double? GsSiteElevation { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Class/Type
             /// _Src: ILS_GS.csv(G_S_TYPE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>GLIDE SLOPE=Standard Glide Slope _ GLIDE SLOPE/DME=Glide Slope with Distance Measuring Equipment</remarks>
             public string GSTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Angle in Degrees and Hundredths of Degree
             /// _Src: ILS_GS.csv(G_S_ANGLE)
             /// _MaxLength: (4,2)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double GSAngle { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Glide Slope Transmission Frequency
             /// _Src: ILS_GS.csv(G_S_FREQ)
             /// _MaxLength: (6,2)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double GSFreq { get; set; }
 
         }
@@ -710,17 +695,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class IlsMkr : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Marker Type
             /// _Src: ILS_MKR.csv(ILS_COMP_TYPE_CODE)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. IM - Inner Marker, MM - Middle Marker, OM - Outer Marker.</remarks>
             public string MkrIlsCompTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Operational Status of Marker Beacon
             /// _Src: ILS_MKR.csv(COMPONENT_STATUS)
             /// _MaxLength: 30
             /// _DataType: string
@@ -730,7 +715,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string MkrComponentStatus { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Effective Date of Marker Beacon Operational Status
             /// _Src: ILS_MKR.csv(COMPONENT_STATUS_DATE)
             /// _MaxLength: 10
             /// _DataType: string
@@ -740,7 +725,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string MkrComponentStatusDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Latitude Degrees
             /// _Src: ILS_MKR.csv(LAT_DEG)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -750,7 +735,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int MkrLatDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Latitude Minutes
             /// _Src: ILS_MKR.csv(LAT_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -760,7 +745,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int MkrLatMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Latitude Seconds
             /// _Src: ILS_MKR.csv(LAT_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -770,7 +755,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double MkrLatSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Latitude Hemisphere
             /// _Src: ILS_MKR.csv(LAT_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -780,7 +765,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string MkrLatHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Latitude in Decimal Format
             /// _Src: ILS_MKR.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
@@ -790,7 +775,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double MkrLatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Longitude Degrees
             /// _Src: ILS_MKR.csv(LONG_DEG)
             /// _MaxLength: (3,0)
             /// _DataType: int
@@ -800,7 +785,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int MkrLongDeg { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Longitude Minutes
             /// _Src: ILS_MKR.csv(LONG_MIN)
             /// _MaxLength: (2,0)
             /// _DataType: int
@@ -810,7 +795,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public int MkrLongMin { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Longitude Seconds
             /// _Src: ILS_MKR.csv(LONG_SEC)
             /// _MaxLength: (6,4)
             /// _DataType: double
@@ -820,7 +805,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double MkrLongSec { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Longitude Hemisphere
             /// _Src: ILS_MKR.csv(LONG_HEMIS)
             /// _MaxLength: 1
             /// _DataType: string
@@ -830,7 +815,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string MkrLongHemis { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Marker Beacon Longitude in Decimal Format
             /// _Src: ILS_MKR.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
@@ -840,17 +825,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double MkrLongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Code Indication Source of Latitude/Longitude Information
             /// _Src: ILS_MKR.csv(LAT_LONG_SOURCE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. A=Air Force _ C=Coast Guard _ D=Canadian AIRAC _ F=FAA _ FS=Tech Ops (AFS-530) _ G=NOS (Historical) _ K=NGS _ M=DoD (NGA) _ N=U.S. Navy _ O=Owner _ P=NOS Photo Survey (Historical) _ Q=Quad Plot (Historical) _ R=Army _ S=SIAP _ T=3rd Party Survey _ Z=Surveyed</remarks>
             public string? MkrLatLongSourceCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Site Elevation of Marker Beacon in Tenth of a Foot (MSL)
             /// _Src: ILS_MKR.csv(SITE_ELEVATION)
             /// _MaxLength: (6,1)
             /// _DataType: double
@@ -860,73 +845,69 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public double? MkrSiteElevation { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Facility/Type of Marker/Locator
             /// _Src: ILS_MKR.csv(MKR_FAC_TYPE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>M=Marker Beacon Only _ C=Compass Locator _ R=NDB (Nondirectional Radio Beacon) _ MC=Marker/Compass Locator _ MR=Marker/NDB</remarks>
             public string MkrFacTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Location Identifier of Beacon at Marker
             /// _Src: ILS_MKR.csv(MARKER_ID_BEACON)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MarkerIdBeacon { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Name of the Marker Locator Beacon
             /// _Src: ILS_MKR.csv(COMPASS_LOCATOR_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? CompassLocatorName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Frequency
             /// _Src: ILS_MKR.csv(FREQ)
             /// _MaxLength: (5,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>NAVAID Frequency when Marker is collocated else Locator Frequency (in KHZ)</remarks>
             public double? Freq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NAVAID ID
             /// _Src: ILS_MKR.csv(NAV_ID)
             /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Location identifier of the navigation aid collocated with the marker; blank if the marker is not collocated with a NAVAID</remarks>
             public string? NavId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Collocated NAVAID Type
             /// _Src: ILS_MKR.csv(NAV_TYPE)
             /// _MaxLength: 25
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NavType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Low Powered NDB Status of Marker Beacon
             /// _Src: ILS_MKR.csv(LOW_POWERED_NDB_STATUS)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? LowPoweredNdbStatus { get; set; }
 
         }
@@ -936,53 +917,51 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class IlsRmk : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// NASR table associated with Remark
             /// _Src: ILS_RMK.csv(TAB_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string TabName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// ILS Component Type Code
             /// _Src: ILS_RMK.csv(ILS_COMP_TYPE_CODE)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files</remarks>
+            /// <remarks>PropertyName changed due to identical column name in other ILS_*.csv files. Specifies the ILS component type referred to by the remark; derived from TAB_NAME except for the ILS tab, which refers to the overall system</remarks>
             public string? RmkIlsCompTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NASR Column Name Associated with Remark
             /// _Src: ILS_RMK.csv(REF_COL_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Indicates the specific NASR column name related to the remark; non-specific remarks are labeled as GENERAL_REMARK</remarks>
             public string RefColName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Sequence number assigned to Reference Column Remark
             /// _Src: ILS_RMK.csv(REF_COL_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int RefColSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark
             /// _Src: ILS_RMK.csv(REMARK)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Free Form Text that further describes a specific Information Item</remarks>
             public string Remark { get; set; }
 
         }

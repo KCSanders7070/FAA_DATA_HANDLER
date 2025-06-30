@@ -16,13 +16,13 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MISCELLANEOUS ACTIVITY AREA (MAA) Identifier
             /// _Src: All Maa_*.csv files(MAA_ID)
             /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>MAA ID that uniquely identifies a Miscellaneous Activity Area</remarks>
             public string MaaId { get; set; }
 
         }
@@ -32,77 +32,74 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MaaBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// MAA Type Name
             /// _Src: MAA_BASE.csv(MAA_TYPE_NAME)
             /// _MaxLength: 20
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Aerobatic Practice _ Glider _ Hang Glider _ Space Launch _ Ultralight _ Unmanned Aircraft _ Other</remarks>
             public string MaaTypeName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NAVAID Facility Identifier with which MAA is Associated
             /// _Src: MAA_BASE.csv(NAV_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NavId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// NAVAID Type
             /// _Src: MAA_BASE.csv(NAV_TYPE)
             /// _MaxLength: 25
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>CONSOLAN=Low-Frequency Long-Distance NAVAID (Transoceanic) _ DME=Distance Measuring Equipment Only _ FAN MARKER=En Route Marker Beacon (FAN, low power FAN, Z Marker) _ MARINE NDB=Marine Non-Directional Beacon _ MARINE NDB/DME=Marine NDB with DME _ NDB=Non-Directional Beacon _ NDB/DME=NDB with DME _ TACAN=Tactical Air Navigation (Azimuth + Distance) _ UHF/NDB=UHF Non-Directional Beacon _ VOR=VHF Omnidirectional Range (Azimuth only) _ VORTAC=VOR + TACAN (Azimuth and DME) _ VOR/DME=VOR with DME _ VOT=VOR Test Facility</remarks>
             public string? NavType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Azimuth (Degrees) From NAVAID
             /// _Src: MAA_BASE.csv(NAV_RADIAL)
             /// _MaxLength: (5,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>0-359.99</remarks>
             public double? NavRadial { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Distance From NAVAID
             /// _Src: MAA_BASE.csv(NAV_DISTANCE)
             /// _MaxLength: (7,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Nautical Miles</remarks>
             public double? NavDistance { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State Code
             /// _Src: MAA_BASE.csv(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// City
             /// _Src: MAA_BASE.csv(CITY)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Latitude (Formatted)
             /// _Src: MAA_BASE.csv(LATITUDE)
             /// _MaxLength: 14
             /// _DataType: string
@@ -112,7 +109,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string? BaseLatitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Longitude (Formatted)
             /// _Src: MAA_BASE.csv(LONGITUDE)
             /// _MaxLength: 15
             /// _DataType: string
@@ -122,133 +119,125 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string? BaseLongitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// LIST of Landing Facility Identifiers with which MAA is Associated
             /// _Src: MAA_BASE.csv(ARPT_IDS)
             /// _MaxLength: 50
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? ArptIds { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Nearest Airport ID
             /// _Src: MAA_BASE.csv(NEAREST_ARPT)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Only Applies to Space Launch Activity Areas</remarks>
             public string? NearestArpt { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Nearest Airport Distance
             /// _Src: MAA_BASE.csv(NEAREST_ARPT_DIST)
             /// _MaxLength: (7,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>In Nautical Miles Only Applies to Space Launch Activity Areas</remarks>
             public double? NearestArptDist { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Nearest Airport Direction
             /// _Src: MAA_BASE.csv(NEAREST_ARPT_DIR)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Only Applies to Space Launch Activity Areas</remarks>
             public string? NearestArptDir { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Area Name
             /// _Src: MAA_BASE.csv(MAA_NAME)
             /// _MaxLength: 120
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MaaName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Maximum Altitude Allowed
             /// _Src: MAA_BASE.csv(MAX_ALT)
             /// _MaxLength: 8
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MaxAlt { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Minimum Altitude Allowed
             /// _Src: MAA_BASE.csv(MIN_ALT)
             /// _MaxLength: 8
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MinAlt { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Area Radius
             /// _Src: MAA_BASE.csv(MAA_RADIUS)
             /// _MaxLength: (4,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>In Nautical Miles from Center Point</remarks>
             public double? MaaRadius { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Additional Descriptive Text for MAA Area
             /// _Src: MAA_BASE.csv(DESCRIPTION)
             /// _MaxLength: 450
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Description { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Use Description
             /// _Src: MAA_BASE.csv(MAA_USE)
             /// _MaxLength: 8
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MaaUse { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Check for NOTAMs
             /// _Src: MAA_BASE.csv(CHECK_NOTAMS)
             /// _MaxLength: 50
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Only Applies to Space Launch Activity Areas</remarks>
             public string? CheckNotams { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Times of Use Description
             /// _Src: MAA_BASE.csv(TIME_OF_USE)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? TimeOfUse { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA User Group Name and Description
             /// _Src: MAA_BASE.csv(USER_GROUP_NAME)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? UserGroupName { get; set; }
 
         }
@@ -258,73 +247,67 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MaaCon : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Frequency Sequence Number
             /// _Src: MAA_CON.csv(FREQ_SEQ)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Unique Sequence number for Frequency Contact entries</remarks>
             public int FreqSeq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Contact Facility Identifier
             /// _Src: MAA_CON.csv(FAC_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? FacId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Contact Facility Name
             /// _Src: MAA_CON.csv(FAC_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string FacName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Commercial Frequency
             /// _Src: MAA_CON.csv(COMMERCIAL_FREQ)
             /// _MaxLength: (7,3)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double CommercialFreq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Commercial Chart Flag
             /// _Src: MAA_CON.csv(COMMERCIAL_CHART_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? CommercialChartFlag { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Military Frequency
             /// _Src: MAA_CON.csv(MIL_FREQ)
             /// _MaxLength: (7,3)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double? MilFreq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Military Chart Flag
             /// _Src: MAA_CON.csv(MIL_CHART_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MilChartFlag { get; set; }
 
         }
@@ -334,43 +317,42 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MaaRmk : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// NASR table associated with Remark
             /// _Src: MAA_RMK.csv(TAB_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string TabName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Reference Column Name
             /// _Src: MAA_RMK.csv(REF_COL_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>NASR Column name associated with Remark. Non-specific remarks are identified as GENERAL_REMARK</remarks>
             public string RefColName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Reference Column Sequence Number
             /// _Src: MAA_RMK.csv(REF_COL_SEQ_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Sequence number assigned to Reference Column Remark</remarks>
             public int RefColSeqNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark
             /// _Src: MAA_RMK.csv(REMARK)
             /// _MaxLength: 300
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Free Form Text that further describes a specific Information Item</remarks>
             public string Remark { get; set; }
 
         }
@@ -380,17 +362,17 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class MaaShp : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Polygon Sequence Number
             /// _Src: MAA_SHP.csv(POINT_SEQ)
             /// _MaxLength: (2,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Unique Sequence number for MAA Polygon Coordinates</remarks>
             public int PointSeq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Polygon Coordinate Latitude (Formatted)
             /// _Src: MAA_SHP.csv(LATITUDE)
             /// _MaxLength: 14
             /// _DataType: string
@@ -400,7 +382,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string ShpLatitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// MAA Polygon Coordinate Longitude (Formatted)
             /// _Src: MAA_SHP.csv(LONGITUDE)
             /// _MaxLength: 15
             /// _DataType: string

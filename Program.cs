@@ -1,11 +1,7 @@
-﻿using CsvHelper;
-using FAA_DATA_HANDLER.Generators;
-using FAA_DATA_HANDLER.Models.NASR.CSV;
+﻿using FAA_DATA_HANDLER.Generators;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AptCsvDataModel;
-using static FAA_DATA_HANDLER.Models.NASR.CSV.AtcCsvDataModel;
 
 namespace FAA_DATA_HANDLER
 {
@@ -28,7 +24,7 @@ namespace FAA_DATA_HANDLER
             bool parseDp = false;
             bool parseFix = false;
             bool parseFss = false;
-            bool parseFrq = true;
+            bool parseFrq = false;
             bool parseHpf = false;
             bool parseIls = false;
             bool parseLid = false;
@@ -210,7 +206,7 @@ namespace FAA_DATA_HANDLER
                 allParsedFrqData.Frq = frqCsvParser.ParseFrq(Path.Combine(userSelectedSourceDirectory, "FRQ.csv")).Frq;
 
                 Console.WriteLine("Generating Frq.json");
-                // GenerateFrqJsonFromCsv.Generate(allParsedFrqData, userSelectedOutputDirectory);
+                GenerateFrqJsonFromCsv.Generate(allParsedFrqData, userSelectedOutputDirectory);
                 Console.WriteLine("Frq data created.");
             }
 
@@ -226,7 +222,7 @@ namespace FAA_DATA_HANDLER
                 allParsedHpfData.HpfSpdAlt = hpfCsvParser.ParseHpfSpdAlt(Path.Combine(userSelectedSourceDirectory, "HPF_SPD_ALT.csv")).HpfSpdAlt;
 
                 Console.WriteLine("Generating Hpf.json");
-                // GenerateHpfJsonFromCsv.Generate(allParsedHpfData, userSelectedOutputDirectory);
+                GenerateHpfJsonFromCsv.Generate(allParsedHpfData, userSelectedOutputDirectory);
                 Console.WriteLine("Hpf data created.");
             }
 
@@ -243,7 +239,7 @@ namespace FAA_DATA_HANDLER
                 allParsedIlsData.IlsRmk = ilsCsvParser.ParseIlsRmk(Path.Combine(userSelectedSourceDirectory, "ILS_RMK.csv")).IlsRmk;
 
                 Console.WriteLine("Generating Ils.json");
-                // GenerateIlsJsonFromCsv.Generate(allParsedIlsData, userSelectedOutputDirectory);
+                GenerateIlsJsonFromCsv.Generate(allParsedIlsData, userSelectedOutputDirectory);
                 Console.WriteLine("Ils data created.");
             }
 
@@ -256,21 +252,21 @@ namespace FAA_DATA_HANDLER
                 allParsedLidData.Lid = lidCsvParser.ParseLid(Path.Combine(userSelectedSourceDirectory, "LID.csv")).Lid;
 
                 Console.WriteLine("Generating Lid.json");
-                // GenerateLidJsonFromCsv.Generate(allParsedLidData, userSelectedOutputDirectory);
+                GenerateLidJsonFromCsv.Generate(allParsedLidData, userSelectedOutputDirectory);
                 Console.WriteLine("Lid data created.");
             }
 
             // DOMAIN: MIL_OPS
             if (parseMilOps)
             {
-                Console.WriteLine("Parsing Mil csv files");
-                MilCsvParser milCsvParser = new MilCsvParser();
-                MilCsvDataCollection allParsedMilData = new MilCsvDataCollection();
+                Console.WriteLine("Parsing MilOps csv files");
+                MilOpsCsvParser milCsvParser = new MilOpsCsvParser();
+                MilOpsCsvDataCollection allParsedMilData = new MilOpsCsvDataCollection();
                 allParsedMilData.MilOps = milCsvParser.ParseMilOps(Path.Combine(userSelectedSourceDirectory, "MIL_OPS.csv")).MilOps;
 
-                Console.WriteLine("Generating Mil.json");
-                // GenerateMilJsonFromCsv.Generate(allParsedMilData, userSelectedOutputDirectory);
-                Console.WriteLine("Mil data created.");
+                Console.WriteLine("Generating MilOps.json");
+                GenerateMilOpsJsonFromCsv.Generate(allParsedMilData, userSelectedOutputDirectory);
+                Console.WriteLine("MilOps data created.");
             }
 
             // DOMAIN: MTR
@@ -287,7 +283,7 @@ namespace FAA_DATA_HANDLER
                 allParsedMtrData.MtrWdth = mtrCsvParser.ParseMtrWdth(Path.Combine(userSelectedSourceDirectory, "MTR_WDTH.csv")).MtrWdth;
 
                 Console.WriteLine("Generating Mtr.json");
-                // GenerateMtrJsonFromCsv.Generate(allParsedMtrData, userSelectedOutputDirectory);
+                GenerateMtrJsonFromCsv.Generate(allParsedMtrData, userSelectedOutputDirectory);
                 Console.WriteLine("Mtr data created.");
             }
 
@@ -303,7 +299,7 @@ namespace FAA_DATA_HANDLER
                 allParsedMaaData.MaaShp = maaCsvParser.ParseMaaShp(Path.Combine(userSelectedSourceDirectory, "MAA_SHP.csv")).MaaShp;
 
                 Console.WriteLine("Generating Maa.json");
-                // GenerateMaaJsonFromCsv.Generate(allParsedMaaData, userSelectedOutputDirectory);
+                GenerateMaaJsonFromCsv.Generate(allParsedMaaData, userSelectedOutputDirectory);
                 Console.WriteLine("Maa data created.");
             }
 
@@ -318,7 +314,7 @@ namespace FAA_DATA_HANDLER
                 allParsedNavData.NavRmk = navCsvParser.ParseNavRmk(Path.Combine(userSelectedSourceDirectory, "NAV_RMK.csv")).NavRmk;
 
                 Console.WriteLine("Generating Nav.json");
-                // GenerateNavJsonFromCsv.Generate(allParsedNavData, userSelectedOutputDirectory);
+                GenerateNavJsonFromCsv.Generate(allParsedNavData, userSelectedOutputDirectory);
                 Console.WriteLine("Nav data created.");
             }
 
@@ -332,7 +328,7 @@ namespace FAA_DATA_HANDLER
                 allParsedPjaData.PjaCon = pjaCsvParser.ParsePjaCon(Path.Combine(userSelectedSourceDirectory, "PJA_CON.csv")).PjaCon;
 
                 Console.WriteLine("Generating Pja.json");
-                // GeneratePjaJsonFromCsv.Generate(allParsedPjaData, userSelectedOutputDirectory);
+                GeneratePjaJsonFromCsv.Generate(allParsedPjaData, userSelectedOutputDirectory);
                 Console.WriteLine("Pja data created.");
             }
 
@@ -347,7 +343,7 @@ namespace FAA_DATA_HANDLER
                 allParsedPfrData.PfrSeg = pfrCsvParser.ParsePfrSeg(Path.Combine(userSelectedSourceDirectory, "PFR_SEG.csv")).PfrSeg;
 
                 Console.WriteLine("Generating Pfr.json");
-                // GeneratePfrJsonFromCsv.Generate(allParsedPfrData, userSelectedOutputDirectory);
+                GeneratePfrJsonFromCsv.Generate(allParsedPfrData, userSelectedOutputDirectory);
                 Console.WriteLine("Pfr data created.");
             }
 
@@ -360,7 +356,7 @@ namespace FAA_DATA_HANDLER
                 allParsedRdrData.Rdr = rdrCsvParser.ParseRdr(Path.Combine(userSelectedSourceDirectory, "RDR.csv")).Rdr;
 
                 Console.WriteLine("Generating Rdr.json");
-                // GenerateRdrJsonFromCsv.Generate(allParsedRdrData, userSelectedOutputDirectory);
+                GenerateRdrJsonFromCsv.Generate(allParsedRdrData, userSelectedOutputDirectory);
                 Console.WriteLine("Rdr data created.");
             }
 
@@ -375,7 +371,7 @@ namespace FAA_DATA_HANDLER
                 allParsedStarData.StarRte = starCsvParser.ParseStarRte(Path.Combine(userSelectedSourceDirectory, "STAR_RTE.csv")).StarRte;
 
                 Console.WriteLine("Generating Star.json");
-                // GenerateStarJsonFromCsv.Generate(allParsedStarData, userSelectedOutputDirectory);
+                GenerateStarJsonFromCsv.Generate(allParsedStarData, userSelectedOutputDirectory);
                 Console.WriteLine("Star data created.");
             }
 
@@ -389,7 +385,7 @@ namespace FAA_DATA_HANDLER
                 allParsedWxlData.WxlSvc = wxlCsvParser.ParseWxlSvc(Path.Combine(userSelectedSourceDirectory, "WXL_SVC.csv")).WxlSvc;
 
                 Console.WriteLine("Generating Wxl.json");
-                // GenerateWxlJsonFromCsv.Generate(allParsedWxlData, userSelectedOutputDirectory);
+                GenerateWxlJsonFromCsv.Generate(allParsedWxlData, userSelectedOutputDirectory);
                 Console.WriteLine("Wxl data created.");
             }
         }

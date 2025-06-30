@@ -16,13 +16,13 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             public string EffDate { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Parachute Jump Area ID
             /// _Src: All Pja_*.csv files(PJA_ID)
             /// _MaxLength: 6
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>PJA ID that uniquely identifies a Parachute Jump Area</remarks>
             public string PjaId { get; set; }
 
         }
@@ -32,13 +32,12 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class PjaBase : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// NAVAID Facility Identifier with which PJA is Associated
             /// _Src: PJA_BASE.csv(NAV_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NavId { get; set; }
 
             /// <summary>
@@ -48,117 +47,107 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>CONSOLAN=Low-Frequency Long-Distance NAVAID (Transoceanic) _ DME=Distance Measuring Equipment Only _ FAN MARKER=En Route Marker Beacon (FAN, low power FAN, Z Marker) _ MARINE NDB=Marine Non-Directional Beacon _ MARINE NDB/DME=Marine NDB with DME _ NDB=Non-Directional Beacon _ NDB/DME=NDB with DME _ TACAN=Tactical Air Navigation (Azimuth + Slant Range Distance) _ UHF/NDB=UHF Non-Directional Beacon _ VOR=VHF Omnidirectional Range (Azimuth only) _ VORTAC=VOR + TACAN (Azimuth and DME) _ VOR/DME=VOR with DME _ VOT=VOR Test Facility</remarks>
             public string? NavType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Azimuth (Degrees) From NAVAID
             /// _Src: PJA_BASE.csv(RADIAL)
             /// _MaxLength: (5,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>0-359.99</remarks>
             public double? Radial { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Distance, In Nautical Miles, From NAVAID
             /// _Src: PJA_BASE.csv(DISTANCE)
             /// _MaxLength: (7,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double? Distance { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Name of NAVAID with which PJA is Associated
             /// _Src: PJA_BASE.csv(NAVAID_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? NavaidName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State Code
             /// _Src: PJA_BASE.csv(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// City
             /// _Src: PJA_BASE.csv(CITY)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? City { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Latitude (Formatted)
             /// _Src: PJA_BASE.csv(LATITUDE)
             /// _MaxLength: 14
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string Latitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Latitude in Decimal Format
             /// _Src: PJA_BASE.csv(LAT_DECIMAL)
             /// _MaxLength: (10,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LatDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Longitude (Formatted)
             /// _Src: PJA_BASE.csv(LONGITUDE)
             /// _MaxLength: 15
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string Longitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Longitude in Decimal Format
             /// _Src: PJA_BASE.csv(LONG_DECIMAL)
             /// _MaxLength: (11,8)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double LongDecimal { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Landing Facility Identifier with which PJA is Associated
             /// _Src: PJA_BASE.csv(ARPT_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? ArptId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Site Number of Associated Landing Facility
             /// _Src: PJA_BASE.csv(SITE_NO)
             /// _MaxLength: 9
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? SiteNo { get; set; }
 
             /// <summary>
@@ -168,147 +157,135 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Facility Codes: AIRPORT (A) _ BALLOONPORT (B) _ SEAPLANE BASE (C) _ GLIDERPORT (G) _ HELIPORT (H) _ ULTRALIGHT (U)</remarks>
             public string? SiteTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Drop Zone Name
             /// _Src: PJA_BASE.csv(DROP_ZONE_NAME)
             /// _MaxLength: 50
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? DropZoneName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Maximum Altitude Allowed
             /// _Src: PJA_BASE.csv(MAX_ALTITUDE)
             /// _MaxLength: (5,0)
             /// _DataType: int
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public int? MaxAltitude { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Maximum Altitude Allowed Type
             /// _Src: PJA_BASE.csv(MAX_ALTITUDE_TYPE_CODE)
             /// _MaxLength: 3
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>AGL, MSL, UNR</remarks>
             public string? MaxAltitudeTypeCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Area Radius, in Nautical Miles from Center Point
             /// _Src: PJA_BASE.csv(PJA_RADIUS)
             /// _MaxLength: (4,2)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double? PjaRadius { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Sectional Charting Required (Y/N)
             /// _Src: PJA_BASE.csv(CHART_REQUEST_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? ChartRequestFlag { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA to be Published in A/FD (Y/N)
             /// _Src: PJA_BASE.csv(PUBLISH_CRITERIA)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? PublishCriteria { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Additional Descriptive Text for PJA Area
             /// _Src: PJA_BASE.csv(DESCRIPTION)
             /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Description { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Times of Use Description
             /// _Src: PJA_BASE.csv(TIME_OF_USE)
             /// _MaxLength: 150
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? TimeOfUse { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FSS Ident with which PJA is Associated
             /// _Src: PJA_BASE.csv(FSS_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? FssId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// FSS Name with which PJA is Associated
             /// _Src: PJA_BASE.csv(FSS_NAME)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? FssName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Use Description
             /// _Src: PJA_BASE.csv(PJA_USE)
             /// _MaxLength: 8
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? PjaUse { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA Area Volume
             /// _Src: PJA_BASE.csv(VOLUME)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Volume { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// PJA User Group Name and Description
             /// _Src: PJA_BASE.csv(PJA_USER)
             /// _MaxLength: 150
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? PjaUser { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark
             /// _Src: PJA_BASE.csv(REMARK)
             /// _MaxLength: 600
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Free Form Text that further describes a PJA</remarks>
             public string? Remark { get; set; }
 
         }
@@ -318,93 +295,84 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class PjaCon : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Contact Facility Identifier
             /// _Src: PJA_CON.csv(FAC_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? FacId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Contact Facility Name
             /// _Src: PJA_CON.csv(FAC_NAME)
             /// _MaxLength: 50
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string FacName { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Related Location Identifier
             /// _Src: PJA_CON.csv(LOC_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string LocId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Commercial Frequency
             /// _Src: PJA_CON.csv(COMMERCIAL_FREQ)
             /// _MaxLength: (7,3)
             /// _DataType: double
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double CommercialFreq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Commercial Chart Flag
             /// _Src: PJA_CON.csv(COMMERCIAL_CHART_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CommercialChartFlag { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Military Frequency
             /// _Src: PJA_CON.csv(MIL_FREQ)
             /// _MaxLength: (7,3)
             /// _DataType: double
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public double? MilFreq { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Military Chart Flag
             /// _Src: PJA_CON.csv(MIL_CHART_FLAG)
             /// _MaxLength: 1
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? MilChartFlag { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Sector Description Text
             /// _Src: PJA_CON.csv(SECTOR)
             /// _MaxLength: 30
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? Sector { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Altitude Description Text
             /// _Src: PJA_CON.csv(CONTACT_FREQ_ALTITUDE)
             /// _MaxLength: 20
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? ContactFreqAltitude { get; set; }
 
         }

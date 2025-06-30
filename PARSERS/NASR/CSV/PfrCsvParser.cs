@@ -37,7 +37,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                     InlandFacFix = fields["INLAND_FAC_FIX"],
                     CoastalFix = fields["COASTAL_FIX"],
                     Destination = fields["DESTINATION"],
-                    RouteString = fields["ROUTE_STRING"],
+                    BaseRouteString = fields["ROUTE_STRING"],
                 });
 
             return result;
@@ -52,7 +52,7 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                 fields => new PfrRmtFmt
                 {
                     Orig = fields["Orig"],
-                    RouteString = fields["Route String"],
+                    RmtFmtRouteString = fields["Route String"],
                     Dest = fields["Dest"],
                     Hours1 = fields["Hours1"],
                     Type = fields["Type"],
