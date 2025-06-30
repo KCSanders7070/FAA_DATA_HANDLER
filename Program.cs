@@ -343,7 +343,7 @@ namespace FAA_DATA_HANDLER
                 allParsedPfrData.PfrSeg = pfrCsvParser.ParsePfrSeg(Path.Combine(userSelectedSourceDirectory, "PFR_SEG.csv")).PfrSeg;
 
                 Console.WriteLine("Generating Pfr.json");
-                // GeneratePfrJsonFromCsv.Generate(allParsedPfrData, userSelectedOutputDirectory);
+                GeneratePfrJsonFromCsv.Generate(allParsedPfrData, userSelectedOutputDirectory);
                 Console.WriteLine("Pfr data created.");
             }
 
