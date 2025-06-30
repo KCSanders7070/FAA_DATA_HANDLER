@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.NavCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateNavJsonFromCsv
     {
@@ -24,12 +24,12 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            NavId = g.First().NavId,
-                            NavType = g.First().NavType,
-                            StateCode = g.First().StateCode,
-                            City = g.First().City,
-                            CountryCode = g.First().CountryCode
+                            g.First().EffDate,
+                            g.First().NavId,
+                            g.First().NavType,
+                            g.First().StateCode,
+                            g.First().City,
+                            g.First().CountryCode
                         },
                         NavBase = g.Select(n => new
                         {

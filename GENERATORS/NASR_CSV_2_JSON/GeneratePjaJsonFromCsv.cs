@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.PjaCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GeneratePjaJsonFromCsv
     {
@@ -24,8 +24,8 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            PjaId = g.First().PjaId
+                            g.First().EffDate,
+                            g.First().PjaId
                         },
                         PjaBase = g.Select(p => new
                         {

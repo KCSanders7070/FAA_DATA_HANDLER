@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.FrqCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateFrqJsonFromCsv
     {
@@ -22,7 +22,7 @@ namespace FAA_DATA_HANDLER.Generators
                     g => g.Key,
                     g => new
                     {
-                        EffDate = g.First().EffDate,
+                        g.First().EffDate,
                         Frq = g.Select(f => new
                         {
                             f.Facility,

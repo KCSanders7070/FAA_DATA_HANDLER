@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.FssCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateFssJsonFromCsv
     {
@@ -24,34 +24,34 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            FssId = g.First().FssId,
-                            Name = g.First().Name,
-                            City = g.First().City,
-                            StateCode = g.First().StateCode,
-                            CountryCode = g.First().CountryCode
+                            g.First().EffDate,
+                            g.First().FssId,
+                            g.First().Name,
+                            g.First().City,
+                            g.First().StateCode,
+                            g.First().CountryCode
                         },
                         FssBase = new
                         {
-                            UpdateDate = g.First().UpdateDate,
-                            FssFacType = g.First().FssFacType,
-                            VoiceCall = g.First().VoiceCall,
-                            LatDeg = g.First().LatDeg,
-                            LatMin = g.First().LatMin,
-                            LatSec = g.First().LatSec,
-                            LatHemis = g.First().LatHemis,
-                            LatDecimal = g.First().LatDecimal,
-                            LongDeg = g.First().LongDeg,
-                            LongMin = g.First().LongMin,
-                            LongSec = g.First().LongSec,
-                            LongHemis = g.First().LongHemis,
-                            LongDecimal = g.First().LongDecimal,
-                            OprHours = g.First().OprHours,
-                            FacStatus = g.First().FacStatus,
-                            AlternateFss = g.First().AlternateFss,
-                            WeaRadarFlag = g.First().WeaRadarFlag,
-                            PhoneNo = g.First().PhoneNo,
-                            TollFreeNo = g.First().TollFreeNo
+                            g.First().UpdateDate,
+                            g.First().FssFacType,
+                            g.First().VoiceCall,
+                            g.First().LatDeg,
+                            g.First().LatMin,
+                            g.First().LatSec,
+                            g.First().LatHemis,
+                            g.First().LatDecimal,
+                            g.First().LongDeg,
+                            g.First().LongMin,
+                            g.First().LongSec,
+                            g.First().LongHemis,
+                            g.First().LongDecimal,
+                            g.First().OprHours,
+                            g.First().FacStatus,
+                            g.First().AlternateFss,
+                            g.First().WeaRadarFlag,
+                            g.First().PhoneNo,
+                            g.First().TollFreeNo
                         },
                         FssRmk = data.FssRmk
                             .Where(r => r.FssId == g.Key)
