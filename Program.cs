@@ -32,8 +32,8 @@ namespace FAA_DATA_HANDLER
             bool parseMtr = false;
             bool parseMaa = false;
             bool parseNav = false;
-            bool parsePja = true;
-            bool parsePfr = false;
+            bool parsePja = false;
+            bool parsePfr = true;
             bool parseRdr = false;
             bool parseStar = false;
             bool parseWxl = false;
@@ -328,7 +328,7 @@ namespace FAA_DATA_HANDLER
                 allParsedPjaData.PjaCon = pjaCsvParser.ParsePjaCon(Path.Combine(userSelectedSourceDirectory, "PJA_CON.csv")).PjaCon;
 
                 Console.WriteLine("Generating Pja.json");
-                // GeneratePjaJsonFromCsv.Generate(allParsedPjaData, userSelectedOutputDirectory);
+                GeneratePjaJsonFromCsv.Generate(allParsedPjaData, userSelectedOutputDirectory);
                 Console.WriteLine("Pja data created.");
             }
 
