@@ -30,9 +30,9 @@ namespace FAA_DATA_HANDLER
             bool parseLid = false;
             bool parseMilOps = false;
             bool parseMtr = false;
-            bool parseMaa = true;
+            bool parseMaa = false;
             bool parseNav = false;
-            bool parsePja = false;
+            bool parsePja = true;
             bool parsePfr = false;
             bool parseRdr = false;
             bool parseStar = false;
@@ -314,7 +314,7 @@ namespace FAA_DATA_HANDLER
                 allParsedNavData.NavRmk = navCsvParser.ParseNavRmk(Path.Combine(userSelectedSourceDirectory, "NAV_RMK.csv")).NavRmk;
 
                 Console.WriteLine("Generating Nav.json");
-                // GenerateNavJsonFromCsv.Generate(allParsedNavData, userSelectedOutputDirectory);
+                GenerateNavJsonFromCsv.Generate(allParsedNavData, userSelectedOutputDirectory);
                 Console.WriteLine("Nav data created.");
             }
 
