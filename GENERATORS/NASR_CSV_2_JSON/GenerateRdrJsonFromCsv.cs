@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.RdrCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateRdrJsonFromCsv
     {
@@ -24,7 +24,7 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate
+                            g.First().EffDate
                         },
                         Rdr = g.Select(r => new
                         {

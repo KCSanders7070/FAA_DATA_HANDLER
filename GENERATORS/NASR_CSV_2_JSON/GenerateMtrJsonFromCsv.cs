@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.MtrCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateMtrJsonFromCsv
     {
@@ -24,10 +24,10 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            RouteTypeCode = g.First().RouteTypeCode,
-                            RouteId = g.First().RouteId,
-                            Artcc = g.First().Artcc
+                            g.First().EffDate,
+                            g.First().RouteTypeCode,
+                            g.First().RouteId,
+                            g.First().Artcc
                         },
                         MtrAgy = data.MtrAgy
                             .Where(a => a.RouteTypeCode + a.RouteId == g.Key)

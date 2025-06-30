@@ -1,4 +1,4 @@
-﻿using FAA_DATA_HANDLER.Generators;
+﻿using FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER
             bool parsePfr = false;
             bool parseRdr = false;
             bool parseStar = false;
-            bool parseWxl = false;
+            bool parseWxl = true;
 
             // DOMAIN: APT
             if (parseApt)

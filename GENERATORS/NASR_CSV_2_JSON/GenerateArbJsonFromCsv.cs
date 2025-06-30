@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.ArbCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateArbJsonFromCsv
     {
@@ -23,9 +23,9 @@ namespace FAA_DATA_HANDLER.Generators
                     g => new
                     {
                         // Common Fields
-                        EffDate = g.First().EffDate,
-                        LocationId = g.First().LocationId,
-                        LocationName = g.First().LocationName,
+                        g.First().EffDate,
+                        g.First().LocationId,
+                        g.First().LocationName,
 
                         // Base Fields
                         g.First().ComputerId,

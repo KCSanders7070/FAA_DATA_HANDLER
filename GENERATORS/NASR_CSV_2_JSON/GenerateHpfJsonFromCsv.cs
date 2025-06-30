@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.HpfCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateHpfJsonFromCsv
     {
@@ -24,11 +24,11 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            HpName = g.First().HpName,
-                            HpNo = g.First().HpNo,
-                            StateCode = g.First().StateCode,
-                            CountryCode = g.First().CountryCode
+                            g.First().EffDate,
+                            g.First().HpName,
+                            g.First().HpNo,
+                            g.First().StateCode,
+                            g.First().CountryCode
                         },
                         HpfBase = g.Select(h => new
                         {

@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.PfrCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GeneratePfrJsonFromCsv
     {
@@ -24,9 +24,9 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            OriginId = g.First().OriginId,
-                            DstnId = g.First().DstnId
+                            g.First().EffDate,
+                            g.First().OriginId,
+                            g.First().DstnId
                         },
                         Routes = g
                             .GroupBy(r => r.RouteNo)
@@ -35,7 +35,7 @@ namespace FAA_DATA_HANDLER.Generators
                                 rg => new
                                 {
                                     RouteNo = rg.Key,
-                                    PfrTypeCode = rg.First().PfrTypeCode,
+                                    rg.First().PfrTypeCode,
                                     PfrBase = rg.Select(p => new
                                     {
                                         p.OriginCity,

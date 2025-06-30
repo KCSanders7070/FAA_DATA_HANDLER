@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.FixCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateFixJsonFromCsv
     {
@@ -24,35 +24,35 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            FixId = g.First().FixId,
-                            IcaoRegionCode = g.First().IcaoRegionCode,
-                            StateCode = g.First().StateCode,
-                            CountryCode = g.First().CountryCode
+                            g.First().EffDate,
+                            g.First().FixId,
+                            g.First().IcaoRegionCode,
+                            g.First().StateCode,
+                            g.First().CountryCode
                         },
                         FixBase = new
                         {
-                            LatDeg = g.First().LatDeg,
-                            LatMin = g.First().LatMin,
-                            LatSec = g.First().LatSec,
-                            LatHemis = g.First().LatHemis,
-                            LatDecimal = g.First().LatDecimal,
-                            LongDeg = g.First().LongDeg,
-                            LongMin = g.First().LongMin,
-                            LongSec = g.First().LongSec,
-                            LongHemis = g.First().LongHemis,
-                            LongDecimal = g.First().LongDecimal,
-                            FixIdOld = g.First().FixIdOld,
-                            ChartingRemark = g.First().ChartingRemark,
-                            FixUseCode = g.First().FixUseCode,
-                            ArtccIdHigh = g.First().ArtccIdHigh,
-                            ArtccIdLow = g.First().ArtccIdLow,
-                            PitchFlag = g.First().PitchFlag,
-                            CatchFlag = g.First().CatchFlag,
-                            SuaAtcaaFlag = g.First().SuaAtcaaFlag,
-                            MinRecepAlt = g.First().MinRecepAlt,
-                            Compulsory = g.First().Compulsory,
-                            Charts = g.First().Charts
+                            g.First().LatDeg,
+                            g.First().LatMin,
+                            g.First().LatSec,
+                            g.First().LatHemis,
+                            g.First().LatDecimal,
+                            g.First().LongDeg,
+                            g.First().LongMin,
+                            g.First().LongSec,
+                            g.First().LongHemis,
+                            g.First().LongDecimal,
+                            g.First().FixIdOld,
+                            g.First().ChartingRemark,
+                            g.First().FixUseCode,
+                            g.First().ArtccIdHigh,
+                            g.First().ArtccIdLow,
+                            g.First().PitchFlag,
+                            g.First().CatchFlag,
+                            g.First().SuaAtcaaFlag,
+                            g.First().MinRecepAlt,
+                            g.First().Compulsory,
+                            g.First().Charts
                         },
                         FixChrt = data.FixChrt
                             .Where(c => c.FixId == g.Key)

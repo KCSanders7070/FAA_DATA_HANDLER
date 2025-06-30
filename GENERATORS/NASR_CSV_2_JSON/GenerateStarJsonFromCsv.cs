@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.StarCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateStarJsonFromCsv
     {
@@ -24,9 +24,9 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            StarComputerCode = g.First().StarComputerCode,
-                            Artcc = g.First().Artcc
+                            g.First().EffDate,
+                            g.First().StarComputerCode,
+                            g.First().Artcc
                         },
                         StarApt = data.StarApt
                             .Where(a => a.StarComputerCode == g.Key)

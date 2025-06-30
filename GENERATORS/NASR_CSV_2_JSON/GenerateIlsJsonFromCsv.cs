@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.IlsCsvDataModel;
 
-namespace FAA_DATA_HANDLER.Generators
+namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
 {
     public static class GenerateIlsJsonFromCsv
     {
@@ -24,16 +24,16 @@ namespace FAA_DATA_HANDLER.Generators
                     {
                         CommonFields = new
                         {
-                            EffDate = g.First().EffDate,
-                            SiteNo = g.First().SiteNo,
-                            SiteTypeCode = g.First().SiteTypeCode,
-                            StateCode = g.First().StateCode,
-                            ArptId = g.First().ArptId,
-                            City = g.First().City,
-                            CountryCode = g.First().CountryCode,
-                            RwyEndId = g.First().RwyEndId,
-                            IlsLocId = g.First().IlsLocId,
-                            SystemTypeCode = g.First().SystemTypeCode
+                            g.First().EffDate,
+                            g.First().SiteNo,
+                            g.First().SiteTypeCode,
+                            g.First().StateCode,
+                            g.First().ArptId,
+                            g.First().City,
+                            g.First().CountryCode,
+                            g.First().RwyEndId,
+                            g.First().IlsLocId,
+                            g.First().SystemTypeCode
                         },
                         IlsBase = new
                         {
