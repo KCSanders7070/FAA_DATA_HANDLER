@@ -33,8 +33,8 @@ namespace FAA_DATA_HANDLER
             bool parseMaa = false;
             bool parseNav = false;
             bool parsePja = false;
-            bool parsePfr = true;
-            bool parseRdr = false;
+            bool parsePfr = false;
+            bool parseRdr = true;
             bool parseStar = false;
             bool parseWxl = false;
 
@@ -356,7 +356,7 @@ namespace FAA_DATA_HANDLER
                 allParsedRdrData.Rdr = rdrCsvParser.ParseRdr(Path.Combine(userSelectedSourceDirectory, "RDR.csv")).Rdr;
 
                 Console.WriteLine("Generating Rdr.json");
-                // GenerateRdrJsonFromCsv.Generate(allParsedRdrData, userSelectedOutputDirectory);
+                GenerateRdrJsonFromCsv.Generate(allParsedRdrData, userSelectedOutputDirectory);
                 Console.WriteLine("Rdr data created.");
             }
 

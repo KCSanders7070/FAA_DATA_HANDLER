@@ -22,83 +22,80 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
         public class Rdr : CommonFields
         {
             /// <summary>
-            /// NoTitleYet
+            /// Facility ID
             /// _Src: RDR.csv(FACILITY_ID)
             /// _MaxLength: 4
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Location Identifier. Unique 3-4 character alphanumeric identifier assigned to the Landing Facility or TRACON.</remarks>
             public string FacilityId { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Facility Type
             /// _Src: RDR.csv(FACILITY_TYPE)
             /// _MaxLength: 7
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Type of Facility associated with the RADAR data – either AIRPORT or TRACON.</remarks>
             public string FacilityType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// State Code
             /// _Src: RDR.csv(STATE_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string? StateCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Country Code
             /// _Src: RDR.csv(COUNTRY_CODE)
             /// _MaxLength: 2
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string CountryCode { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// RADAR Type
             /// _Src: RDR.csv(RADAR_TYPE)
             /// _MaxLength: 10
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>ARSR=Air Route Surveillance Radar _ ASR=Airport Surveillance Radar (-# denotes ASR type) _ ASR/PAR=Airport Surveillance Radar plus Precision Approach Radar _ GCA=Ground Control Approach _ PAR=Precision Approach Radar _ SECRA=Secondary Radar</remarks>
             public string RadarType { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// RADAR Sequence Number
             /// _Src: RDR.csv(RADAR_NO)
             /// _MaxLength: (3,0)
             /// _DataType: int
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Unique Sequence Number assigned to each Radar at a Facility</remarks>
             public int RadarNo { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// RADAR Hours of Operation
             /// _Src: RDR.csv(RADAR_HRS)
             /// _MaxLength: 200
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
             public string RadarHrs { get; set; }
 
             /// <summary>
-            /// NoTitleYet
+            /// Remark
             /// _Src: RDR.csv(REMARK)
             /// _MaxLength: 1500
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>NoRemarksYet</remarks>
+            /// <remarks>Remark associated with RADAR Operations</remarks>
             public string? Remark { get; set; }
 
         }
