@@ -34,9 +34,9 @@ namespace FAA_DATA_HANDLER
             bool parseNav = false;
             bool parsePja = false;
             bool parsePfr = false;
-            bool parseRdr = true;
+            bool parseRdr = false;
             bool parseStar = false;
-            bool parseWxl = false;
+            bool parseWxl = true;
 
             // DOMAIN: APT
             if (parseApt)
@@ -371,7 +371,7 @@ namespace FAA_DATA_HANDLER
                 allParsedStarData.StarRte = starCsvParser.ParseStarRte(Path.Combine(userSelectedSourceDirectory, "STAR_RTE.csv")).StarRte;
 
                 Console.WriteLine("Generating Star.json");
-                // GenerateStarJsonFromCsv.Generate(allParsedStarData, userSelectedOutputDirectory);
+                GenerateStarJsonFromCsv.Generate(allParsedStarData, userSelectedOutputDirectory);
                 Console.WriteLine("Star data created.");
             }
 
