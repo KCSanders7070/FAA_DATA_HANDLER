@@ -1,236 +1,262 @@
 ﻿using FAA_DATA_HANDLER.Models.NASR.CSV;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
-using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using static FAA_DATA_HANDLER.Models.NASR.CSV.AptCsvDataModel;
 
-namespace FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON
+public static class GenerateAptJsonFromCsv
 {
-    public static class GenerateAptJsonFromCsv
+    public static void Generate(AptCsvDataCollection data, string outputDirectory)
     {
-        public static void Generate(AptCsvDataCollection data, string outputDirectory)
+        string outputPath = Path.Combine(outputDirectory, "Apt.json");
+        var options = new JsonWriterOptions
         {
-            // Group all base airport records by ArptId, then create a dictionary.
-            // Each dictionary key is an airport ID, and the value is an object containing grouped data
-            // from various NASR CSV sources for that airport.
-            var airportDict = data.AptBase
-                .GroupBy(b => b.ArptId)
-                .ToDictionary(
-                    g => g.Key, // Airport ID
-                    g => new    // Aggregated data object per airport
-                    {
-                        // Extract common fields from the first record in the group.
-                        // These are assumed to be the same for all records with the same airport ID.
-                        CommonFields = new
-                        {
-                            g.First().EffDate,
-                            g.First().SiteNo,
-                            g.First().SiteTypeCode,
-                            g.First().StateCode,
-                            g.First().ArptId,
-                            g.First().City,
-                            g.First().CountryCode
-                        },
+            Indented = false,
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+        };
 
-                        // Include the full list of base records for the airport.
-                        // This preserves all entries grouped under the same airport ID.
-                        Base = g.ToList(),
+        // Group datasets once to avoid redundant filtering
+        var arsByAirport = data.AptArs.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
+        var attByAirport = data.AptAtt.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
+        var conByAirport = data.AptCon.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
+        var rmkByAirport = data.AptRmk.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
+        var rwyByAirport = data.AptRwy.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
+        var rwyEndByAirport = data.AptRwyEnd.GroupBy(x => x.ArptId).ToDictionary(g => g.Key);
 
-                        // Get all AptCon records matching the current airport ID.
-                        Con = data.AptCon.Where(x => x.ArptId == g.Key).ToList(),
+        using FileStream fs = File.Create(outputPath);
+        using Utf8JsonWriter writer = new Utf8JsonWriter(fs, options);
 
-                        // Get all AptArs records for the current airport.
-                        // Group by ArsRwyId, then by ArsRwyEndId.
-                        // Each final group contains one or more arresting devices with only the device code included.
-                        Ars = data.AptArs
-                            .Where(x => x.ArptId == g.Key)
-                            .GroupBy(x => x.ArsRwyId)
-                            .ToDictionary(
-                                rg => rg.Key, // Runway ID
-                                rg => rg.GroupBy(x => x.ArsRwyEndId)
-                                        .ToDictionary(
-                                            eg => eg.Key, // Runway end ID
-                                            eg => eg.Select(e => new
-                                            {
-                                                e.ArrestDeviceCode
-                                            })
-                                        )
-                            ),
+        writer.WriteStartObject(); // Start of root JSON object
 
-                        // Get all AptAtt records for the current airport.
-                        // Group them by SkedSeqNo to preserve logical groupings (e.g., multiple entries for a time block).
-                        // For each group, include the month, day, and hour values defining the attendance period.
-                        Att = data.AptAtt
-                            .Where(x => x.ArptId == g.Key)
-                            .GroupBy(x => x.SkedSeqNo)
-                            .ToDictionary(
-                                sk => sk.Key,
-                                sk => sk.Select(a => new
-                                {
-                                    a.Month,
-                                    a.Day,
-                                    a.Hour
-                                })
-                            ),
+        foreach (var g in data.AptBase.GroupBy(b => b.ArptId))
+        {
+            string airportId = g.Key;
+            writer.WritePropertyName(airportId);
+            writer.WriteStartObject();
 
-                        // Get all AptRmk records for the current airport.
-                        // Group them by LegacyElementNumber.
-                        // For each group, collect relevant metadata and the actual remark text.
-                        Rmk = data.AptRmk
-                            .Where(x => x.ArptId == g.Key)
-                            .GroupBy(x => x.LegacyElementNumber)
-                            .ToDictionary(
-                                lk => lk.Key,
-                                lk => lk.Select(r => new
-                                {
-                                    r.TabName,
-                                    r.RefColName,
-                                    r.Element,
-                                    r.RefColSeqNo,
-                                    r.Remark
-                                })
-                            ),
+            // Common fields
+            var first = g.First();
+            writer.WritePropertyName("CommonFields");
+            writer.WriteStartObject();
+            writer.WriteString("EffDate", first.EffDate);
+            writer.WriteString("SiteNo", first.SiteNo);
+            writer.WriteString("SiteTypeCode", first.SiteTypeCode);
+            writer.WriteString("StateCode", first.StateCode);
+            writer.WriteString("ArptId", first.ArptId);
+            writer.WriteString("City", first.City);
+            writer.WriteString("CountryCode", first.CountryCode);
+            writer.WriteEndObject();
 
-                        // Get all AptRwy records for the current airport.
-                        // Group them by RwyRwyId, then for each group, extract physical and structural runway attributes.
-                        Rwy = data.AptRwy
-                            .Where(x => x.ArptId == g.Key)
-                            .GroupBy(x => x.RwyRwyId)
-                            .ToDictionary(
-                                rk => rk.Key,
-                                rk => rk.Select(r => new
-                                {
-                                    r.RwyLen,
-                                    r.RwyWidth,
-                                    r.SurfaceTypeCode,
-                                    r.Cond,
-                                    r.TreatmentCode,
-                                    r.Pcn,
-                                    r.PavementTypeCode,
-                                    r.SubgradeStrengthCode,
-                                    r.TirePresCode,
-                                    r.DtrmMethodCode,
-                                    r.RwyLgtCode,
-                                    r.RwyLenSource,
-                                    r.LengthSourceDate,
-                                    r.GrossWtSw,
-                                    r.GrossWtDw,
-                                    r.GrossWtDtw,
-                                    r.GrossWtDdtw
-                                })
-                            ),
+            // Base
+            writer.WritePropertyName("Base");
+            JsonSerializer.Serialize(writer, g.ToList());
 
-                        // Get all AptRwyEnd records for the current airport.
-                        // Group them first by RwyEndRwyId, then by RwyEndRwyEndId
-                        RwyEnd = data.AptRwyEnd
-                            .Where(x => x.ArptId == g.Key)
-                            .GroupBy(x => x.RwyEndRwyId)
-                            .ToDictionary(
-                                rk => rk.Key,
-                                rk => rk.GroupBy(x => x.RwyEndRwyEndId)
-                                        .ToDictionary(
-                                            ek => ek.Key,
-                                            ek => ek.Select(e => new
-                                            {
-                                                e.TrueAlignment,
-                                                e.IlsType,
-                                                e.RightHandTrafficPatFlag,
-                                                e.RwyMarkingTypeCode,
-                                                e.RwyMarkingCond,
-                                                e.RwyEndLatDeg,
-                                                e.RwyEndLatMin,
-                                                e.RwyEndLatSec,
-                                                e.RwyEndLatHemis,
-                                                e.RwyEndLatDecimal,
-                                                e.RwyEndLongDeg,
-                                                e.RwyEndLongMin,
-                                                e.RwyEndLongSec,
-                                                e.RwyEndLongHemis,
-                                                e.RwyEndLongDecimal,
-                                                e.RwyEndElev,
-                                                e.ThrCrossingHgt,
-                                                e.VisualGlidePathAngle,
-                                                e.DisplacedThrLatDeg,
-                                                e.DisplacedThrLatMin,
-                                                e.DisplacedThrLatSec,
-                                                e.DisplacedThrLatHemis,
-                                                e.LatDisplacedThrDecimal,
-                                                e.DisplacedThrLongDeg,
-                                                e.DisplacedThrLongMin,
-                                                e.DisplacedThrLongSec,
-                                                e.DisplacedThrLongHemis,
-                                                e.LongDisplacedThrDecimal,
-                                                e.DisplacedThrElev,
-                                                e.DisplacedThrLen,
-                                                e.TdzElev,
-                                                e.VgsiCode,
-                                                e.RwyVisualRangeEquipCode,
-                                                e.RwyVsbyValueEquipFlag,
-                                                e.ApchLgtSystemCode,
-                                                e.RwyEndLgtsFlag,
-                                                e.CntrlnLgtsAvblFlag,
-                                                e.TdzLgtAvblFlag,
-                                                e.ObstnType,
-                                                e.ObstnMrkdCode,
-                                                e.FarPart77Code,
-                                                e.ObstnClncSlope,
-                                                e.ObstnHgt,
-                                                e.DistFromThr,
-                                                e.CntrlnOffset,
-                                                e.CntrlnDirCode,
-                                                e.RwyGrad,
-                                                e.RwyGradDirection,
-                                                e.RwyEndPsnSource,
-                                                e.RwyEndPsnDate,
-                                                e.RwyEndElevSource,
-                                                e.RwyEndElevDate,
-                                                e.DsplThrPsnSource,
-                                                e.RwyEndDsplThrPsnDate,
-                                                e.DsplThrElevSource,
-                                                e.RwyEndDsplThrElevDate,
-                                                e.TdzElevSource,
-                                                e.RwyEndTdzElevDate,
-                                                e.TkofRunAvbl,
-                                                e.TkofDistAvbl,
-                                                e.AcltStopDistAvbl,
-                                                e.LndgDistAvbl,
-                                                e.LahsoAld,
-                                                e.RwyEndIntersectLahso,
-                                                e.LahsoDesc,
-                                                e.LahsoLat,
-                                                e.LatLahsoDecimal,
-                                                e.LahsoLong,
-                                                e.LongLahsoDecimal,
-                                                e.LahsoPsnSource,
-                                                e.RwyEndLahsoPsnDate
-                                            })
-                                        )
-                            )
-                    }
-                );
+            // Con
+            writer.WritePropertyName("Con");
+            JsonSerializer.Serialize(writer, conByAirport.TryGetValue(airportId, out var cons) ? cons.ToList() : new List<AptCon>());
 
-            // Configure JSON serialization options:
-            var options = new JsonSerializerOptions
+            // Ars
+            writer.WritePropertyName("Ars");
+            if (arsByAirport.TryGetValue(airportId, out var arsGroup))
             {
-                // Output JSON in a compact, non-indented format
-                WriteIndented = false,
+                writer.WriteStartObject();
+                foreach (var rwyGroup_other in arsGroup.GroupBy(x => x.ArsRwyId))
+                {
+                    writer.WritePropertyName(rwyGroup_other.Key);
+                    writer.WriteStartObject();
+                    foreach (var endGroup in rwyGroup_other.GroupBy(x => x.ArsRwyEndId))
+                    {
+                        writer.WritePropertyName(endGroup.Key);
+                        JsonSerializer.Serialize(writer, endGroup.Select(e => new { e.ArrestDeviceCode }));
+                    }
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteStartObject(); writer.WriteEndObject();
+            }
 
-                // Ensure full Unicode character support (e.g., non-ASCII characters)
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+            // Att
+            writer.WritePropertyName("Att");
+            if (attByAirport.TryGetValue(airportId, out var attGroup))
+            {
+                writer.WriteStartObject();
+                foreach (var skedGroup in attGroup.GroupBy(x => x.SkedSeqNo))
+                {
+                    writer.WritePropertyName(skedGroup.Key.ToString());
+                    JsonSerializer.Serialize(writer, skedGroup.Select(a => new { a.Month, a.Day, a.Hour }));
+                }
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteStartObject(); writer.WriteEndObject();
+            }
 
-                // Exclude properties with null values from the output
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull 
-            };
+            // Rmk
+            writer.WritePropertyName("Rmk");
+            if (rmkByAirport.TryGetValue(airportId, out var rmkGroup))
+            {
+                writer.WriteStartObject();
+                foreach (var rmk in rmkGroup.GroupBy(x => x.LegacyElementNumber))
+                {
+                    writer.WritePropertyName(rmk.Key);
+                    JsonSerializer.Serialize(writer, rmk.Select(r => new {
+                        r.TabName,
+                        r.RefColName,
+                        r.Element,
+                        r.RefColSeqNo,
+                        r.Remark
+                    }));
+                }
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteStartObject(); writer.WriteEndObject();
+            }
 
-            // Serialize the airport dictionary to JSON and write it to the specified output path
-            string outputPath = Path.Combine(outputDirectory, "Apt.json");
-            File.WriteAllText(outputPath, JsonSerializer.Serialize(airportDict, options));
+            // Rwy
+            writer.WritePropertyName("Rwy");
+            if (rwyByAirport.TryGetValue(airportId, out var rwyGroup))
+            {
+                writer.WriteStartObject();
+                foreach (var rwy in rwyGroup.GroupBy(x => x.RwyRwyId))
+                {
+                    writer.WritePropertyName(rwy.Key);
+                    JsonSerializer.Serialize(writer, rwy.Select(r => new {
+                        r.RwyLen,
+                        r.RwyWidth,
+                        r.SurfaceTypeCode,
+                        r.Cond,
+                        r.TreatmentCode,
+                        r.Pcn,
+                        r.PavementTypeCode,
+                        r.SubgradeStrengthCode,
+                        r.TirePresCode,
+                        r.DtrmMethodCode,
+                        r.RwyLgtCode,
+                        r.RwyLenSource,
+                        r.LengthSourceDate,
+                        r.GrossWtSw,
+                        r.GrossWtDw,
+                        r.GrossWtDtw,
+                        r.GrossWtDdtw
+                    }));
+                }
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteStartObject(); writer.WriteEndObject();
+            }
+
+            // RwyEnd
+            writer.WritePropertyName("RwyEnd");
+            if (rwyEndByAirport.TryGetValue(airportId, out var rwyEndGroup))
+            {
+                writer.WriteStartObject();
+                foreach (var rwyEnd in rwyEndGroup.GroupBy(x => x.RwyEndRwyId))
+                {
+                    writer.WritePropertyName(rwyEnd.Key);
+                    writer.WriteStartObject();
+                    foreach (var end in rwyEnd.GroupBy(x => x.RwyEndRwyEndId))
+                    {
+                        writer.WritePropertyName(end.Key);
+                        JsonSerializer.Serialize(writer, end.Select(e => new {
+                            e.TrueAlignment,
+                            e.IlsType,
+                            e.RightHandTrafficPatFlag,
+                            e.RwyMarkingTypeCode,
+                            e.RwyMarkingCond,
+                            e.RwyEndLatDeg,
+                            e.RwyEndLatMin,
+                            e.RwyEndLatSec,
+                            e.RwyEndLatHemis,
+                            e.RwyEndLatDecimal,
+                            e.RwyEndLongDeg,
+                            e.RwyEndLongMin,
+                            e.RwyEndLongSec,
+                            e.RwyEndLongHemis,
+                            e.RwyEndLongDecimal,
+                            e.RwyEndElev,
+                            e.ThrCrossingHgt,
+                            e.VisualGlidePathAngle,
+                            e.DisplacedThrLatDeg,
+                            e.DisplacedThrLatMin,
+                            e.DisplacedThrLatSec,
+                            e.DisplacedThrLatHemis,
+                            e.LatDisplacedThrDecimal,
+                            e.DisplacedThrLongDeg,
+                            e.DisplacedThrLongMin,
+                            e.DisplacedThrLongSec,
+                            e.DisplacedThrLongHemis,
+                            e.LongDisplacedThrDecimal,
+                            e.DisplacedThrElev,
+                            e.DisplacedThrLen,
+                            e.TdzElev,
+                            e.VgsiCode,
+                            e.RwyVisualRangeEquipCode,
+                            e.RwyVsbyValueEquipFlag,
+                            e.ApchLgtSystemCode,
+                            e.RwyEndLgtsFlag,
+                            e.CntrlnLgtsAvblFlag,
+                            e.TdzLgtAvblFlag,
+                            e.ObstnType,
+                            e.ObstnMrkdCode,
+                            e.FarPart77Code,
+                            e.ObstnClncSlope,
+                            e.ObstnHgt,
+                            e.DistFromThr,
+                            e.CntrlnOffset,
+                            e.CntrlnDirCode,
+                            e.RwyGrad,
+                            e.RwyGradDirection,
+                            e.RwyEndPsnSource,
+                            e.RwyEndPsnDate,
+                            e.RwyEndElevSource,
+                            e.RwyEndElevDate,
+                            e.DsplThrPsnSource,
+                            e.RwyEndDsplThrPsnDate,
+                            e.DsplThrElevSource,
+                            e.RwyEndDsplThrElevDate,
+                            e.TdzElevSource,
+                            e.RwyEndTdzElevDate,
+                            e.TkofRunAvbl,
+                            e.TkofDistAvbl,
+                            e.AcltStopDistAvbl,
+                            e.LndgDistAvbl,
+                            e.LahsoAld,
+                            e.RwyEndIntersectLahso,
+                            e.LahsoDesc,
+                            e.LahsoLat,
+                            e.LatLahsoDecimal,
+                            e.LahsoLong,
+                            e.LongLahsoDecimal,
+                            e.LahsoPsnSource,
+                            e.RwyEndLahsoPsnDate
+                        }));
+                    }
+                    writer.WriteEndObject();
+                }
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteStartObject(); writer.WriteEndObject();
+            }
+
+            writer.WriteEndObject(); // End airport object
         }
+
+        writer.WriteEndObject(); // End root object
+        writer.Flush();
     }
 }
