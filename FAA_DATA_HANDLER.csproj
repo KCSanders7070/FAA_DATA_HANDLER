@@ -11,14 +11,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MODELS\NASR\ShapeFiles\**" />
+    <EmbeddedResource Remove="MODELS\NASR\ShapeFiles\**" />
+    <None Remove="MODELS\NASR\ShapeFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="App.config" />
     <None Include="README.md" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MODELS\CIFP\" />
+    <Folder Include="MODELS\CIFP\HELICOPTER\" />
     <Folder Include="MODELS\D-TPP\" />
-    <Folder Include="MODELS\NASR\ShapeFiles\" />
     <Folder Include="PARSERS\CIFP\" />
     <Folder Include="PARSERS\D-TPP\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
