@@ -10,7 +10,7 @@ namespace FAA_DATA_HANDLER
         static void Main(string[] args)
         {
             // Input/output directories
-            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads";
+            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads\12_Jun_2025_APT_CSV";
             string userSelectedOutputDirectory = @"C:\Users\ksand\Downloads";
 
             bool parseAptNasrCsv = false;
