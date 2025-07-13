@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="MODELS\D-TPP\" />
-    <Folder Include="PARSERS\CIFP\" />
     <Folder Include="PARSERS\D-TPP\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
   </ItemGroup>
