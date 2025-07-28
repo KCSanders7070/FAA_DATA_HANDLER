@@ -34,70 +34,70 @@ public static class CifpParserController
             switch (true)
             {
                 case bool _ when line.StartsWith("HDR"):
-                    HeaderInfoCifpParser.Parse(line);
+                    // HeaderInfoCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'C':
-                    AirlineTerminalWaypointsCifpParser.Parse(line);
+                    // AirlineTerminalWaypointsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'A':
                     AirportsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'F':
-                    AirportApproachProceduresCifpParser.Parse(line);
+                    // AirportApproachProceduresCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'S':
-                    AirportMinimumSectorAltitudeCifpParser.Parse(line);
+                    // AirportMinimumSectorAltitudeCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'E' && line[5] == 'R':
-                    AirwaysCifpParser.Parse(line);
+                    // AirwaysCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'U' && line[5] == 'C':
-                    ControlledClassAirspaceBCDCifpParser.Parse(line);
+                    // ControlledClassAirspaceBCDCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'E' && line[5] == 'A':
-                    EnrouteWaypointsCifpParser.Parse(line);
+                    // EnrouteWaypointsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'H' && line[12] == 'F':
-                    HeliportApproachProceduresCifpParser.Parse(line);
+                    // HeliportApproachProceduresCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'H' && line[12] == 'S':
-                    HeliportMinimumSectorAltitudeCifpParser.Parse(line);
+                    // HeliportMinimumSectorAltitudeCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'H' && line[12] == 'D':
-                    HeliportStandardInstrumentDeparturesCifpParser.Parse(line);
+                    // HeliportStandardInstrumentDeparturesCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'H' && line[12] == 'C':
-                    HeliportTerminalWaypointsCifpParser.Parse(line);
+                    // HeliportTerminalWaypointsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'H' && line[12] == 'A':
-                    HeliportsCifpParser.Parse(line);
+                    // HeliportsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'I':
-                    LocalizerAndGlideSlopeCifpParser.Parse(line);
+                    // LocalizerAndGlideSlopeCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'D' && line[5] == 'B':
-                    NnbNavaidsCifpParser.Parse(line);
+                    // NnbNavaidsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'P':
-                    PathPointCifpParser.Parse(line);
+                    // PathPointCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'D':
-                    StandardInstrumentDeparturesCifpParser.Parse(line);
+                    // StandardInstrumentDeparturesCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'E':
-                    StandardTerminalArrivalRoutesCifpParser.Parse(line);
+                    // StandardTerminalArrivalRoutesCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'U' && line[5] == 'R':
-                    SpecialUseRestrictiveCifpParser.Parse(line);
+                    // SpecialUseRestrictiveCifpParser.Parse(line);
                     break;
                 case bool _ when (line[4] == 'A' && line[5] == 'S'):
-                    GridMora.Parse(line);
+                    // GridMora.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[5] == 'N':
-                    TerminalNavaidsCifpParser.Parse(line);
+                    // TerminalNavaidsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'D' && line[5] == ' ':
-                    VhfNavaidsCifpParser.Parse(line);
+                    // VhfNavaidsCifpParser.Parse(line);
                     break;
                 default:
                     break;

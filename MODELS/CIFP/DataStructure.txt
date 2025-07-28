@@ -61,6 +61,53 @@
 		Heliport Communications Section (H), Subsection (V)
 		Heliport Terminal Arrival Area Section (H), Subsection (K)
 
+| Section Code | Section Name   | Subsection Code | Subsection Name             |
+|--------------|----------------|------------------|------------------------------|
+| A            | MORA           | S                | Grid MORA                    |
+| D            | Navaid         |                  | VHF Navaid                   |
+|              |                | B                | NDB Navaid                   |
+| E            | Enroute        | A                | Waypoints                    |
+|              |                | M                | Airway Markers               |
+|              |                | P                | Holding Patterns             |
+|              |                | R                | Airways and Routes           |
+|              |                | T                | Preferred Routes             |
+|              |                | U                | Airway Restrictions          |
+|              |                | V                | Communications               |
+| H            | Heliport       | A                | Pads                         |
+|              |                | C                | Terminal Waypoints           |
+|              |                | D                | SIDs                         |
+|              |                | E                | STARs                        |
+|              |                | F                | Approach Procedures          |
+|              |                | K                | TAA                          |
+|              |                | S                | MSA                          |
+|              |                | V                | Communications               |
+| P            | Airport        | A                | Reference Points             |
+|              |                | B                | Gates                        |
+|              |                | C                | Terminal Waypoints           |
+|              |                | D                | SIDs                         |
+|              |                | E                | STARs                        |
+|              |                | F                | Approach Procedures          |
+|              |                | G                | Runways                      |
+|              |                | I                | Localizer/Glide Slope        |
+|              |                | K                | TAA                          |
+|              |                | L                | MLS                          |
+|              |                | M                | Localizer Marker             |
+|              |                | N                | Terminal NDB                 |
+|              |                | P                | Path Point                   |
+|              |                | Q                | Flt Planning ARR/DEP         |
+|              |                | S                | MSA                          |
+|              |                | T                | GLS Station                  |
+|              |                | V                | Communications               |
+| R            | Company Routes |                  | Company Routes               |
+|              |                | A                | Alternate Records            |
+| T            | Tables         | C                | Cruising Tables              |
+|              |                | G                | Geographical Reference       |
+|              |                | N                | RNAV Name Table              |
+| U            | Airspace       | C                | Controlled Airspace          |
+|              |                | F                | FIR/UIR                      |
+|              |                | R                | Restrictive Airspace         |
+
+
 FAA CIFP Data Structure:
 
 	Airports and heliports (PA and HA)
