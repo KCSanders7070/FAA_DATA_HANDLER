@@ -16,7 +16,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
 
     public static class AirportsCifpParser
     {
-        public static void Parse(string line, List<AirportsCifpDataModel> airportsCollection)
+        public static void Parse(string line, CifpDataCollections cifpDataCollections)
         {
             var model = new AirportsCifpDataModel
             {
@@ -55,7 +55,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 CycleDate = line.Substring(128, 4).Trim(),
             };
 
-            airportsCollection.Add(model);
+            cifpDataCollections.Airports.Add(model);
         }
     }
 }
