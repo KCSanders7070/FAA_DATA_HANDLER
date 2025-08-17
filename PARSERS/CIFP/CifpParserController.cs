@@ -3,6 +3,9 @@ using FAA_DATA_HANDLER.PARSERS.CIFP;
 using System;
 using System.IO;
 using System.Xml;
+using System.Collections.Generic;
+using FAA_DATA_HANDLER.Models.CIFP;
+
 
 /// <summary>
 /// Entry-Point into CIFP Parsing.
@@ -13,7 +16,7 @@ using System.Xml;
 public static class CifpParserController
 {
     /// <param name="faaCifp18FilePath">The path to the directory selected by the user that contains the CIFP file named "FAACIFP18".</param>
-    public static void Parse(string faaCifp18FilePath)
+    public static void Parse(string faaCifp18FilePath, List<AirportsCifpDataModel> airportsCollection)
     {
         if (!File.Exists(faaCifp18FilePath))
         {
@@ -38,7 +41,7 @@ public static class CifpParserController
                     // AirlineTerminalWaypointsCifpParser.Parse(line);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'A':
-                    AirportsCifpParser.Parse(line);
+                    AirportsCifpParser.Parse(line, airportsCollection);
                     break;
                 case bool _ when line[4] == 'P' && line[12] == 'F':
                     // AirportApproachProceduresCifpParser.Parse(line);

@@ -16,8 +16,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
 
     public static class AirportsCifpParser
     {
-        private static readonly List<AirportsCifpDataModel> _results = new();
-        public static void Parse(string line)
+        public static void Parse(string line, List<AirportsCifpDataModel> airportsCollection)
         {
             var model = new AirportsCifpDataModel
             {
@@ -56,8 +55,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 CycleDate = line.Substring(128, 4).Trim(),
             };
 
-            _results.Add(model);
+            airportsCollection.Add(model);
         }
-        public static IReadOnlyList<AirportsCifpDataModel> GetParsedResults() => _results.AsReadOnly();
     }
 }

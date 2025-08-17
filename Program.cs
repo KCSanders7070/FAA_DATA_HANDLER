@@ -2,6 +2,8 @@
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
 using System.IO;
+using System.Collections.Generic;
+using FAA_DATA_HANDLER.Models.CIFP;
 
 namespace FAA_DATA_HANDLER
 {
@@ -44,8 +46,16 @@ namespace FAA_DATA_HANDLER
             {
                 Console.WriteLine("Parsing the FAA CIFP file");
 
+                var airportsCifpCollection = new List<AirportsCifpDataModel>();
+
                 string faaCifp18FilePath = Path.Combine(userSelectedSourceDirectory, "FAACIFP18");
-                CifpParserController.Parse(faaCifp18FilePath);
+                CifpParserController.Parse(faaCifp18FilePath, airportsCifpCollection);
+
+                Console.WriteLine($"Airports parsed: {airportsCifpCollection.Count}");
+
+
+
+                Console.WriteLine("Parsing complete");
             }
 
             if (parseAptNasrCsv)
