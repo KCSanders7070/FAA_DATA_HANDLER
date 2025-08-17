@@ -10,8 +10,10 @@ namespace FAA_DATA_HANDLER
         static void Main(string[] args)
         {
             // Input/output directories
-            string userSelectedSourceDirectory = @"C:\Users\ksand\Downloads\12_Jun_2025_APT_CSV";
+            string userSelectedSourceDirectory = @"C:\Users\ksand\Desktop\ProjFolder\FAA DATA HANDLER\CIFP CODING\CIFP_250710";
             string userSelectedOutputDirectory = @"C:\Users\ksand\Downloads";
+
+            bool parseFaaCifp = true;
 
             bool parseAptNasrCsv = false;
             bool parseAtcNasrCsv = false;
@@ -37,6 +39,14 @@ namespace FAA_DATA_HANDLER
             bool parseRdrNasrCsv = false;
             bool parseStarNasrCsv = false;
             bool parseWxlNasrCsv = false;
+
+            if (parseFaaCifp)
+            {
+                Console.WriteLine("Parsing the FAA CIFP file");
+
+                string faaCifp18FilePath = Path.Combine(userSelectedSourceDirectory, "FAACIFP18");
+                CifpParserController.Parse(faaCifp18FilePath);
+            }
 
             if (parseAptNasrCsv)
             {

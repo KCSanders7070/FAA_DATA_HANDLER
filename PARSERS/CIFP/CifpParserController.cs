@@ -12,22 +12,20 @@ using System.Xml;
 /// parsing logic is determined by the structure and identifiers within the CIFP file.</remarks>
 public static class CifpParserController
 {
-    /// <param name="userSelectedSourceDirectory">The path to the directory selected by the user that contains the CIFP file named "FAACIFP18".</param>
-    public static void Parse(string userSelectedSourceDirectory)
+    /// <param name="faaCifp18FilePath">The path to the directory selected by the user that contains the CIFP file named "FAACIFP18".</param>
+    public static void Parse(string faaCifp18FilePath)
     {
-        string filePath = Path.Combine(userSelectedSourceDirectory, "FAACIFP18");
-
-        if (!File.Exists(filePath))
+        if (!File.Exists(faaCifp18FilePath))
         {
-            Console.WriteLine($"File not found: {filePath}");
+            Console.WriteLine($"File not found: {faaCifp18FilePath}");
             return;
         }
 
         // Reads each line in CIFP file
-        foreach (var line in File.ReadLines(filePath))
+        foreach (var line in File.ReadLines(faaCifp18FilePath))
         {
-            // Prevent crash if line is empty.
-            if (line.Length < 13)
+            // Skip blank/whitespace lines and anything shorter than 13 chars.
+            if (string.IsNullOrWhiteSpace(line) || line.Length < 13)
                 continue;
 
             // Sends the line to the appropriate parser based on the stated index values.
