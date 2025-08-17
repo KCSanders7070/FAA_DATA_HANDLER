@@ -11,11 +11,6 @@ namespace FAA_DATA_HANDLER.Models.CIFP
     /// Additionally, contains all airports required to support Enroute Airway
     /// structure coding for those areas where Airport reference points are used
     /// as enroute airway fixes.
-    /// 
-    /// The published ICAO Airport Identifier will be used (Field 5.6).
-    ///   If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
-    ///   The IATA code field in the Airport Record will contain the FAA Airport Identifier.
-    ///   If the Airport Identifier is four characters in length, the field will be left blank.
     /// </remarks>
     public class AirportsCifpDataModel
     {
@@ -74,7 +69,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _DataType: String
         /// </summary>
         /// <remarks>
-        /// Contains the ICAO airport identifier to which the record's data applies; differs from the more familiar ATA/IATA airport designators.
+        /// Contains the ICAO airport identifier to which the record's data applies. If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
         /// </remarks>
         public string? AptIcaoIdentifier { get; set; }
 
@@ -103,14 +98,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         public string? SubsectionCode { get; set; }
 
         /// <summary>
-        /// ATA/IATA Designator
+        /// ATA/IATA Designator (FAA Airport Identifier)
         /// _Ref: 5.107
         /// _Idx: 13:15
         /// _MaxLength: 3
         /// _DataType: String
         /// </summary>
         /// <remarks>
-        /// Contains the ATA/IATA designator code for the airport or heliport related to the record's data (e.g., DEN, LHR, JFK).
+        /// Contains the ATA/IATA designator code (FAA Airport Identifier) for the airport or heliport related to the record's data (e.g., DEN, LHR, JFK). If the Airport Identifier is four characters in length, the field will be left blank.
         /// </remarks>
         public string? AtaIataDesignator { get; set; }
 

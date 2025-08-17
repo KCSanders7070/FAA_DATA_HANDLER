@@ -12,20 +12,13 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
     /// Additionally, contains all airports required to support Enroute Airway
     /// structure coding for those areas where Airport reference points are used
     /// as enroute airway fixes.
-    /// 
-    /// The published ICAO Airport Identifier will be used (Field 5.6).
-    ///   If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
-    ///   The IATA code field in the Airport Record will contain the FAA Airport Identifier.
-    ///   If the Airport Identifier is four characters in length, the field will be left blank.
     /// </remarks>
+
     public static class AirportsCifpParser
     {
         private static readonly List<AirportsCifpDataModel> _results = new();
         public static void Parse(string line)
         {
-            if (string.IsNullOrWhiteSpace(line) || line.Length < 4)
-                return;
-
             var model = new AirportsCifpDataModel
             {
                 RecordType = line.Substring(0, 1).Trim(),
@@ -65,7 +58,6 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
 
             _results.Add(model);
         }
-
         public static IReadOnlyList<AirportsCifpDataModel> GetParsedResults() => _results.AsReadOnly();
     }
 }
