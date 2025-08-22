@@ -54,9 +54,11 @@ namespace FAA_DATA_HANDLER
                 CifpParserController.Parse(faaCifp18FilePath, cifpDataCollections);
                 Console.WriteLine("Parsing complete");
 
-                Console.WriteLine("Generating Airport Json From Cifp");
-                GenerateAirportJsonFromCifp.Write(outputFilePath, cifpDataCollections);
-                Console.WriteLine("AirportsFromCifp.json created.");
+                // Console.WriteLine("Generating Airport Json From Cifp");
+                // GenerateAirportJsonFromCifp.Write(outputFilePath, cifpDataCollections);
+                // Console.WriteLine("AirportsFromCifp.json created.");
+
+                Console.ReadKey();
             }
 
             if (parseAptNasrCsv)

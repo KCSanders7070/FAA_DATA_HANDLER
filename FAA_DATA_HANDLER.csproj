@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="MODELS\CIFP\DevResources\" />
     <Folder Include="MODELS\D-TPP\" />
     <Folder Include="PARSERS\D-TPP\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
