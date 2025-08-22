@@ -1,7 +1,11 @@
-﻿using FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON;
+﻿using FAA_DATA_HANDLER.GENERATORS.CIFP_2_JSON;
+using FAA_DATA_HANDLER.GENERATORS.NASR_CSV_2_JSON;
+using FAA_DATA_HANDLER.Models.CIFP;
 using FAA_DATA_HANDLER.Parsers.NASR.CSV;
 using System;
+using System.Collections.Generic;
 using System.IO;
+
 
 namespace FAA_DATA_HANDLER
 {
@@ -42,10 +46,19 @@ namespace FAA_DATA_HANDLER
 
             if (parseFaaCifp)
             {
-                Console.WriteLine("Parsing the FAA CIFP file");
-
                 string faaCifp18FilePath = Path.Combine(userSelectedSourceDirectory, "FAACIFP18");
-                CifpParserController.Parse(faaCifp18FilePath);
+                string outputFilePath = Path.Combine(userSelectedOutputDirectory, "AirportsFromCifp.json");
+                var cifpDataCollections = new CifpDataCollections();
+
+                Console.WriteLine("Parsing the FAA CIFP file");
+                CifpParserController.Parse(faaCifp18FilePath, cifpDataCollections);
+                Console.WriteLine("Parsing complete");
+
+                // Console.WriteLine("Generating Airport Json From Cifp");
+                // GenerateAirportJsonFromCifp.Write(outputFilePath, cifpDataCollections);
+                // Console.WriteLine("AirportsFromCifp.json created.");
+
+                Console.ReadKey();
             }
 
             if (parseAptNasrCsv)
