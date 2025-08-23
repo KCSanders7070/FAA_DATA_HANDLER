@@ -21,7 +21,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 SectionCode = line.Substring(4, 1).Trim(),
                 // Blank (Spacing) ??? = line.Substring(5, 1).Trim()
                 HeliportIdentifier = line.Substring(6, 4).Trim(),
-                HeliportIcaoCode = line.Substring(10, 2).Trim(),
+                HeliportIcaoLocationCode = line.Substring(10, 2).Trim(),
                 SubsectionCode = line.Substring(12, 1).Trim(),
                 AtaIataDesignator = line.Substring(13, 3).Trim(),
                 PadIdentifier = line.Substring(16, 5).Trim(),
@@ -36,7 +36,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 HeliportElevation = line.Substring(56, 5).Trim(),
                 SpeedLimit = line.Substring(61, 3).Trim(),
                 RecommendedVhfNavaid = line.Substring(64, 4).Trim(),
-                NavaidIcaoCode = line.Substring(68, 2).Trim(),
+                NavaidIcaoLocationCode = line.Substring(68, 2).Trim(),
                 TransitionAlt = line.Substring(70, 5).Trim(),
                 TransitionLvl = line.Substring(75, 5).Trim(),
                 PublicMilitaryIndicator = line.Substring(80, 1).Trim(),

@@ -18,7 +18,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 SectionCode = line.Substring(4, 1).Trim(),
                 // Blank (Spacing) ??? = line.Substring(5, 1).Trim()
                 AirportIdentifier = line.Substring(6, 4).Trim(),
-                AirportIcaoCode = line.Substring(10, 2).Trim(),
+                AirportIcaoLocationCode = line.Substring(10, 2).Trim(),
                 SubsectionCode = line.Substring(12, 1).Trim(),
                 RwyId = line.Substring(13, 5).Trim(),
                 // Blank (Spacing) ??? = line.Substring(18, 3).Trim()

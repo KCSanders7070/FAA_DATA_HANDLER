@@ -25,7 +25,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 SectionCode = line.Substring(4, 1).Trim(),
                 // Blank (Spacing) ??? = line.Substring(5, 1).Trim()
                 AptIcaoIdentifier = line.Substring(6, 4).Trim(),
-                AirportIcaoCode = line.Substring(10, 2).Trim(),
+                AirportIcaoLocationCode = line.Substring(10, 2).Trim(),
                 SubsectionCode = line.Substring(12, 1).Trim(),
                 AtaIataDesignator = line.Substring(13, 3).Trim(),
                 // Reserved (Expansion) ??? = line.Substring(16, 2).Trim()
@@ -41,7 +41,7 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                 AptElevation = line.Substring(56, 5).Trim(),
                 SpdLimit = line.Substring(61, 3).Trim(),
                 RecommendedNavaid = line.Substring(64, 4).Trim(),
-                RecommendedNavaidIcaoCode = line.Substring(68, 2).Trim(),
+                RecommendedNavaidIcaoLocationCode = line.Substring(68, 2).Trim(),
                 TransitionsAlt = line.Substring(70, 5).Trim(),
                 TransitionLvl = line.Substring(75, 5).Trim(),
                 PublicMilitaryIndicator = line.Substring(80, 1).Trim(),
