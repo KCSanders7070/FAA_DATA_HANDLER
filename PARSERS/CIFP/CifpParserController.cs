@@ -42,6 +42,9 @@ public static class CifpParserController
                 case bool _ when line[4] == 'P' && line[12] == 'A':
                     AirportsCifpParser.Parse(line, cifpDataCollections);
                     break;
+                case bool _ when line[4] == 'P' && line[12] == 'G':
+                    RunwaysCifpParser.Parse(line, cifpDataCollections);
+                    break;
                 case bool _ when line[4] == 'P' && line[12] == 'F':
                     // AirportApproachProceduresCifpParser.Parse(line, cifpDataCollections);
                     break;
