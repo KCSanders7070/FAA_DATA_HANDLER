@@ -83,7 +83,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// <remarks>
         /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
         /// </remarks>
-        public string? AirportIcaoCode { get; set; }
+        public string? AirportIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Subsection Code
@@ -158,7 +158,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.54
         /// _Idx: 27:29
         /// _MaxLength: 3
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Indicates the length of the longest operational runway at the airport, expressed in hundreds of feet and used for airport classification. Note: Per ARINC 424 v18, this field should reflect the longest operational hard-surface runway. However, the FAA’s implementation may include runways that are not hard-surfaced, and as such, the value may not align with the ARINC 424 definition. Examples (zero-padded to the left): 040, 055, 098, 111
@@ -194,7 +194,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.36
         /// _Idx: 32:40
         /// _MaxLength: 9
-        /// _DataType: String
+        /// _DataType: Double
         /// </summary>
         /// <remarks>
         /// Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
@@ -206,7 +206,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.37
         /// _Idx: 41:50
         /// _MaxLength: 10
-        /// _DataType: String
+        /// _DataType: Double
         /// </summary>
         /// <remarks>
         /// Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
@@ -242,7 +242,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.72
         /// _Idx: 61:63
         /// _MaxLength: 3
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Defines a speed limit in knots indicated airspeed (KIAS) for a fix in a terminal procedure or for an airport/heliport terminal environment. When used in airport or heliport records, it indicates the maximum speed allowed for all flight segments at or below the specified Speed Limit Altitude (5.73). In SID records, the limit applies from the procedure start or previous speed limit through the end of the leg on which it's coded, unless superseded. In STAR and Approach records, the speed limit applies from the point it is coded forward through the procedure unless replaced by another limit.
@@ -271,14 +271,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// <remarks>
         /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
         /// </remarks>
-        public string? RecommendedNavaidIcaoCode { get; set; }
+        public string? RecommendedNavaidIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Transitions Altitude
         /// _Ref: 5.53
         /// _Idx: 70:74
         /// _MaxLength: 5
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Defines the altitude (in feet MSL) at or below which aircraft reference local altimeter settings and above which standard settings are used (QNE). Applied in STAR and Approach records as the level where barometric settings change to local, and in SID records as the transition altitude. Must be present in the first leg of each SID/STAR/Approach procedure if known. If unknown or varies by procedure, the field is left blank. Recorded to a one-foot resolution (e.g., 05000, 23000, 18000).
@@ -290,7 +290,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.53
         /// _Idx: 75:79
         /// _MaxLength: 5
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Defines the altitude (in feet MSL) at or below which aircraft reference local altimeter settings and above which standard settings are used (QNE). Applied in STAR and Approach records as the level where barometric settings change to local, and in SID records as the transition altitude. Must be present in the first leg of each SID/STAR/Approach procedure if known. If unknown or varies by procedure, the field is left blank. Recorded to a one-foot resolution (e.g., 05000, 23000, 18000).
@@ -384,7 +384,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.31
         /// _Idx: 123:127
         /// _MaxLength: 5
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
@@ -396,7 +396,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.32
         /// _Idx: 128:131
         /// _MaxLength: 4
-        /// _DataType: Numeric
+        /// _DataType: Int
         /// </summary>
         /// <remarks>
         /// Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01–13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.

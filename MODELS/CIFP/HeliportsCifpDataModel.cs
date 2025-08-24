@@ -54,7 +54,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -80,7 +80,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// <remarks>
         /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
         /// </remarks>
-        public string? HeliportIcaoCode { get; set; }
+        public string? HeliportIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Subsection Code
@@ -174,7 +174,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -262,7 +262,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// <remarks>
         /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
         /// </remarks>
-        public string? NavaidIcaoCode { get; set; }
+        public string? NavaidIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Transition Altitude
@@ -356,7 +356,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Not used yet but may be in the future.
         /// </remarks>
         // public string ReservedExpansion { get; set; }
 

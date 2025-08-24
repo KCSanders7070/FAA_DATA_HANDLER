@@ -1,0 +1,23 @@
+FieldName,PropertyName,ReferenceFieldId,Index,Length,DataType,Remarks
+Header Ident,HeaderIdent,N/A,0:2,3,String,"Just ""HDR"", indicating this line is a HEADER line."
+Header Number,HeaderNumber,N/A,3:4,2,String,"Indicates the record is the first Header Record, marked by a decimal value of 01."
+File Name,FileName,N/A,5:19,15,String,"File name, eg. ""FAACIFP18"""
+Version Number,VersionNumber,N/A,20:22,3,Int,"Specifies a three-digit revision number for the file, starting at 001 and incremented if multiple versions are produced within the same cycle."
+Production/Test Flag,ProductionTestFlag,N/A,23,1,String,Indicates file type: “P” for production data or “T” for test data.
+Record Length,RecordLength,N/A,24:27,4,Int,"Specifies the fixed record length of characters per data record eg. ""0132"""
+Record Count,RecordCount,N/A,28:34,7,Int,"Provides the total number of data records in the file, expressed as a decimal count."
+Cycle Date,CycleDate,N/A,35:38,4,String,"Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01â€“13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be ""3211"". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number."
+Blank (Spacing),,,39:40,2,,Keeps similar types of information lined up in the same column positions across different records.
+Creation Date,CreationDate,N/A,41:51,11,String,"Indicates the file creation date in DD-MMM-YYYY format, using a two-digit day, three-letter month abbreviation, and four-digit year (e.g., 12-APR-2002)."
+Creation Time,CreationTime,N/A,52:59,8,String,"Specifies the UTC creation time of the file in HH:MM:SS format with two-digit hours, minutes, and seconds (e.g., 13:12:02)."
+Blank (Spacing),,,60,1,,Keeps similar types of information lined up in the same column positions across different records.
+Data Supplier Ident,DataSupplierIdent,N/A,61:76,16,String,"Holds identifying information about the data supplier, with content defined by the supplier."
+Target Customer Ident,TargetCustomerIdent,N/A,77:92,16,String,"Provides identifying details for the data user or customer (e.g., names, file codes), with content defined by the supplier and/or customer; optional field."
+Database Part Number,DataPartNumber,N/A,93:112,20,String,Specifies a unique part number for the database; optional with content to be determined.
+Reserved (Expansion),,,113:123,11,,Not used yet but may be in the future.
+File CRC,FileCrc,N/A,124:131,8,String,"Represents the Cyclic Redundancy Check (CRC) value for the ARINC data file (data and header records), using a polynomial and block size TBD; if multiple CRCs are required, this field may be split and relocated. For calculation, Header Record 1 columns 125–132 are treated as zeros."
+Expiration Date,ExpDate,,16:26,11,String,Indicates the file expiration date in DD-MMM-YYYY format if created outside standard cycles; left blank when aligned with the Cycle Date. (Optional)
+Blank (Spacing),,,27,1,,Keeps similar types of information lined up in the same column positions across different records.
+Supplier Text Field,SupplierTextField,,28:57,30,String,"Holds supplier-specific information, such as extract program version; content defined by the supplier. (Optional)"
+Descriptive Text,DescriptiveText,,58:87,30,String,"Provides a description of the file contents or other agreed-upon details between supplier and customer (e.g., content summary, test file notes). (Optional)"
+Reserved (Expansion),,,88:131,43,,Not used yet but may be in the future.
