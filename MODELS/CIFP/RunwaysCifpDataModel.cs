@@ -54,7 +54,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -112,7 +112,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 3
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -158,7 +158,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -204,7 +204,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 4
         /// </summary>
         /// <remarks>
-        /// 
+        /// Keeps similar types of information lined up in the same column positions across different records.
         /// </remarks>
         // public string BlankSpacing { get; set; }
 
@@ -346,7 +346,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 6
         /// </summary>
         /// <remarks>
-        /// 
+        /// Not used yet but may be in the future.
         /// </remarks>
         // public string ReservedExpansion { get; set; }
 

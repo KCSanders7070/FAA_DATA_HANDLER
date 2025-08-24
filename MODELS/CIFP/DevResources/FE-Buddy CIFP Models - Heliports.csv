@@ -2,7 +2,7 @@
 "Record Type","RecordType",5.2,0,1,"String","Record types are divided into ""standard"" (S) and ""tailored"" (T) groups based on the first column; standard records precede tailored records in the file."
 "Customer/Area Code","CustomerAreaCode",5.3,"1:3",3,"String","Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL)."
 "Section Code","SectionCode",5.4,4,1,"String","Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc."
-"Blank (Spacing)",,,5,1,,
+"Blank (Spacing)",,,5,1,,"Keeps similar types of information lined up in the same column positions across different records. "
 "Heliport Identifier","HeliportIdentifier",5.6,"6:9",4,"String","Contains the ICAO heliport identifier to which the record's data applies. If there is no published ICAO Heliport Identifier, then the published FAA Heliport Identifier will be used."
 "ICAO Code","HeliportIcaoLocationCode",5.14,"10:11",2,"String","Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead."
 "Subsection Code","SubsectionCode",5.5,12,1,"String","Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
@@ -13,7 +13,7 @@
 "Speed Limit Altitude","SpeedLimitAltitude",5.73,"22:26",5,"String","Altitude below which speed limits may be imposed (e.g., 10000, F125)."
 "Datum Code","DatumCode",5.197,"27:29",3,"String","Defines the local horizontal reference datum used for the geographic position (latitude and longitude); represented by a three-letter code from official government publications (e.g., AGD, NAS, WGA)."
 "IFR Indicator","IfrCapability",5.108,30,1,"String","Indicates whether the airport or heliport has any published instrument approach procedures; 'Y' if published, 'N' if not."
-"Blank (Spacing)",,,31,1,,
+"Blank (Spacing)",,,31,1,,"Keeps similar types of information lined up in the same column positions across different records. "
 "Latitude","Latitude",5.36,"32:40",9,"String","Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881)."
 "Longitude","Longitude",5.37,"41:50",10,"String","Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794)."
 "Magnetic Variation","MagVar",5.39,"51:55",5,"String","Specifies the angular difference between True North and Magnetic North; format is one character (E, W, or T) followed by four digits for degrees and tenths (e.g., E0140, W0075, T0000). Note: Differences between MagVar and Dynamic-MagVar."
