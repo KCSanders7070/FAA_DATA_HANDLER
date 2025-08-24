@@ -6,6 +6,9 @@ using System.Numerics;
 
 namespace FAA_DATA_HANDLER.Parsers.CIFP
 {
+    /// <summary>
+    /// Parses Header Info (HDR) records from CIFP data files.
+    /// </summary>
     public static class HeaderInfoCifpParser
     {
         public static void Parse(string line, CifpDataCollections cifpDataCollections)
