@@ -75,25 +75,11 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
                         break;
                     }
 
-                // HDR04 - Header Record 4
-                case "04":
-                    {
-                        var model = new HeaderInfoCifpDataModel
-                        {
-                            HeaderIdent = headerIdent,
-                            HeaderNumber = headerNumber,
-                            // todo code for HDR04 here
-                        };
-
-                        cifpDataCollections.HeaderInfo.Add(model);
-                        break;
-                    }
-
                 default:
                     /*
-                        ignore header numbers that are not 01, 02, or 04
-                        as they are not clearly defined in documentation
-                        and the data is not needed.
+                        ignore header numbers that are not 01 or 02,
+                        as they are not clearly defined in documentation,
+                        not regulated, and generally not needed.
                     */
                     return;
             }
