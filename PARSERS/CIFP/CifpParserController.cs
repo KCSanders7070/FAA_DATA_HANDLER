@@ -35,7 +35,7 @@ public static class CifpParserController
             {
                 // HEADER INFO
                 case bool _ when line.StartsWith("HDR"):
-                    // HeaderInfoCifpParser.Parse(line, cifpDataCollections);
+                    HeaderInfoCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // AIRLINE TERMINAL WAYPOINTS
