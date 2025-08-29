@@ -59,3 +59,22 @@ namespace FAA_DATA_HANDLER.Parsers.CIFP
         }
     }
 }
+
+// TODO Refactor: Use AsSpan + literal ranges
+// AsSpan is almost 40% faster and uses half the memory compared to SubString.
+// Example:
+/*
+        public static void Parse(string line, CifpDataCollections cifpDataCollections)
+        {
+            var s = line.AsSpan();
+
+            var model = new AirportsCifpDataModel
+            {
+                RecordType = s[0..1].Trim().ToString(),
+                // etc...
+            };
+
+            cifpDataCollections.Airports.Add(model);
+        }
+    }
+*/

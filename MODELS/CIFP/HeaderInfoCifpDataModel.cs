@@ -7,7 +7,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
     /// FAACIFP18 File - HeaderInfo (HDR) section data
     /// </summary>
     /// <remarks>
-    /// ???
+    /// Contains the models for both HDR 01 and HDR 02 records.
     /// </remarks>
     public class HeaderInfoCifpDataModel
     {
