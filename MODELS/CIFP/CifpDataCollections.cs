@@ -18,7 +18,7 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         public List<HeliportStandardInstrumentDeparturesCifpDataModel> HeliportStandardInstrumentDepartures { get; } = new();
         public List<HeliportTerminalWaypointsCifpDataModel> HeliportTerminalWaypoints { get; } = new();
         public List<LocalizerAndGlideSlopeCifpDataModel> LocalizerAndGlideSlope { get; } = new();
-        public List<NnbNavaidsCifpDataModel> NnbNavaids { get; } = new();
+        public List<NdbNavaidsCifpDataModel> NdbNavaids { get; } = new();
         public List<PathPointCifpDataModel> PathPoints { get; } = new();
         public List<RunwaysCifpDataModel> Runways { get; } = new();
         public List<SpecialUseRestrictiveCifpDataModel> SpecialUseRestrictive { get; } = new();

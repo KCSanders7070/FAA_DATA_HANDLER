@@ -110,7 +110,7 @@ public static class CifpParserController
 
                 // NNB NAVAIDS
                 case bool _ when line[4] == 'D' && line[5] == 'B':
-                    // NnbNavaidsCifpParser.Parse(line, cifpDataCollections);
+                    NdbNavaidsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // PATH POINT
