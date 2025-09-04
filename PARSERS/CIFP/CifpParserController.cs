@@ -30,6 +30,10 @@ public static class CifpParserController
             if (string.IsNullOrWhiteSpace(line) || line.Length < 13)
                 continue;
 
+            var index4 = line[4];
+            var index5 = line[5];
+            var index12 = line[12];
+
             // Sends the line to the appropriate parser based on the stated index values.
             switch (true)
             {
@@ -39,112 +43,112 @@ public static class CifpParserController
                     break;
 
                 // AIRLINE TERMINAL WAYPOINTS
-                case bool _ when line[4] == 'P' && line[12] == 'C':
+                case bool _ when index4 == 'P' && index12 == 'C':
                     // AirlineTerminalWaypointsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // AIRPORTS
-                case bool _ when line[4] == 'P' && line[12] == 'A':
+                case bool _ when index4 == 'P' && index12 == 'A':
                     AirportsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // RUNWAYS
-                case bool _ when line[4] == 'P' && line[12] == 'G':
+                case bool _ when index4 == 'P' && index12 == 'G':
                     RunwaysCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // AIRPORT APPROACH PROCEDURES
-                case bool _ when line[4] == 'P' && line[12] == 'F':
+                case bool _ when index4 == 'P' && index12 == 'F':
                     // AirportApproachProceduresCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // AIRPORT MINIMUM SECTOR ALTITUDES
-                case bool _ when line[4] == 'P' && line[12] == 'S':
+                case bool _ when index4 == 'P' && index12 == 'S':
                     // AirportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // AIRWAYS
-                case bool _ when line[4] == 'E' && line[5] == 'R':
+                case bool _ when index4 == 'E' && index5 == 'R':
                     // AirwaysCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // CONTROLLED CLASS AIRSPACE
-                case bool _ when line[4] == 'U' && line[5] == 'C':
+                case bool _ when index4 == 'U' && index5 == 'C':
                     // ControlledClassAirspaceBCDCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // ENROUTE WAYPOINTS
-                case bool _ when line[4] == 'E' && line[5] == 'A':
+                case bool _ when index4 == 'E' && index5 == 'A':
                     // EnrouteWaypointsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // HELIPORTS
-                case bool _ when line[4] == 'H' && line[12] == 'F':
+                case bool _ when index4 == 'H' && index12 == 'F':
                     // HeliportApproachProceduresCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // HELIPORT MINIMUM SECTOR ALTITUDES
-                case bool _ when line[4] == 'H' && line[12] == 'S':
+                case bool _ when index4 == 'H' && index12 == 'S':
                     // HeliportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // HELIPORT STANDARD INSTRUMENT DEPARTURES
-                case bool _ when line[4] == 'H' && line[12] == 'D':
+                case bool _ when index4 == 'H' && index12 == 'D':
                     // HeliportStandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // HELIPORT TERMINAL WAYPOINTS
-                case bool _ when line[4] == 'H' && line[12] == 'C':
+                case bool _ when index4 == 'H' && index12 == 'C':
                     // HeliportTerminalWaypointsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // HELIPORTS
-                case bool _ when line[4] == 'H' && line[12] == 'A':
+                case bool _ when index4 == 'H' && index12 == 'A':
                     HeliportsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // LOCALIZER AND GLIDE SLOPE
-                case bool _ when line[4] == 'P' && line[12] == 'I':
+                case bool _ when index4 == 'P' && index12 == 'I':
                     // LocalizerAndGlideSlopeCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // NNB NAVAIDS
-                case bool _ when line[4] == 'D' && line[5] == 'B':
+                case bool _ when index4 == 'D' && index5 == 'B':
                     NdbNavaidsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // PATH POINT
-                case bool _ when line[4] == 'P' && line[12] == 'P':
+                case bool _ when index4 == 'P' && index12 == 'P':
                     // PathPointCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // STANDARD INSTRUMENT DEPARTURES
-                case bool _ when line[4] == 'P' && line[12] == 'D':
+                case bool _ when index4 == 'P' && index12 == 'D':
                     // StandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // STANDARD TERMINAL ARRIVAL ROUTES
-                case bool _ when line[4] == 'P' && line[12] == 'E':
+                case bool _ when index4 == 'P' && index12 == 'E':
                     // StandardTerminalArrivalRoutesCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // SPECIAL USE RESTRICTIVE
-                case bool _ when line[4] == 'U' && line[5] == 'R':
+                case bool _ when index4 == 'U' && index5 == 'R':
                     // SpecialUseRestrictiveCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // GRID MORA
-                case bool _ when (line[4] == 'A' && line[5] == 'S'):
+                case bool _ when (index4 == 'A' && index5 == 'S'):
                     // GridMora.Parse(line, cifpDataCollections);
                     break;
 
                 // TERMINAL NAVAIDS
-                case bool _ when line[4] == 'P' && line[5] == 'N':
+                case bool _ when index4 == 'P' && index5 == 'N':
                     // TerminalNavaidsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // VHF NAVAIDS
-                case bool _ when line[4] == 'D' && line[5] == ' ':
+                case bool _ when index4 == 'D' && index5 == ' ':
                     VhfNavaidsCifpParser.Parse(line, cifpDataCollections);
                     break;
                 default:
