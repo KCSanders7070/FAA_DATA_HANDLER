@@ -109,7 +109,7 @@ public static class CifpParserController
 
                 // LOCALIZER AND GLIDE SLOPE
                 case bool _ when index4 == 'P' && index12 == 'I':
-                    // LocalizerAndGlideSlopeCifpParser.Parse(line, cifpDataCollections);
+                    LocalizerAndGlideSlopeCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // NNB NAVAIDS
