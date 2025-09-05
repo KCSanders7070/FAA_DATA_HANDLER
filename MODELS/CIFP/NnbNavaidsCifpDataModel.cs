@@ -8,6 +8,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
     /// </summary>
     /// <remarks>
     /// Contains the models for NDB NAVAIDS records.
+    /// A PN Record may be used for NDBs when only used at one airport
+    /// in the CIFP, when not used on an Enroute Airway, and when
+    /// assigned a five-letter name. Otherwise, DB records will be used.
     /// </remarks>
     public class NdbNavaidsCifpDataModel
     {

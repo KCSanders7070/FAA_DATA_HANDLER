@@ -144,7 +144,7 @@ public static class CifpParserController
 
                 // TERMINAL NAVAIDS
                 case bool _ when index4 == 'P' && index5 == 'N':
-                    // TerminalNavaidsCifpParser.Parse(line, cifpDataCollections);
+                    TerminalNavaidsCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // VHF NAVAIDS
