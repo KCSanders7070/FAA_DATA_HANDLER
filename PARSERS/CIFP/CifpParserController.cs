@@ -119,7 +119,7 @@ public static class CifpParserController
 
                 // PATH POINT
                 case bool _ when index4 == 'P' && index12 == 'P':
-                    // PathPointCifpParser.Parse(line, cifpDataCollections);
+                    PathPointCifpParser.Parse(line, cifpDataCollections);
                     break;
 
                 // STANDARD INSTRUMENT DEPARTURES
