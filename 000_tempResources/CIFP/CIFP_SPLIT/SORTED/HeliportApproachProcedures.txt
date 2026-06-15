@@ -1,0 +1,40 @@
+SUSAH 87N K6FR190  ACCC   010CCC  K6D 0V       IF                                             18000                 B PS   754542010
+SUSAH 87N K6FR190  ACCC   020TIDUEK6HC0EY   010TF                                 + 01700                           B PS   754552010
+SUSAH 87N K6FR190  ACCC   030TIDUEK6HC0EE AL   HF                     19000040    + 01700                           B PS   754562010
+SUSAH 87N K6FR190  AHTO   010HTO  K6D 0V       IF                                             18000                 B PS   754572010
+SUSAH 87N K6FR190  AHTO   020TIDUEK6HC0EY   010TF                                 + 01800                           B PS   754582010
+SUSAH 87N K6FR190  AHTO   030TIDUEK6HC0EE AL   HF                     19000040    + 01700                           B PS   754592010
+SUSAH 87N K6FR190  R      010TIDUEK6HC0E  I    IF                                 + 01700     18000070              B-PS   754602010
+SUSAH 87N K6FR190  R      020STAYSK6HC1E  F 010TF                                 + 01700                 CRANN K6HCB PS   754612010
+SUSAH 87N K6FR190  R      020STAYSK6HC2WN          N          ALNAV                                                   PS   754622010
+SUSAH 87N K6FR190  R      030CRANNK6HC0EY M 031TF                                   00560          070 000          B-PS   754632010
+SUSAH 87N K6FR190  R      040         0  M     CA                     1900        + 00439                           B PS   754642010
+SUSAH 87N K6FR190  R      050BEADSK6EA0EY  R010DF                                 + 02000          070              B-PS   754652010
+SUSAH 87N K6FR190  R      060BEADSK6EA0EE  R   HM                     23600040    + 02000          090              B-PS   754662010
+SUSAH 8A4 K5FD287  ASHB   010SHB  K5D 0V  A    IF                                 + 02600     18000                 0  H   755051707
+SUSAH 8A4 K5FD287  ASHB   020LEEBRK5HC0EE B    TF                                 + 02600                           0  H   755061707
+SUSAH 8A4 K5FD287  D      010LEEBRK5HC0E  I    IF SHB K5      28700080        D   + 02600     18000                 0  H   755071707
+SUSAH 8A4 K5FD287  D      020BOULDK5HC0E  F    CF SHB K5      2870011028700030D   + 02400                 SHB   K5D 0  H   755081707
+SUSAH 8A4 K5FD287  D      030OPNICK5HC0EY M    CF SHB K5      2870013828700028D     01340              000          0  H   755091707
+SUSAH 8A4 K5FD287  D      040         0  M     CA                     2870        + 01224                           0  H   755102208
+SUSAH 8A4 K5FD287  D      050LEEBRK5HC0EY  L   CFYSHB K5      2870008010700020D   + 02600                           0  H   755112208
+SUSAH 8A4 K5FD287  D      060LEEBRK5HC0EE  R   HM                     2870T010    + 02600                           0  H   755122208
+SUSAH 8A4 K5FR291  ASHB   010SHB  K5D 0V  A    IF                                 + 02600     18000                 B PS   755131810
+SUSAH 8A4 K5FR291  ASHB   020LEEBRK5HC0EE B 010TF                                 + 02600                           B PS   755141810
+SUSAH 8A4 K5FR291  R      010LEEBRK5HC0E  I    IF                                 + 02600     18000                 B PS   755151810
+SUSAH 8A4 K5FR291  R      020BOULDK5HC0E  F 010TF                                 + 02400          070    OPNIC K5HCB-PS   755162208
+SUSAH 8A4 K5FR291  R      030OPNICK5HC0EY M 031TF                                   01340              000          B PS   755171810
+SUSAH 8A4 K5FR291  R      040         0  M     CA                     2909        + 01500                           B PS   755181810
+SUSAH 8A4 K5FR291  R      050VHP  K5D 0VY  R010DF                                 + 03000          070              B-PS   755192208
+SUSAH 8A4 K5FR291  R      060VHP  K5D 0VE  R   HM                     13100040    + 03000                           B PS   755201810
+SUSAH KJRAK6FR210  AFEMDU 010FEMDUK6HC0E  A    IF                                             18000090              B-JH   769091807
+SUSAH KJRAK6FR210  AFEMDU 020JEDILK6HC0EE B    TF                                 + 01700                           B JH   769101807
+SUSAH KJRAK6FR210  AWUDGO 010WUDGOK6HC0E  A    IF                                             18000090              B-JH   769111807
+SUSAH KJRAK6FR210  AWUDGO 020JEDILK6HC0EE B    TF                                 + 01700                           B JH   769121807
+SUSAH KJRAK6FR210  R      010JEDILK6HC0E  I    IF                                 + 01700     18000090              B-JH   769131807
+SUSAH KJRAK6FR210  R      020EROREK6HC0E  F 031TF                                 + 01500          070    JORBA K6HCB-JH   769141807
+SUSAH KJRAK6FR210  R      021ZABKIK6HC0E S  031TF                                 + 00860                           B JH   769152009
+SUSAH KJRAK6FR210  R      030JORBAK6HC0EY M 031TF                                   00780              000          B JH   769161807
+SUSAH KJRAK6FR210  R      040         0  M     CA                     2101        + 00780          070              B-JH   769171807
+SUSAH KJRAK6FR210  R      050JEDILK6HC0EY  L   DF                                 + 02000          090              B-JH   769181807
+SUSAH KJRAK6FR210  R      060JEDILK6HC0EE  R   HM                     19310040    + 02000          090              B JH   769191807

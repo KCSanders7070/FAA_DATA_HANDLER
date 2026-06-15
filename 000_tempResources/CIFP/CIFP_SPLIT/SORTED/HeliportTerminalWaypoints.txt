@@ -1,0 +1,12 @@
+SUSAH 87N K6CCRANN K60    W     N40514240W072275511                       W0132     NAR           CRANN                    754512504
+SUSAH 87N K6CSTAYS K60    W     N40544214W072281168                       W0132     NAR           STAYS                    754522504
+SUSAH 87N K6CTIDUE K60    W     N40574181W072282827                       W0132     NAR           TIDUE                    754532504
+SUSAH 8A4 K5CBOULD K50    C     N39412092W086030048                       W0050     NAR           BOULD                    755022304
+SUSAH 8A4 K5CLEEBR K50    C     N39402550W085591864                       W0051     NAR           LEEBR                    755032403
+SUSAH 8A4 K5COPNIC K50    W     N39421253W086062762                       W0050     NAR           OPNIC                    755042304
+SUSAH KJRAK6CERORE K60    W     N40571735W073535724                       W0126     NAR           ERORE                    768982504
+SUSAH KJRAK6CFEMDU K60    W     N41030971W073524689                       W0126     NAR           FEMDU                    768992504
+SUSAH KJRAK6CJEDIL K60    W     N41000954W073524731                       W0126     NAR           JEDIL                    769002504
+SUSAH KJRAK6CJORBA K60    W     N40531061W073553736                       W0126     NAR           JORBA                    769012403
+SUSAH KJRAK6CWUDGO K60    W     N40591672W073485722                       W0127     NAR           WUDGO                    769022403
+SUSAH KJRAK6CZABKI K60    W     N40540800W073551410                       W0126     NAR           ZABKI                    769032504

@@ -1,0 +1,449 @@
+SCANDB       ACE   PA002770H  W N59382880W151300099                       E0170           NARKACHEMAK                      003562002
+SCANDB       ADK   PA005300H  W N51521876W176403356                       E0070           NARMOUNT MOFFETT                 003571605
+SCANDB       ALJ   PA002330H  W N60284736W146351475                       E0180           NARORCA BAY                      003581605
+SCANDB       AMF   PA004030H  W N67061887W157513654                       E0150           NARAMBLER                        003592002
+SCANDB       ANI   PA003590H  W N61352456W159355241                       E0140           NARANIAK                         003602002
+SCANDB       AUB   PA003550H  W N58441380W156464191                       E0110           NARCHINOOK                       003612102
+SCANDB       BCC   PA002120H  W N65102598W152122133                       E0190           NARBEAR CREEK                    003621605
+SCANDB       CGL   PA002120H  W N58213357W134415802                       E0200           NARCOGHLAN ISLAND                003631605
+SCANDB       CMJ   PA003960H  W N55203182W131412676                       E0210           NARCLAM COVE                     003641605
+SCANDB       CQR   PA002630H  W N67300859W148280982                       E0220           NARCHANDALAR LAKE                003651605
+SCANDB       CRN   PA002810H  W N61060630W155340713                       E0150           NARCAIRN MOUNTAIN                003661713
+SCANDB       CUN   PA002570H  W N64501890W147294228                       E0170           NARCHENA                         003672002
+SCANDB       CZF   PA002750H  W N61472536W165581222                       E0080           NARCAPE ROMANZOF                 003682306
+SCANDB       DGG   PA004290H MW N68015695W162541501                       E0150           NARRED DOG                       003691710
+SCANDB       DJN   PA003470H  W N64012444W145411258                       E0200           NARDELTA JUNCTION                003702002
+SCANDB       DUT   PA002830H  W N53541853W166325232                       E0090           NARDUTCH HARBOR                  003711608
+SCANDB       EAV   PA003910H  W N66533548W151334940                       E0200           NAREVANSVILLE                    003722002
+SCANDB       EEF   PA003910H  W N58101548W135152850                       E0200           NARELEPHANT                      003731605
+SCANDB       EHM   PA003850H  W N58392168W162042548                       E0120           NARCAPE NEWENHAM                 003741605
+SCANDB       ELF   PA003410H  W N55174614W162472127                       E0100           NARELFEE                         003752010
+SCANDB       FDV   PA005290H  W N64294109W165185435                       E0110           NARFORT DAVIS                    003762002
+SCANDB       GAM   PA003690H MW N63465475W171441240                       E0080           NARGAMBELL                       003772006
+SCANDB       GCR   PA004040H  W N60295552W145282808                       E0170           NARGLACIER RIVER                 003782108
+SCANDB       HBT   PA003900H  W N55185640W160310622                       E0110           NARBORLAND                       003791810
+SCANDB       HHM   PA003560H  W N66540455W162335178                       E0110           NARHOTHAM                        003802002
+SCANDB       ICW   PA005250H  W N64324449W149043676                       E0180           NARICE POOL                      003812201
+SCANDB       ILI   PA004110H  W N59445308W154543470                       E0140           NARILIAMNA                       003822002
+SCANDB       LUR   PA003850H  W N68521652W166043362                       E0070           NARCAPE LISBURNE                 003832312
+SCANDB       MHM   PA002270H  W N63530199W152185826                       E0170           NARMINCHUMINA                    003841605
+SCANDB       MNL   PA005240H MW N61072722W146210807                       E0190           NARMINERAL CREEK                 003852112
+SCANDB       OCC   PA003850H  W N59323710W139434141                       E0200           NAROCEAN CAPE                    003862002
+SCANDB       OLT   PA003460H MW N60282946W150524355                       E0150           NARSOLDOTNA                      003871907
+SCANDB       OQK   PA004140H MW N67341240W162582145                       E0110           NARNOATAK                        003881812
+SCANDB       OSE   PA002510H  W N60472871W161522194                       E0110           NAROSCARVILLE                    003892012
+SCANDB       PDN   PA003710H  W N56571542W158385124                       E0160           NARPORT HEIDEN                   003901605
+SCANDB       PIZ   PA003620H  W N69441132W162594666                       E0150           NARPOINT LAY                     003911605
+SCANDB       PR    CY002180H MW N54154808W130252618                       E0250           NARPRINCE RUPERT                 003921703
+SCANDB       PYC   PA002900H MW N70194094W149380720                       E0160           NARPITSAND                       003931808
+SCANDB       RWO   PA003940H  W N57462934W152192851                       E0140           NARWOODY ISLAND                  003942002
+SCANDB       SIT   PA003580H  W N56511663W135320367                       E0200           NARSITKA                         003952002
+SCANDB       SMA   PA002300H  W N62033379W163165485                       E0120           NARST MARYS                      003962202
+SCANDB       SPY   PA003140H  W N57092520W170135877                       E0100           NARST PAUL ISLAND                003971605
+SCANDB       SQM   PA005290H  W N56275249W133055055                       E0200           NARSUMNER STRAIT                 003982002
+SCANDB       SRI   PA003990H  W N56341886W169385122                       E0070           NARPRIBILOF                      003991810
+SCANDB       SYA   PA004030H  W N52431919E174033703                       E0030           NARSHEMYA                        004001605
+SCANDB       TNC   PA003470H  W N65334223W167552929                       E0100           NARTIN CITY                      004011605
+SCANDB       TOG   PA003930H  W N59034995W160223240                       E0110           NARTOGIAK                        004022002
+SCANDB       UTO   PA002720H  W N65594258W153413753                       E0170           NARUTOPIA CREEK                  004031606
+SCANDB       VTR   PA003500H  W N62564869W155332631                       E0160           NARTAKOTNA RIVER                 004041605
+SCANDB       YCD   CY002510H MW N49074033W123521778                       E0210           NARNANAIMO                       004051703
+SCANDB       YDP   CY002470H MW N56320168W061413040                       W0210           NARNAIN                          004062506
+SCANDB       YOC   CY002840H MW N67341623W139504646                       E0340           NAROLD CROW                      004071703
+SCANDB       YXL   CY003460H    N50070500W091535200                       E0010           NARSIOUX LOOKOUT                 004081612
+SCANDB       ZP    CY003680H MW N53114600W131463810                       E0220           NARSANDSPIT                      004092109
+SLAMDB       DDP   TJ003910H HW N18280580W066244461                       W0110           NARDORADO                        183231605
+SLAMDB       MAZ   TJ002540H MW N18151353W067090895                       W0100           NARMAYAGUEZ                      183241703
+SLAMDB       SJ    TJ003300HOMW N18243207W066052241                       W0110           NARPATTY                         183251905
+SLAMDB       SKB   TK003250H  W N17174266W062443842                       W0140           NARBRADSHAW                      183261612
+SLAMDB       ST    TI002410HOLW N17413108W064530509                       W0130           NARPESTE                         183272411
+SLAMDB       TRI   TT003820H  W N10354250W061252030                       W0140           NARPIARCO                        183281703
+SPACDB       AJA   PG003850H  W N13271262E144441296                       E0020           NARMT MACAJNA                    196412303
+SPACDB       GRO   PG003320H  W N14101782E145142400                       E0020           NARROTA                          196422107
+SPACDB       HN    PH002420HOMW N21192895W158025640                       E0110           NAREWABE                         196432010
+SPACDB       MAJ   PK003160H  W N07035501E171160691                       E0100           NARMAJURO                        196442505
+SPACDB       MDY   PM004000H  W N28121490W177224510                       E0100           NARMIDWAY                        196451703
+SPACDB       PNI   PT003660H  W N06585638E158120743                       E0070           NARPOHNPEI                       196461612
+SPACDB       POA   PH003320H  W N19322810W154582002                       E0110           NARPAHOA                         196471605
+SPACDB       ROR   PT003710H  W N07220752E134330129                       E0010           NARKOROR                         196482411
+SPACDB       SN    PG003120H  W N15064132E145423707                       E0020           NARSAIPAN                        196492201
+SPACDB       TKK   PT003750H  W N07273226E151503056                       E0050           NARTRUK                          196502504
+SPACDB       UKS   PT003930H MW N05211106E162572490                       E0080           NARKOSRAE                        196512412
+SPACDB       YP    PT003170H  W N09295807E138051854                       E0010           NARYAP                           196521612
+SSPADB       TUT   NS004030H HW S14195570W170431024                       E0120           NARPAGO PAGO                     247082007
+SUSADB       AA    K3003650HOLW N47003259W096485466                       E0040           NARKENIE                         267341805
+SUSADB       AA    K7003410H MW N33315982W082365173                       W0040           NARCEDAR                         267351703
+SUSADB       AAA   K5003290H MW N40093642W089201686                       E0000           NARABRAHAM                       267361703
+SUSADB       AB    K3002030HOLW N45230998W098194264                       E0070           NARRENEY                         267371705
+SUSADB       AB    K4003530HOLW N32175591W099402722                       E0050           NARTOMHI                         267381810
+SUSADB       ABG   K4004040H MW N32350778W095064723                       E0070           NARAMBASSADOR                    267391703
+SUSADB       ADG   K5002780H MW N41521195W084043893                       W0060           NARADRIAN                        267402112
+SUSADB       AE    K2003510HOLW N35130264W106424608                       E0110           NARDUDLE                         267411705
+SUSADB       AG    K7002330HOLW N33171279W081564867                       W0040           NARBUSHE                         267421705
+SUSADB       AGZ   K3003920H MW N43034821W098173541                       E0080           NARWAGNER                        267431703
+SUSADB       AHQ   K3004000H MW N41142041W096355518                       E0060           NARWAHOO                         267442406
+SUSADB       AI    K4004000HOLW N34135645W096555919                       E0060           NARADDMO                         267451705
+SUSADB       AI    K5003940HOMW N40041030W085303847                       W0030           NARVIDEO                         267461703
+SUSADB       AIK   K7003470H MW N33390648W081403710                       W0060           NARAIKEN                         267471612
+SUSADB       AK    K5003620HOMW N41041104W081231452                       W0070           NARAKRON                         267481703
+SUSADB       AKQ   K6002740H MW N36585815W077000350                       W0110           NARWAKEFIELD                     267491709
+SUSADB       AL    K1003530HOLW N46103204W118114689                       E0140           NARTRINA                         267502209
+SUSADB       ALP   K6002450H MW N42141933W076455030                       W0120           NARALPINE                        267512312
+SUSADB       AM    K4002510HOLW N35084727W101481997                       E0080           NARPANDE                         267521713
+SUSADB       AN    K7002110HOMW N33320362W085555257                       W0040           NARBOGGA                         267531709
+SUSADB       AP    K5002060HOLW N44573885W083333577                       W0070           NARFELPS                         267541705
+SUSADB       AQ    K5004070HOLW N44125741W088235618                       W0020           NARKOOKY                         267552112
+SUSADB       AQE   K7002300H MW N35422480W077221875                       W0090           NARALWOOD                        267561612
+SUSADB       AT    K5003150HOLW N39504897W084200572                       W0060           NARBRUNY                         267571705
+SUSADB       ATA   K4003470H MW N33061513W094112422                       E0040           NARATLANTA                       267581703
+SUSADB       AU    K6003660HOLW N44243931W069513840                       W0180           NARDUNNS                         267591705
+SUSADB       AUR   K4002780H MW N30115467W093251431                       E0040           NARSULPHUR                       267601703
+SUSADB       AW    K1003820HOLW N48043403W122091408                       E0170           NARWATON                         267612213
+SUSADB       AY    K7002190HOLW N31193290W082235200                       W0050           NARWIKET                         267621705
+SUSADB       AZ    K5003710HOLW N42075219W085314709                       W0030           NARAUSTN                         267631802
+SUSADB       AZE   K7004140H MW N31524739W082385053                       W0060           NARHAZLEHURST                    267642306
+SUSADB       AZN   K3002330H MW N39530175W094542935                       E0040           NARAMAZON                        267651612
+SUSADB       BA    K5004100HOMW N39191918W085490696                       W0030           NARCLIFS                         267661703
+SUSADB       BAR   K7003200H MW N36091245W081524741                       W0020           NARHEMLOCK                       267671703
+SUSADB       BH    K7002240HOLW N33304148W086504413                       W0030           NARMCDEN                         267681711
+SUSADB       BHC   K7003760H MW N31424329W082232462                       W0060           NARBAXLEY                        267691703
+SUSADB       BK    K3003350HOLW N44211630W096564854                       E0030           NARCHRLZ                         267701712
+SUSADB       BKT   K6003260H MW N37073874W078024036                       W0090           NARBLACKSTONE                    267711612
+SUSADB       BMW   K7004040H MW N33560729W083352213                       W0050           NARBARROW COUNTY                 267722010
+SUSADB       BNZ   K4002300H MW N30034013W092072381                       E0020           NARABBEVILLE                     267731703
+SUSADB       BO    K7002210HOMW N36235506W082294656                       W0070           NARBOOIE                         267742413
+SUSADB       BQP   K4003290H MW N32451686W091530036                       E0030           NARBASTROP                       267751703
+SUSADB       BR    K3003900HOLW N40391569W091072361                       E0010           NARBURNS                         267761706
+SUSADB       BR    K4003930HOLW N25590119W097303275                       E0030           NARDEPOO                         267771809
+SUSADB       BRA   K7003790H  W N35162191W082281573                       W0070           NARBROAD RIVER                   267781605
+SUSADB       BRX   K4002690H MW N29123085W100372630                       E0090           NARLA FONDA RANCH                267791703
+SUSADB       BT    K4002840HOLW N30345851W091123989                       E0000           NARRUNDI                         267801706
+SUSADB       BT    K5002720HOMW N42214315W085110389                       W0040           NARBATOL                         267812203
+SUSADB       BU    K5002300HOMW N39490940W083121668                       W0050           NARBOUTN                         267821703
+SUSADB       BU    K6002310HOLW N43000114W078390278                       W0090           NARKLUMP                         267831706
+SUSADB       BUP   K6003480H MW N44415179W069213093                       W0180           NARBURNHAM                       267841612
+SUSADB       BV    K4003350HOLW N35421155W091475175                       E0010           NARALMND                         267851705
+SUSADB       BVG   K7003520H MW N31202181W085585499                       W0030           NARBOLL WEEVIL                   267861703
+SUSADB       BVS   K1002400H MW N48280695W122250629                       E0160           NARSKAGIT/BAY VIEW               267872009
+SUSADB       BW    K5002360HOLW N36524813W086285375                       W0040           NARNOORA                         267881708
+SUSADB       BXR   K5002030H MW N45491660W092215910                       W0010           NARBIG DOCTOR                    267891703
+SUSADB       BZ    K4003930HOMW N35270238W099120532                       E0050           NARFOSSI                         267901703
+SUSADB       BZJ   K6003280H MW N40260833W076331088                       W0100           NARBELLGROVE                     267912308
+SUSADB       BZQ   K7004070H MW N32245535W081395052                       W0050           NARBULLO                         267922413
+SUSADB       CA    K3003950HOLW N38084174W097163412                       E0060           NARHARVS                         267931706
+SUSADB       CD    K3003620HOLW N42451865W103102877                       E0070           NARDAWES                         267941706
+SUSADB       CDX   K5003880H MW N36594653W084405235                       W0050           NARCUMBERLAND RIVER              267951612
+SUSADB       CE    K7002010HOLW N30511027W086321180                       W0040           NARKOBRA                         267961903
+SUSADB       CEP   K2002780H MW N33292359W105241562                       E0100           NARCAPITAN                       267971612
+SUSADB       CFJ   K5003880H MW N39585142W086545660                       W0040           NARCRAWFORDSVILLE                267982210
+SUSADB       CFX   K5002390H MW N40141228W081004786                       W0070           NARCADIZ                         267991909
+SUSADB       CFY   K7004200H MW N33512046W079455735                       W0060           NAREVANS                         268001703
+SUSADB       CG    K3002480HOLW N37151205W089420164                       W0020           NARDUTCH                         268011707
+SUSADB       CH    K7003290HOLW N32583477W080055084                       W0070           NARASHLY                         268021711
+SUSADB       CI    K5004000HOMW N46195711W084323288                       W0070           NARKOLOE                         268032506
+SUSADB       CIR   K5003970H MW N37033996W089132344                       E0000           NARCAIRO                         268041703
+SUSADB       CJ    K5002400HOLW N39473982W089353201                       W0010           NARCALDE                         268051707
+SUSADB       CK    K7003350HOLW N36313741W087231232                       W0010           NARSNUFF                         268062403
+SUSADB       CKC   K3003580H MW N47502419W090230806                       W0010           NARCOOK COUNTY                   268072409
+SUSADB       CL    K4002600HOLW N30293758W096201606                       E0030           NARROWDY                         268081802
+SUSADB       CM    K5004070HOLW N39575828W088105661                       W0030           NARVEALS                         268092105
+SUSADB       CMY   K5004120H MW N43561617W090383069                       E0000           NARMCCOY                         268102201
+SUSADB       CNH   K6002330H MW N43220903W072221622                       W0160           NARCLAREMONT                     268112310
+SUSADB       CNP   K3003830H MW N41043596W102273198                       E0100           NARCHAPPELL                      268121703
+SUSADB       CO    K2004070HOMW N38413985W104425885                       E0080           NARPETEY                         268132211
+SUSADB       CO    K6002160HOMW N43070760W071270875                       W0160           NAREPSOM                         268141703
+SUSADB       COR   K2002050H MW N36035780W119315140                       E0160           NARSALYER FARMS                  268151703
+SUSADB       CP    K5003500HOLW N38311159W090033337                       E0000           NARACORE                         268161711
+SUSADB       CPC   K7002270H MW N34162362W078424310                       W0070           NARCAMP                          268172108
+SUSADB       CPZ   K4003850H MW N28524238W099593977                       E0050           NARCHAPARROSA RANCH              268181703
+SUSADB       CQN   K7003410H  W N35095954W085092654                       W0020           NARDAISY                         268191707
+SUSADB       CQX   K6002790H MW N41413096W069591589                       W0160           NARNAUSET                        268201913
+SUSADB       CS    K7003550HOLW N32270698W085023110                       W0020           NARFENIX                         268212211
+SUSADB       CSS   K5004140H MW N39360321W083232973                       W0060           NARCOURT HOUSE                   268222012
+SUSADB       CSZ   K4002150H MW N32034859W095572744                       E0020           NARCROSSROADS                    268232207
+SUSADB       CTZ   K7004120H MW N34583034W078214298                       W0090           NARCLINTON                       268242108
+SUSADB       CV    K2004020HOLW N32160045W104201864                       E0100           NARCARLZ                         268251708
+SUSADB       CW    K4004180HOLW N30182389W093114631                       E0000           NARMOSSY                         268262302
+SUSADB       CX    K4002810HOLW N30255549W095283456                       E0050           NARALIBI                         268271709
+SUSADB       CYR   K7003380H MW N30531741W084093359                       W0040           NARCAIDY                         268281703
+SUSADB       CZJ   K4003410H MW N31495836W094091362                       E0040           NARAMASON                        268291703
+SUSADB       DAA   K6002230H  W N38394172W077063638                       W0090           NARDAVEE                         268301703
+SUSADB       DCM   K7002200H MW N34470871W081120299                       W0060           NARCHESTER                       268311703
+SUSADB       DD    K5002530HOLW N39443469W083011299                       W0070           NARCOBBS                         268321802
+SUSADB       DE    K5002750HOLW N39472562W088571400                       W0010           NARELWIN                         268331708
+SUSADB       DL    K3003790HOMW N46504459W092211778                       E0000           NARPYKLA                         268341811
+SUSADB       DN    K5003320HOLW N40172253W087314780                       E0000           NARJULIP                         268351708
+SUSADB       DNI   K4003410H MW N33493540W096400802                       E0030           NARDENISON                       268362405
+SUSADB       DPY   K1003650H MW N47580386W117253478                       E0160           NARDEER PARK                     268372109
+SUSADB       DR    K4003350HOLW N29263370W100593219                       E0080           NARKOTTI                         268381712
+SUSADB       DS    K4003750HOLW N35072104W091454178                       E0020           NARCERCY                         268391705
+SUSADB       DT    K4002570HOLW N33165917W097114654                       E0040           NARPINCK                         268402002
+SUSADB       DVK   K5003110H MW N37343512W084455052                       W0030           NARGOODALL                       268411703
+SUSADB       DXB   K4003850H MW N30450769W093200509                       E0040           NARDE RIDDER                     268422306
+SUSADB       DYB   K7003650H MW N33034125W080163787                       W0070           NARDORCHESTER COUNTY             268431802
+SUSADB       DYO   K6002210H MW N43422212W072572377                       W0150           NARSMUTO                         268442004
+SUSADB       EL    K4004180HOLW N33170985W092434134                       E0030           NARLADOS                         268451705
+SUSADB       EMR   K7003850H  W N33274611W081594868                       W0040           NAREMORY                         268461702
+SUSADB       EOE   K7002780H MW N34183974W081381078                       W0070           NARENOREE                        268471711
+SUSADB       EQQ   K7002340H MW N33152500W084424777                       W0030           NARCOWETA COUNTY                 268481612
+SUSADB       ES    K5003440HOLW N45432183W087132942                       W0050           NARPIKLE                         268492211
+SUSADB       ESG   K6002600H MW N43131280W070494205                       W0160           NARROLLINS                       268501813
+SUSADB       EW    K7003620HOLW N35011785W077044606                       W0080           NARKATFI                         268512104
+SUSADB       EZF   K6002370H MW N38155885W077270183                       W0100           NARSHANNON                       268521703
+SUSADB       EZM   K7003660H MW N32075409W083091419                       W0040           NAREASTMAN                       268531612
+SUSADB       FBY   K3002930H MW N40103602W097095697                       E0060           NARFAIRBURY                      268541703
+SUSADB       FF    K3003370HOMW N46131134W096032767                       E0050           NARHAMRE                         268551908
+SUSADB       FFC   K7003160H MW N33180331W084291114                       W0050           NARPECAT                         268561612
+SUSADB       FHR   K1002840H MW N48304369W123012590                       E0170           NARFRIDAY HARBOR                 268571712
+SUSADB       FIQ   K7003910H MW N35423677W081401688                       W0070           NARFIDDLERS                      268581612
+SUSADB       FK    K5002730HOLW N36441322W087244987                       W0010           NARAIRBE                         268592408
+SUSADB       FM    K7003410HOLW N26305807W081570097                       W0030           NARCALOO                         268601708
+SUSADB       FMZ   K3003920H MW N40352381W097340498                       E0030           NARBEKLOF                        268612409
+SUSADB       FND   K6003710H MW N39171447W076463726                       W0110           NARELLICOTT                      268621703
+SUSADB       FO    K3003410HOLW N42305218W094182008                       E0020           NARBARRO                         268631708
+SUSADB       FOZ   K3003450H MW N47470047W093391166                       E0020           NARBIGFORK                       268641703
+SUSADB       FQ    K3004200HOLW N43342516W094190473                       E0040           NARMONTZ                         268652503
+SUSADB       FR    K6004070HOLW N40463546W073285684                       W0140           NARFRIKK                         268662405
+SUSADB       FS    K3002450HOLW N43293827W096494462                       E0050           NARROKKY                         268672211
+SUSADB       FT    K4003650HOLW N32533512W097222402                       E0080           NARMUFIN                         268682310
+SUSADB       FWC   K5002570H MW N38224864W088243366                       W0010           NARWAYNE COUNTY                  268691703
+SUSADB       FZ    K3002270HOLW N38403850W090325035                       W0010           NAREAVES                         268702507
+SUSADB       GB    K3004190HOLW N38150593W098512114                       E0080           NARBABSY                         268712107
+SUSADB       GB    K6002040HOLW N42522600W078485923                       W0090           NARPLAZZ                         268722206
+SUSADB       GC    K1003800HOMW N44161525W105312005                       E0090           NARDERYK                         268732003
+SUSADB       GDE   K4003680H MW N30041370W094123973                       E0070           NARGOODHUE                       268741703
+SUSADB       GF    K3003450HOLW N47504727W097105346                       E0060           NARHISER                         268751708
+SUSADB       GF    K6002090HOLW N43151805W073361840                       W0140           NARGANSE                         268761710
+SUSADB       GG    K4004100HOLW N32271984W094475128                       E0030           NARVEELS                         268771810
+SUSADB       GGF   K3003590H MW N40521539W101434962                       E0090           NARGRANT                         268781703
+SUSADB       GHJ   K7002600H MW N35112930W081092828                       W0060           NARSTONIA                        268791703
+SUSADB       GL    K5003750HOLW N45005275W084482867                       W0060           NARBANGU                         268801708
+SUSADB       GM    K7002050HOLW N34201427W077484242                       W0100           NARWILZE                         268811708
+SUSADB       GMA   K6003860H MW N44214444W071410926                       W0170           NARMAHN                          268821612
+SUSADB       GN    K7002690HOMW N29401206W082101967                       W0040           NARWYNDS                         268831708
+SUSADB       GOI   K5003960H MW N37573146W085583602                       W0030           NARGODMAN                        268841703
+SUSADB       GP    K7003600HOLW N30290823W089094434                       W0020           NARBAYOU                         268851803
+SUSADB       GPQ   K7002780H MW N33335673W085075152                       W0040           NARCARROLLTON                    268862503
+SUSADB       GR    K5002630HOLW N42534431W085224312                       W0060           NARKNOBS                         268871803
+SUSADB       GRN   K3004140H MW N42480390W102104582                       E0090           NARGORDON                        268881612
+SUSADB       GTN   K6003230H MW N38554764W077072718                       W0090           NARGEORGETOWN                    268891612
+SUSADB       GTP   K7002450H MW N30572720W083493602                       W0050           NARPATON                         268902002
+SUSADB       GUY   K4002750H MW N36421932W101301834                       E0090           NARGUYMON                        268911703
+SUSADB       GVB   K4003530H MW N30525381W089514362                       W0000           NARBOGALUSA                      268921711
+SUSADB       GW    K5002270HOLW N41182983W084563869                       W0050           NARSHENK                         268931708
+SUSADB       GYG   K5003590H MW N44445985W084494159                       W0060           NARGRAYLING                      268941612
+SUSADB       GYZ   K1002800H  W N42142372W104425142                       E0110           NARCAMP GUERNSEY                 268951703
+SUSADB       HAH   K7003880H MW N31412509W091173516                       E0000           NARNATCHEZ-ADAMS COUNTY          268962008
+SUSADB       HAU   K1003860H MW N46340804W111452903                       E0120           NARHAUSER                        268972302
+SUSADB       HB    K7003610HOMW N35584123W079350543                       W0080           NARALAMM                         268981910
+SUSADB       HEM   K7002330H MW N35591678W085351067                       W0030           NARHUCHN                         268992010
+SUSADB       HET   K4002670H MW N35241637W096005000                       E0040           NARHENRYETTA                     269001703
+SUSADB       HEU   K6003560H MW N42511504W073560056                       W0140           NARHUNTER                        269012201
+SUSADB       HGT   K2002090H MW N35574020W121112100                       E0150           NARHUNTER LIGGETT                269021703
+SUSADB       HHH   K4003590H MW N29081797W098562134                       E0070           NARDEVINE                        269031703
+SUSADB       HIN   K3002750H MW N42494381W103053748                       E0070           NARWHITNEY                       269041703
+SUSADB       HK    K7003320HOMW N35471149W081181911                       W0060           NARTAWBA                         269052010
+SUSADB       HLB   K5002540H MW N39204668W085153167                       W0050           NARBATESVILLE                    269061711
+SUSADB       HLE   K1002200H MW N43194720W114143728                       E0130           NARHAILEY                        269071612
+SUSADB       HO    K3003020HOLW N44263793W098201244                       E0070           NARBEADY                         269081807
+SUSADB       HO    K4003850HOLW N34252121W093112283                       E0010           NARHOSSY                         269091909
+SUSADB       HP    K4002120HOLW N30362286W090251622                       E0000           NARANGER                         269102107
+SUSADB       HPC   K4003620H MW N33430522W093390285                       E0030           NARHOPE                          269111703
+SUSADB       HQT   K7004170H MW N35255883W078402919                       W0080           NARHARNETT                       269122112
+SUSADB       HRU   K3004070H MW N38413357W096483972                       E0060           NARHERINGTON                     269131703
+SUSADB       HS    K7002210H MW N30270484W089271985                       W0020           NARHANCO                         269142109
+SUSADB       HU    K3004040HOLW N38072503W097553678                       E0040           NARSALTT                         269151713
+SUSADB       HU    K5002450HOMW N39231614W087235180                       W0020           NARYINNO                         269162012
+SUSADB       HVS   K7003410H MW N34242351W080071119                       W0070           NARHARTSVILLE                    269171703
+SUSADB       HW    K5002990HOLW N39211239W083523285                       W0070           NARCUBLA                         269182106
+SUSADB       HXO   K7002710H MW N36180440W078370664                       W0090           NARHUNTSBORO                     269191703
+SUSADB       HY    K3003740HOLW N38460922W099150461                       E0080           NARNETTE                         269201709
+SUSADB       IA    K6003290HOLW N43063280W078501788                       W0100           NARKATHI                         269211709
+SUSADB       IC    K3003320HOLW N37344139W097272093                       E0040           NARPICHE                         269222205
+SUSADB       IHS   K2003350H MW N38404265W104451153                       E0080           NARIRONHORSE                     269232008
+SUSADB       IK    K5002720HOLW N41010417W087541357                       E0000           NARLUKOW                         269241709
+SUSADB       IL    K4002780HOLW N31012674W097422925                       E0050           NARIRESH                         269251811
+SUSADB       IL    K5004070HOMW N39293492W083441745                       W0070           NARAIRBO                         269262106
+SUSADB       IL    K6002480HOLW N39345254W075365019                       W0100           NARHADIN                         269271802
+SUSADB       IL    K7002810HOLW N34112892W077515873                       W0100           NARAIRLI                         269281709
+SUSADB       IM    K7003570HOLW N35315832W082351479                       W0070           NARKEANS                         269292208
+SUSADB       IMP   K4003880H MW N30155060W103141363                       E0100           NARMARATHON                      269301703
+SUSADB       IRS   K5003820H MW N41484732W085260163                       W0040           NARSTURGIS                       269311703
+SUSADB       IS    K6003660HOLW N40434448W073112484                       W0140           NARLOKKS                         269321909
+SUSADB       IS    K7002760HOLW N35143795W077415420                       W0090           NARSTALS                         269332308
+SUSADB       ITR   K2002090H MW N39144649W102170184                       E0060           NARKIT CARSON                    269341906
+SUSADB       JA    K7003440HOLW N30275415W081480593                       W0060           NARDINNS                         269352007
+SUSADB       JB    K7003840HOMW N34324495W079081865                       W0080           NARJIGEL                         269361708
+SUSADB       JD    K5003850HOLW N38284082W089441667                       W0020           NARGOOEY                         269372104
+SUSADB       JE    K3003970H MW N38325297W092041794                       W0010           NARALGOA                         269382411
+SUSADB       JH    K7002600HOMW N32244697W090154096                       W0000           NARBRENZ                         269391708
+SUSADB       JJH   K6005230H MW N42595791W074195318                       W0140           NARJOHNSTOWN                     269401907
+SUSADB       JL    K3003440HOLW N37121104W094333084                       E0040           NARLUNNS                         269412108
+SUSADB       JN    K5003650HOLW N40105132W085191554                       W0030           NARBALLL                         269421709
+SUSADB       JN    K7002630HOMW N35283000W078253103                       W0090           NARJURLY                         269432208
+SUSADB       JUY   K7002640H MW N31181834W086232722                       W0020           NARJUDD                          269441703
+SUSADB       JV    K5003310HOLW N38282628W085441401                       W0020           NARCATCH                         269452012
+SUSADB       JYR   K3002570H MW N40535117W097370125                       E0060           NARYORK                          269461703
+SUSADB       JZ    K3003380HOLW N38544915W095091350                       E0040           NARNEWBN                         269472505
+SUSADB       JZY   K5002510H MW N40310517W090333758                       E0010           NARMACOMB                        269481612
+SUSADB       LA    K5004010HOLW N40253521W087030749                       W0010           NAREARLE                         269491709
+SUSADB       LAH   K6002760H MW N43420815W072103887                       W0150           NARHANOVER                       269501612
+SUSADB       LB    K3003830HOLW N36575259W100572255                       E0060           NARPANCK                         269512209
+SUSADB       LC    K5003760HOLW N39525186W082500965                       W0070           NARPICKL                         269521802
+SUSADB       LD    K4002720HOLW N33394568W101432319                       E0060           NARLUBBI                         269531709
+SUSADB       LF    K4003750HOLW N30172146W091542841                       E0030           NARLAFFS                         269541907
+SUSADB       LGD   K1002960H MW N45203296W117574578                       E0140           NARLA GRANDE                     269552110
+SUSADB       LH    K5003340HOLW N40333727W088522868                       W0030           NAREGROW                         269561709
+SUSADB       LI    K4003530HOLW N34400854W092181943                       E0000           NARLASKY                         269571808
+SUSADB       LK    K5004140HOLW N38084129W085380022                       W0040           NARLAANG                         269582206
+SUSADB       LKG   K7002420H MW N32102812W084062937                       W0040           NARLINDBERGH                     269591612
+SUSADB       LKX   K4002230H MW N28554789W099511721                       E0090           NARLA PRYOR                      269601703
+SUSADB       LLW   K7002540H MW N36154679W076175292                       W0100           NARWOODVILLE                     269611703
+SUSADB       LNT   K6003440H    N45385492W068330120                       W0170           NARMILNOT                        269621703
+SUSADB       LO    K1004150HOMW N44343153W111115121                       E0140           NARTARGY                         269631908
+SUSADB       LOR   K7002690H MW N31214170W085443650                       W0030           NARLOWE                          269641703
+SUSADB       LQ    K5003750HOLW N39544285W089361141                       W0010           NARLICOL                         269651709
+SUSADB       LUA   K6002450H MW N38415755W078282050                       W0090           NARCAVERNS                       269661703
+SUSADB       LW    K6003460HOMW N37465618W080280681                       W0080           NARBUSHI                         269671911
+SUSADB       LY    K6003850HOMW N37154472W079143527                       W0080           NARBOJAR                         269681703
+SUSADB       LYZ   K7003590H MW N30582049W084312989                       W0040           NARWILLIS                        269691710
+SUSADB       MA    K4003260HOLW N31591715W102193055                       E0090           NARFARLY                         269701703
+SUSADB       MA    K5003360HOLW N44141365W085324982                       W0040           NARWEXOR                         269712407
+SUSADB       MB    K5002540HOLW N44161475W086083389                       W0060           NARJEPOT                         269722112
+SUSADB       MC    K7004130HOMW N31151623W090303750                       W0010           NARFERNI                         269731806
+SUSADB       MD    K5003880HOLW N37521286W089144395                       W0010           NARCABBI                         269741709
+SUSADB       MD    K6002040HOLW N40144700W076540250                       W0110           NARENOLA                         269751709
+SUSADB       ME    K7002570HOMW N34435949W079263734                       W0080           NARMAXTN                         269762104
+SUSADB       MF    K4003300HOLW N26151381W098183778                       E0040           NARMISSI                         269771811
+SUSADB       MF    K5003720HOMW N40455878W082264254                       W0060           NARMANNS                         269781703
+SUSADB       MG    K7002450H MW N32184182W086303828                       W0010           NARMARRA                         269791703
+SUSADB       MJ    K6002090HOLW N42515101W071314383                       W0150           NARFITZY                         269801709
+SUSADB       ML    K4003920HOLW N32271462W092061563                       E0030           NARSABAR                         269812304
+SUSADB       MNI   K7003810H MW N33351642W080122207                       W0060           NARMANNING                       269821703
+SUSADB       MOB   K7002480H  W N30453826W088181159                       W0010           NARWISLE                         269831605
+SUSADB       MOG   K2004040H MW N41433818W122285407                       E0150           NARMONTAGUE                      269841612
+SUSADB       MQI   K7003700H MW N35545515W075414219                       W0090           NARMANTEO                        269851612
+SUSADB       MS    K6002780HOLW N44511483W074545679                       W0140           NARMISSE                         269861709
+SUSADB       MSQ   K6003510H MW N38271557W077541903                       W0100           NARNAILR                         269871612
+SUSADB       MT    K5003620HOLW N44115900W087420800                       W0020           NARMAWOC                         269881710
+SUSADB       MTQ   K7003590H MW N33253122W090585557                       W0010           NARMETCALF                       269891703
+SUSADB       MW    K1004080HOMW N47065656W119162823                       E0180           NARPELLY                         269901703
+SUSADB       MW    K5003820HOLW N37502070W088581495                       E0010           NARJONNY                         269911710
+SUSADB       NEL   K6003960H MW N40024153W074200774                       W0110           NARLAKEHURST                     269922212
+SUSADB       NHK   K6004000H MW N38170944W076241171                       W0100           NARPATUXENT                      269932102
+SUSADB       OA    K7002610HOLW N34450187W077421612                       W0080           NARELLAS                         269941806
+SUSADB       OC    K4002530HOMW N31290800W094431270                       E0050           NARNADOS                         269951709
+SUSADB       ODX   K3003560H MW N41372548W098565282                       E0050           NARORD                           269961703
+SUSADB       OG    K6003580HOLW N44420543W075211061                       W0130           NAROGIVE                         269971709
+SUSADB       OHY   K7004000H MW N31595224W083514245                       W0060           NARCONEY                         269982413
+SUSADB       OI    K3003050HOMW N42273639W096274401                       E0030           NARTOMMI                         269992203
+SUSADB       OIN   K3003410H MW N39494632W100321578                       E0060           NAROBERLIN                       270002013
+SUSADB       OKS   K3002330H MW N41240410W102210310                       E0090           NAROSHKOSH                       270011703
+SUSADB       OLY   K5002720H MW N38430558W088102150                       W0030           NAROLNEY                         270021703
+SUSADB       OOC   K4004070H MW N31392680W093043939                       E0040           NARNATCHITOCHES                  270031612
+SUSADB       OS    K5005150HOMW N40042502W083115302                       W0050           NARFULER                         270041910
+SUSADB       OT    K3002770HOLW N43370268W095275076                       E0020           NARWONDD                         270051710
+SUSADB       OW    K6003970HOLW N42071103W071074243                       W0150           NARSTOGE                         270061907
+SUSADB       PFO   K4003560H MW N29084286W100253928                       E0080           NARSPOFFORD                      270071703
+SUSADB       PH    K5003320HOLW N42503492W082354793                       W0070           NARPHURN                         270082111
+SUSADB       PH    K6003010H  W N43313731W070052916                       W0170           NARPORTLAND LHB-P                270092206
+SUSADB       PI    K5003560HOMW N40362023W089353570                       W0020           NARTUNGG                         270102012
+SUSADB       PI    K7003600HOLW N27594287W082421380                       W0050           NARCAPOK                         270111809
+SUSADB       PK    K3004200HOLW N38451159W094441265                       E0040           NARHERBB                         270122106
+SUSADB       PK    K6003880HOLW N39151444W081290579                       W0070           NARVERSI                         270131907
+SUSADB       PLT   K3004070H  W N41294763W097225441                       E0080           NARPLATTE CENTER                 270141605
+SUSADB       PMV   K3003290H MW N40563764W095544489                       E0050           NARPLATTSMOUTH                   270151703
+SUSADB       PN    K4005150HOMW N36493012W097060194                       E0050           NARPONCA                         270161703
+SUSADB       PND   K1003560H MW N45374897W123024492                       E0160           NARBANKS                         270172013
+SUSADB       PTD   K6004000H MW N44432420W074525770                       W0140           NARPOTSDAM                       270181612
+SUSADB       PVC   K6003890H MW N42040774W070132440                       W0160           NARPROVINCETOWN                  270191612
+SUSADB       PWF   K5002450H MW N39043615W084125545                       W0040           NARSPORTYS                       270201708
+SUSADB       PYF   K4004180H MW N31514559W096115090                       E0060           NARPYRAMID                       270211703
+SUSADB       PYX   K4002660H MW N36244444W100445188                       E0070           NARPERRYTON                      270221703
+SUSADB       RBJ   K2002200H MW N32042756W111213667                       E0120           NARROBLES                        270232003
+SUSADB       RG    K3002740HOLW N44355216W092385093                       E0020           NARREGUE                         270241710
+SUSADB       RH    K5002720HOLW N45374117W089370792                       W0030           NARARSHA                         270251710
+SUSADB       RNB   K6003630H  W N39250550W075080608                       W0110           NARRAINBOW                       270261605
+SUSADB       RNW   K7003880H MW N35303476W077062385                       W0080           NARCHOCOWINITY                   270271711
+SUSADB       RO    K2003050HOLW N33215568W104263208                       E0100           NARTOPAN                         270282303
+SUSADB       ROB   K4004000H MW N31301370W097041050                       E0030           NARROBINSON                      270291913
+SUSADB       RP    K5002210HOLW N45190481W091480934                       E0010           NARWICKR                         270301710
+SUSADB       RQY   K6002840H  W N38533820W079513389                       W0070           NARRANDOLPH COUNTY               270311703
+SUSADB       RU    K4002720HOLW N29573111W097565641                       E0070           NARGARYS                         270321709
+SUSADB       RU    K7002750HOLW N35435924W080292244                       W0060           NARROVDY                         270331709
+SUSADB       RUE   K4003790H MW N35152550W093054058                       E0030           NARRUSSELLVILLE                  270341804
+SUSADB       RYD   K7003380H MW N29580090W081392760                       W0070           NARREYNOLDS                      270351710
+SUSADB       RYN   K2003380H  W N32081964W111094139                       E0120           NARRYAN                          270362003
+SUSADB       RYV   K5003710H MW N43102522W088433101                       W0010           NARROCK RIVER                    270371703
+SUSADB       SAK   K1005150H MW N48062984W114274048                       E0150           NARSMITH LAKE                    270381612
+SUSADB       SB    K2003970H  W N34032330W117215801                       E0140           NARPETIS                         270391605
+SUSADB       SB    K5003410HOLW N41422030W086130834                       W0050           NARMISHA                         270402207
+SUSADB       SCG   K3003850H MW N48153566W092282857                       W0010           NARSCOTT                         270411703
+SUSADB       SDR   K4003590H MW N32420505W100564606                       E0080           NARSNYDER                        270421703
+SUSADB       SE    K7003440HOMW N32161137W086553918                       W0030           NARPOLLK                         270431703
+SUSADB       SG    K5003320HOMW N44235467W088075793                       W0020           NARDEPRE                         270441810
+SUSADB       SH    K6003750HOLW N38120648W078572632                       W0090           NARSTAUT                         270451709
+SUSADB       SIF   K7004230H MW N36225414W079454602                       W0070           NARSLAMMER                       270461703
+SUSADB       SJ    K4003560HOLW N31164705W100343443                       E0050           NARWOOLE                         270472010
+SUSADB       SKU   K6002610H MW N41314084W074024191                       W0120           NARSTANWYCK                      270481703
+SUSADB       SL    K1002660H MW N44505076W122570367                       E0170           NARTURNO                         270491807
+SUSADB       SL    K3003440HOLW N38405353W097384207                       E0070           NARFLORY                         270501709
+SUSADB       SLG   K4002840H MW N36112129W094291878                       E0040           NARSILOAM SPRINGS                270511703
+SUSADB       SLP   K7004170H MW N35150964W081355567                       W0060           NARFIRST RIVER                   270521703
+SUSADB       SMS   K7002520H MW N33592687W080213609                       W0070           NARSUMTER                        270531612
+SUSADB       SOA   K4003710H MW N30345450W100384896                       E0080           NARSONORA                        270541703
+SUSADB       SP    K3003940HOLW N43140242W095194042                       E0050           NARSNORE                         270551710
+SUSADB       SP    K5003820HOMW N39462334W089453552                       W0010           NARHUSKK                         270561703
+SUSADB       SQ    K5002270HOLW N39463760W085074760                       W0040           NARPNTHR                         270571710
+SUSADB       ST    K3003420HOLW N45284420W093580726                       E0030           NARHUSSK                         270581710
+SUSADB       SU    K3003260HOLW N38382076W090460084                       W0010           NARSNOOP                         270592507
+SUSADB       SUR   K7003620H MW N31364760W083172575                       W0050           NARFITZGERALD                    270602503
+SUSADB       SW    K3003600HOLW N48514591W095143076                       E0040           NARROADD                         270611710
+SUSADB       SW    K4002550HOLW N36141027W097051413                       E0050           NARGABEH                         270622207
+SUSADB       SW    K6003350HOMW N41290889W074134088                       W0140           NARNEELY                         270632112
+SUSADB       SYZ   K5003650H MW N39242348W088503680                       W0020           NARSHELBYVILLE                   270641703
+SUSADB       SZT   K1002640H MW N48172631W116334756                       E0140           NARSANDPOE                       270651612
+SUSADB       TCU   K5002390H MW N42020216W083531079                       W0060           NARTECUMSEH                      270661703
+SUSADB       TEC   K6003680H MW N37123099W080241237                       W0080           NARTECH                          270672407
+SUSADB       TII   K5002690H MW N41054080W083125390                       W0050           NARTIFFIN                        270681703
+SUSADB       TKH   K4003440HOMW N32144315W091013297                       E0020           NARTALLULAH                      270692401
+SUSADB       TNZ   K4002270H MW N36122498W090552323                       E0010           NARLAWRENCE COUNTY               270701703
+SUSADB       TO    K3005210HOMW N39071332W095411350                       E0050           NARBILOY                         270711703
+SUSADB       TO    K5002190HOLW N41331238W083551620                       W0050           NARTOPHR                         270722012
+SUSADB       TOI   K7003650H MW N31495087W086062142                       W0040           NARBLOOD                         270732013
+SUSADB       TOR   K1002930H MW N42035683W104091211                       E0070           NARTORRINGTON                    270742213
+SUSADB       TR    K7002990HOLW N36331979W082190427                       W0070           NARMOCCA                         270752413
+SUSADB       TT    K4003380HOLW N34302094W091345439                       E0020           NARSTUTT                         270761710
+SUSADB       TU    K4003380HOLW N36055073W095531956                       E0030           NAROILLR                         270771711
+SUSADB       TU    K7004200HOLW N34104927W088460724                       W0020           NARVERON                         270781710
+SUSADB       TV    K5003650HOMW N44440439W085254457                       W0050           NARGWENN                         270791713
+SUSADB       TW    K1003890HOLW N42284310W114211599                       E0130           NARSTRIK                         270802205
+SUSADB       TX    K4002340HOLW N33312653W093542131                       E0050           NARTECCO                         270812308
+SUSADB       TX    K7004190HOLW N34011170W083514629                       W0050           NARGWNET                         270822408
+SUSADB       UC    K7002120HOMW N36175136W088594152                       E0000           NAROBION                         270832210
+SUSADB       UCP   K6002720H MW N41012284W080245704                       W0090           NARCASTLE                        270842102
+SUSADB       UG    K5003790HOLW N42275002W087480488                       W0030           NARWAUKE                         270852014
+SUSADB       UGS   K5002500H MW N39152614W082073349                       W0060           NARUNIVERSITY                    270861703
+SUSADB       UI    K5002930HOMW N39531281W091151323                       E0020           NARQUINCY                        270871703
+SUSADB       UMB   K7003800H MW N33090673W083093443                       W0040           NARCULVR                         270882010
+SUSADB       UOT   K7003260H MW N34410240W081383240                       W0060           NARUNION COUNTY                  270891703
+SUSADB       UQN   K7003720H MW N32132521W082175081                       W0060           NARONYUN                         270901703
+SUSADB       UTX   K7004050H MW N26543231W080200618                       W0050           NARUNITED                        270911711
+SUSADB       UU    K7003340HOLW N35005622W088365666                       W0020           NARSEYER                         270922211
+SUSADB       UV    K6003960HOMW N36352434W079550288                       W0070           NARBALES                         270931703
+SUSADB       UV    K7004260HOLW N34230633W089373352                       W0010           NARTUNNG                         270941711
+SUSADB       UWL   K5003850H MW N39524790W085190782                       W0060           NARNEW CASTLE                    270952413
+SUSADB       UZ    K7002270HOLW N34532409W081045133                       W0050           NARRALLY                         270961709
+SUSADB       VIT   K6002770H MW N37121462W079525389                       W0080           NARVINTON                        270971612
+SUSADB       VP    K5002120HOMW N41270442W086523836                       W0020           NARSEDLY                         270981703
+SUSADB       VQK   K6003320H MW N38455739W077013862                       W0110           NAROXONN                         270992407
+SUSADB       VTN   K3003140H MW N42514184W100325872                       E0080           NARVALENTINE                     271002503
+SUSADB       VU    K7003460HOLW N35292099W080050029                       W0060           NARALLER                         271011709
+SUSADB       VV    K6002990HOMW N39525797W079444096                       W0080           NARCAMOR                         271021703
+SUSADB       VV    K7003530HOMW N33384708W083011836                       W0050           NARJUNNE                         271032013
+SUSADB       XAA   K4002250H MW N31005002W104122483                       E0070           NARKENT                          271041913
+SUSADB       XCR   K3004040H MW N46044521W094203651                       E0030           NARRIPLEY                        271051801
+SUSADB       XYC   K5003930H MW N37452879W084014883                       W0030           NARSECO                          271061703
+SUSADB       YN    K5003380HOLW N41120191W080354625                       W0080           NARFETCH                         271072409
+SUSADB       ZFP   MY002090HOLW N26310621W078463024                       W0050           NARFREEPORT                      271081703
+SUSADB       ZSJ   MY002810H MW N24034162W074320532                       W0100           NARSAN SALVADOR                  271092014

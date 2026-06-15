@@ -1,0 +1,5 @@
+HDR01FAACIFP18      001P013203947762507  18-JUN-202512:29:15  U.S.A. DOT FAA                                                1A0DE112
+HDR02                                 FEDERAL AVIATION ADMINISTRATION                                                               
+HDR03                                 AERONAUTICAL INFORMATION SERVICES                                                             
+HDR04                                 CODED INSTRUMENT FLIGHT PROCEDURES VOLUME 2507  EFFECTIVE 10 JUL 2025                         
+HDR05                                 REPORT DATA ERRORS TO FAA                 TEL 800 638 8972                                    

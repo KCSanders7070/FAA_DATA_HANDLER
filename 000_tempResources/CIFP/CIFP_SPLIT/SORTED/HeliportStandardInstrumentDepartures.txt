@@ -1,0 +1,15 @@
+SUSAH 6N5 K6DHUDSN16YOMAN 010HUDSNK6EA0E       IF                                 + 00920     18000       HUDSN K6EA       749312502
+SUSAH 6N5 K6DHUDSN16YOMAN 020RINNGK6EA0E       TF                                 + 02000                                  749322502
+SUSAH 6N5 K6DHUDSN16YOMAN 030CHNZOK6EA0E       TF                                                                          749332502
+SUSAH 6N5 K6DHUDSN16YOMAN 040JOTREK6EA0E       TF                                                                          749342502
+SUSAH 6N5 K6DHUDSN16YOMAN 050YOMANK6EA0EE      TF                                                                          749352502
+SUSAH KJRAK6DHUDSN16YOMAN 010HUDSNK6EA0E       IF                                 + 00920     18000       HUDSN K6EA       769042502
+SUSAH KJRAK6DHUDSN16YOMAN 020RINNGK6EA0E       TF                                 + 02000                                  769052502
+SUSAH KJRAK6DHUDSN16YOMAN 030CHNZOK6EA0E       TF                                                                          769062502
+SUSAH KJRAK6DHUDSN16YOMAN 040JOTREK6EA0E       TF                                                                          769072502
+SUSAH KJRAK6DHUDSN16YOMAN 050YOMANK6EA0EE      TF                                                                          769082502
+SUSAH KJRBK6DHUDSN16YOMAN 010HUDSNK6EA0E       IF                                 + 00920     18000       HUDSN K6EA       769232502
+SUSAH KJRBK6DHUDSN16YOMAN 020RINNGK6EA0E       TF                                 + 02000                                  769242502
+SUSAH KJRBK6DHUDSN16YOMAN 030CHNZOK6EA0E       TF                                                                          769252502
+SUSAH KJRBK6DHUDSN16YOMAN 040JOTREK6EA0E       TF                                                                          769262502
+SUSAH KJRBK6DHUDSN16YOMAN 050YOMANK6EA0EE      TF                                                                          769272502
