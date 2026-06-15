@@ -57,7 +57,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// _DataType: string
             /// _Nullable: No
             /// </summary>
-            /// <remarks>A=Amber Colored Airway _ AT=Atlantic Airway _ B=Blue Colored Airway _ BF=Bahama Airway _ G=Green Colored Airway _ J=Jet Airway _ PA=Pacific Airway _ PR=Puerto Rico Airway _ R=Red Colored Airway _ RN=GPS RNAV Airway _ V=VOR Airway</remarks>
+            /// <remarks>A=Amber Colored Airway _ AT=Atlantic Airway _ B=Blue Colored Airway _ BF=Bahama Airway _ G=Green Colored Airway _ J=Jet Airway _ PA=Pacific Airway _ PR=Puerto Rico Airway _ R=Red Colored Airway _ RN=GPS RNAV Airway _ SP=Special Route _ V=VOR Airway</remarks>
             public string AwyDesignation { get; set; }
 
             /// <summary>
