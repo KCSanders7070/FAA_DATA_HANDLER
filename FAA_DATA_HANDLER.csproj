@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MODELS\CIFP\DevResources\" />
+    <Folder Include="MODELS\CIFP\" />
     <Folder Include="MODELS\D-TPP\" />
     <Folder Include="PARSERS\CIFP\SECTIONS\" />
     <Folder Include="PARSERS\D-TPP\" />
