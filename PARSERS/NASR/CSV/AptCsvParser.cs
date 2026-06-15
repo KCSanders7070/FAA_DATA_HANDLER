@@ -234,6 +234,15 @@ namespace FAA_DATA_HANDLER.Parsers.NASR.CSV
                     SurfaceTypeCode = fields["SURFACE_TYPE_CODE"],
                     Cond = fields["COND"],
                     TreatmentCode = fields["TREATMENT_CODE"],
+
+                    /*
+                    TODO: When the AIRAC 2609 data is available, check the APT DATA LAYOUT.pdf to verify data field definitions and update the model accordingly.
+                    Note: The PCN and other models below this may have a change to their expected values.
+                    `Initial population of the new "PAVEMENT CLASSIFICATION" data field has yet to be determined. Therefore, the current practice of displaying PCN values in the data fields and PCR values in a reference remark may continue after the deployment of the NASR enhancement until the fields can be properly populated and the reference remarks removed.` See: https://www.faa.gov/air_traffic/flight_info/aeronav/safety_alerts/media/NASR_26-01_DPN_10.1_Subscriber_Enhancement.pdf
+                    
+                    PavementClassification = fields["PAVEMENT_CLASSIFICATION"],
+                    */
+
                     Pcn = FebCsvHelper.ParseNullableInt(fields["PCN"]),
                     PavementTypeCode = fields["PAVEMENT_TYPE_CODE"],
                     SubgradeStrengthCode = fields["SUBGRADE_STRENGTH_CODE"],

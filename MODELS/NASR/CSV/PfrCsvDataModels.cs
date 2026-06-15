@@ -119,7 +119,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// <summary>
             /// Preferred Route Area Description
             /// _Src: PFR_BASE.csv(SPECIAL_AREA_DESCRIP)
-            /// _MaxLength: 75
+            /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
@@ -137,7 +137,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// <summary>
             /// Aircraft Allowed/Limitations Description
             /// _Src: PFR_BASE.csv(AIRCRAFT)
-            /// _MaxLength: 50
+            /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
@@ -166,7 +166,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// <summary>
             /// Preferred Route Designator if applicable
             /// _Src: PFR_BASE.csv(DESIGNATOR)
-            /// _MaxLength: 5
+            /// _MaxLength: 16
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
@@ -299,7 +299,7 @@ namespace FAA_DATA_HANDLER.Models.NASR.CSV
             /// <summary>
             /// Aircraft Allowed/Limitations Description
             /// _Src: PFR_RMT_FMT.csv(AIRCRAFT)
-            /// _MaxLength: 50
+            /// _MaxLength: 100
             /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
