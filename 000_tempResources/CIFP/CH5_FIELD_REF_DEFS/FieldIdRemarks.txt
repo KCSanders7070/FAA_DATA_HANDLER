@@ -1,0 +1,515 @@
+﻿5.2
+
+	Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
+
+
+5.3
+
+	Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL).
+
+
+5.4
+
+	Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+
+	Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+
+
+5.5
+
+	Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+
+	Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+
+
+5.6
+
+	Contains the ICAO airport identifier to which the record's data applies. If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
+
+	Contains the ICAO heliport identifier to which the record's data applies. If there is no published ICAO Heliport Identifier, then the published FAA Heliport Identifier will be used.
+
+	Contains the ICAO airport identifier to which the record's data applies; differs from the more familiar ATA/IATA airport designators.
+
+
+5.8
+
+	Specifies the performance category or classification of a Localizer/MLS/GLS system, including ILS Categories I–III, or classifications for non-ILS systems such as IGS, LDA, or SDF, with codes assigned per table (e.g., 0 = ILS Localizer only, 1 = Category I, 2 = Category II, 3 = Category III, I = IGS, L = LDA w/Glideslope, A = LDA no Glideslope, S = SDF w/Glideslope, F = SDF no Glideslope).
+
+	Second ID for the performance category or classification of a Localizer/MLS/GLS system, including ILS Categories I–III, or classifications for non-ILS systems such as IGS, LDA, or SDF, with codes assigned per table (e.g., 0 = ILS Localizer only, 1 = Category I, 2 = Category II, 3 = Category III, I = IGS, L = LDA w/Glideslope, A = LDA no Glideslope, S = SDF w/Glideslope, F = SDF no Glideslope).
+
+
+5.10
+
+	Defines the identifier of an approach route, including provisions for multiple procedures, circle-to-land operations, and helicopter approaches. Runway-dependent procedures use alphanumeric codes with optional multiple indicators (e.g., I26L, R29, V08-A). Circle-to-land procedures use four-character alpha identifiers with an optional fifth character for multiples (e.g., VORA, VOR-B, NDB-1). Helicopter-to-runway identifiers start with the approach type followed by a three-digit runway/course number and optional multiple indicator (e.g., I13L, V175, N175B). Helicopter-to-helipad identifiers use the approach type plus the pad designation, with no multiple indicator in this field (e.g., IA127, VBRAVO, N23, RWESTA). Col:1=Approach type (alpha, same as RouteType field) __ Col:2�3=RwyId in tens of degrees (01�36) __ Col:4=Rwy designation (L=Left, R=Right, C=Center, T=True North, dash=placeholder, blank=unused) __ Col:5=Multiple indicator (alphanumeric or blank) __ 6=Blank.
+
+
+5.14
+
+	Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+
+	Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+
+	Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+
+
+5.15
+
+	Indicates the distance in nautical miles to the nearest DME or TACAN facility operating on the same frequency, up to a maximum of 600 NM (e.g., 030, 150, 600).
+
+
+5.16
+
+	Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'�'9' and then 'A'�'Z' as needed.
+
+	Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'–'9' and then 'A'–'Z' as needed.
+
+	Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, "1" if they do, with continuations numbered "2-"9" and then "A"="Z" as needed.
+
+	Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'â€“'9' and then 'A'â€“'Z' as needed.
+
+	Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'-'9' and then 'A'-'Z' as needed.
+
+
+5.18
+
+	Identifies the helipad with a unique heliport record for each helipad at a location (e.g., PADA1, NWPAD, ALPHA, A1, HELO1, HELO2, HELO3)
+
+
+5.23
+
+	Specifies the recommended navigational aid (Navaid) to reference a waypoint or an airport/heliport, using a 1�4 character identifier. May include VHF, NDB, Localizer, TACAN, GLS, or MLS facilities. (e.g., P, PP, DEN, LAX, ILAX, MJFK).
+
+
+5.27
+
+	Defines the source of the Threshold Crossing Height (TCH) in runway records: I = ILS/MLS glide slope, R = RNAV procedure, V = VGSI for the runway, D = default value of 50 ft.
+
+
+5.31
+
+	Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
+
+
+5.32
+
+	Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01�13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+
+	Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01–13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+
+	Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01â€“13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+
+	Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01-13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+
+
+5.33
+
+	Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Identifies the VHF, MF, or LF facility by its official government-assigned 1-4 character code (e.g., DEN, 6YA, PPI, TIKX).
+
+	Identifies the VHF, MF, or LF facility by its official government-assigned 1-4 character code (e.g., DEN, 6YA, PPI, TIKX).
+
+	Identifies the VHF, MF, or LF facility by its official government-assigned 1�4 character code (e.g., DEN, 6YA, PPI, TIKX).
+
+
+5.34
+
+	Specifies the operating frequency of the VOR or NDB, expressed without a decimal: VHF in hundredths of MHz and NDB in tenths of kHz. Examples: (VHF) "11630" "11795" (NDB) "03620" "17040". FAA NOTE: If a VOR frequency is unavailable, the VOR Frequency field will contain 00000. For all other Navaids, an unavailable frequency will result in blank coding.
+
+	Specifies the operating frequency of the VOR or NDB, expressed without a decimal: VHF in hundredths of MHz and NDB in tenths of kHz. Examples: (VHF) "11630" "11795" (NDB) "03620" "17040". FAA NOTE: If a VOR frequency is unavailable, the VOR Frequency field will contain �00000�. For all other Navaids, an unavailable frequency will result in blank coding.
+
+
+5.35
+
+	V = VOR
+
+	D = DME, T = TACAN (ch.17-59 and 70-126), M = MIL TACAN (ch.1-16 and 60-69), I = ILS/DME or ILS/TACAN, N = MLS/DME/N, P = MLS/DME/P
+
+	T = Terminal, L = Low Altitude, H = High Altitude, U = Undefined, C = ILS/TACAN (freq-paired with ILS Loc with same ID and location. This TACAN may be listed elsewhere as a ILSTACAN and a TACAN.). FAA NOTE: Navaid Class 3 will be coded as "H" for high, "L" for low, and "T" for terminal altitude description. Where undetermined, the field will be coded with "U". Navaid Class 5 will carry an "N" for VORTACs if the VOR coordinates and the TACAN coordinates are 0.1 NM or greater distance from each other.
+
+	D = Biased ILSDME or ILSTACAN, A = Auto Transcribed Weather Broadcast, B = Scheduled Weather Broadcast, W = No Voice on Frequency, blank/null = Voice on Frequency. FAA NOTE: Weather Capability codes for Hazardous Inflight Weather Advisory Service (HIWAS) and Automatic Transcribed Weather Broadcast (TWEB), will be coded with an "A".
+
+	N = Not Collocated, blank/null = Collocated Navaids. If "ILSDME" or "ILSTACAN", N = Not Freq-Paired, blank/null = Freq-Paired
+
+	T = Terminal, L = Low Altitude, H = High Altitude, U = Undefined, C = ILS/TACAN (freq-paired with ILS Loc with same ID and location. This TACAN may be listed elsewhere as a ILSTACAN and a TACAN.). FAA NOTE: Navaid Class 3 will be coded as H for high, L for low, and T for terminal altitude description. Where undetermined, the field will be coded with U. Navaid Class 5 will carry an �N� for VORTACs if the VOR coordinates and the TACAN coordinates are 0.1 NM or greater distance from each other.
+
+	D = Biased ILSDME or ILSTACAN, A = Auto Transcribed Weather Broadcast, B = Scheduled Weather Broadcast, W = No Voice on Frequency, blank/null = Voice on Frequency. FAA NOTE: Weather Capability codes for Hazardous Inflight Weather Advisory Service (HIWAS) and Automatic Transcribed Weather Broadcast (TWEB), will be coded with an �A�.
+
+	N = Not Collocated, blank/null = Collocated Navaids. If "ILSDME" or "ILSTACAN, N = Not Freq-Paired, blank/null = Freq-Paired
+
+
+5.36
+
+	Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
+
+
+5.37
+
+	Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
+
+
+5.38
+
+	Identifies a DME, TACAN, or the DME component of a VOR/DME or VORTAC; blank if no DME exists or if VOR and DME share the same code, otherwise shows the DME identifier (2�4 characters) (e.g., MCR, DEN, IDVR, DN, blank).
+
+
+5.39
+
+	Specifies the angular difference between True North and Magnetic North; format is one character (E, W, or T) followed by four digits for degrees and tenths (e.g., E0140, W0075, T0000). Note: Differences between MagVar and Dynamic-MagVar.
+
+
+5.40
+
+	Specifies the elevation of a DME component in feet relative to MSL, using a leading ��� if below sea level (e.g., 00530, -0140).
+
+
+5.44
+
+	Identifies the Localizer, MLS facility, or GLS Reference Path associated with a runway, using the facility or path code (e.g., IDEN, ISTX, IDU, PP, MDEN, MSTX, MLAX, LFBL, EGLC, KSAN).
+
+	Identifies the Localizer, MLS facility, or GLS Reference Path linked to a runway, with fields available for multiple systems (e.g., ILS and LDA); values contain the facility or reference path code (e.g., IDEN, ISTX, IDU, MDEN, MSTX, MLAX, LFBL, EGLC, KSAN).
+
+	Second ID for the Localizer, MLS facility, or GLS Reference Path linked to a runway, with fields available for multiple systems (e.g., ILS and LDA); values contain the facility or reference path code (e.g., IDEN, ISTX, IDU, MDEN, MSTX, MLAX, LFBL, EGLC, KSAN).
+
+
+5.45
+
+	Specifies the VHF frequency of the localizer in 50 kHz resolution, with the decimal suppressed (e.g., 11030, 11195).
+
+
+5.46
+
+	Specifies the runway ID associated with runway data or ILS/MLS records, formatted as �RW� plus a two-digit number (01�36) and optional suffix: C (Center), L (Left), R (Right), T (True degrees), or special types W (Water), S (Soft-surface), G (Glider), U (Ultralight), numeric (Assault Strip); e.g., RW26L, RW08R, RW26C, RW05, RW17T. Note: Non-numeric runway identifiers (5.46) are included and will not carry the prefixed �RW� characters.
+
+	Specifies the runway ID associated with runway data or ILS/MLS records, formatted as “RW” plus a two-digit number (01–36) and optional suffix: C (Center), L (Left), R (Right), T (True degrees), or special types W (Water), S (Soft-surface), G (Glider), U (Ultralight), numeric (Assault Strip); e.g., RW26L, RW08R, RW26C, RW05, RW17T. Note: Non-numeric runway identifiers (5.46) are included and will not carry the prefixed ‘RW’ characters.
+
+
+5.46 or 5.180
+
+	Specifies the runway or helipad ID associated with runway/heliport data or ILS/MLS records. RUNWAYS: formatted as �RW� plus a two-digit number (01�36) and optional suffix: C (Center), L (Left), R (Right), T (True degrees), or special types W (Water), S (Soft-surface), G (Glider), U (Ultralight), numeric (Assault Strip); e.g., RW26L, RW08R, RW26C, RW05, RW17T. Note: Non-numeric runway identifiers (5.46) are included and will not carry the prefixed �RW� characters. HELIPADS: unique record for each pad at a location. If not supplied from source data, identifiers are assigned by the supplier using the prefix �HELO� plus a number. Examples include source-supplied IDs like PADA1, NWPAD, ALPHA, A1 and supplier-assigned IDs like HELO1, HELO2, HELO3.
+
+
+5.47
+
+	Defines the magnetic bearing of the localizer course in degrees and tenths (decimal suppressed), with a trailing �T� for true courses (e.g., 2570, 0147, 2910, 347T).
+
+
+5.48
+
+	Specifies the antenna�s position relative to the runway end, given as a distance in feet with 1-ft resolution (e.g., 0950, 1000).
+
+
+5.49
+
+	Indicates the antenna�s position relative to the runway: Localizer/Azimuth � @=beyond stop end, +=ahead of approach end, -=off to one side; Back Azimuth � @=ahead of approach end, +=beyond stop end, -=off to one side.
+
+
+5.50
+
+	Specifies the glide slope antenna�s distance in feet from the runway threshold, measured perpendicular to the runway, with 1-ft resolution (e.g., 0980, 1417).
+
+
+5.51
+
+	Specifies the localizer course width in degrees, tenths, and hundredths (decimal suppressed) for the ILS facility (e.g., 0500, 0400, 0350).
+
+
+5.52
+
+	Specifies the glide slope angle for an ILS facility or GLS approach in degrees, tenths, and hundredths (decimal suppressed) (e.g., 275, 300).
+
+
+5.53
+
+	Defines the altitude (in feet MSL) at or below which aircraft reference local altimeter settings and above which standard settings are used (QNE). Applied in STAR and Approach records as the level where barometric settings change to local, and in SID records as the transition altitude. Must be present in the first leg of each SID/STAR/Approach procedure if known. If unknown or varies by procedure, the field is left blank. Recorded to a one-foot resolution (e.g., 05000, 23000, 18000).
+
+
+5.54
+
+	Indicates the length of the longest operational runway at the airport, expressed in hundreds of feet and used for airport classification. Note: Per ARINC 424 v18, this field should reflect the longest operational hard-surface runway. However, the FAA�s implementation may include runways that are not hard-surfaced, and as such, the value may not align with the ARINC 424 definition. Examples (zero-padded to the left): 040, 055, 098, 111
+
+
+5.55
+
+	Specifies the elevation of the airport or heliport in feet to a resolution of one foot; positive values are above MSL, negative values (with a leading minus sign) are below MSL (e.g., 02171, -0142).
+
+
+5.57
+
+	Indicates the total declared runway surface length in feet (to 1-ft resolution) for the identified runway, excluding displaced thresholds, stopways, overruns, and clearways; operational lengths may differ and require review of displaced threshold and stopway data (e.g., 05000, 07000, 11480).
+
+
+5.58
+
+	Represents the magnetic bearing of the specified runway in degrees and tenths (decimal suppressed), with a trailing “T” used for true bearings (e.g., 1800, 2302, 0605, 347T). Note: If a magnetic variation is not available to help determine Runway Magnetic Bearings, one will be calculated using the WMM calculator.
+
+
+5.59
+
+	Provides supplemental details about a runway, such as surface characteristics or operational limitations (e.g., GROOVED, SINGLE ENG. ONLY).
+
+
+5.66
+
+	Specifies the angular difference between true north and the NAVAID�s zero-degree radial (or magnetic north for ILS localizers), expressed as a character indicating orientation (E=East of True North, W=West of True North, T=oriented True North, G=oriented Grid North) followed by declination in degrees/tenths with decimal suppressed; T and G entries are followed by zeros (e.g., E0072, E0000, T0000, G0000). Last digit is decimal (E0150 = E15.0)
+
+
+5.67
+
+	Specifies the height above the runway threshold on a normal glide path, taken from ILS/MLS glide slope, RNAV procedure, published VGSI, or set to 50 ft if none are available; also used in approach continuation and ILS/MLS records.
+
+	Defines the height above the landing threshold on a standard glide path, sourced from ILS/MLS glide slope, RNAV procedure, published VGSI, or defaulted to 50 ft when unavailable; also used in approach continuation and ILS/MLS records (e.g., 37, 50, 99, 044, 055, 102).
+
+
+5.68
+
+	Represents the elevation of a runway’s landing threshold in feet (1-ft resolution), expressed as numeric values above MSL or with a leading “–” for below MSL (e.g., 01250, -0150).
+
+
+5.69
+
+	Specifies the distance in feet from the runway end to a displaced threshold when the threshold is not located at the extremity (e.g., 0485, 1260).
+
+
+5.71
+
+	Provides the facility name and may include a parenthetical location for clarity.
+
+
+5.72
+
+	Defines a speed limit in knots indicated airspeed (KIAS) for a fix in a terminal procedure or for an airport/heliport terminal environment. When used in airport or heliport records, it indicates the maximum speed allowed for all flight segments at or below the specified Speed Limit Altitude (5.73). In SID records, the limit applies from the procedure start or previous speed limit through the end of the leg on which it's coded, unless superseded. In STAR and Approach records, the speed limit applies from the point it is coded forward through the procedure unless replaced by another limit.
+
+
+5.73
+
+	Altitude below which speed limits may be imposed, derived from official sources and expressed in feet MSL or flight levels (e.g., 10000, F125).
+
+	Altitude below which speed limits may be imposed (e.g., 10000, F125).
+
+
+5.74
+
+	Specifies the elevation of system components relative to MSL: GS ELEV = Glide Slope __ EL ELEV = MLS Elevation __ AZ ELEV = MLS Azimuth __ BAZ ELEV = MLS Back Azimuth __ GLS ELEV = GLS ground station; negative sign indicates below MSL (e.g., 00235, 01265, -0011).
+
+
+5.79
+
+	Represents the length in feet of a designated area beyond the runway, aligned with its centerline, intended for aircraft deceleration during an aborted takeoff (e.g., 0900, 1000).
+
+
+5.80
+
+	Defines the performance category or classification of a Localizer, MLS, or GLS system: 0=ILS Localizer only (no glideslope) __ 1=ILS/MLS/GLS Category I __ 2=ILS/MLS/GLS Category II __ 3=ILS/MLS/GLS Category III __ I=IGS Facility __ L=LDA Facility with glideslope __ A=LDA Facility without glideslope __ S=SDF Facility with glideslope __ F=SDF Facility without glideslope.
+
+
+5.90
+
+	Specifies the DME offset in nautical miles and tenths (decimal suppressed); left blank if no bias is present (e.g., 13 = 1.3 NM, 91 = 9.1 NM).
+
+
+5.91
+
+	Indicates the application type of a continuation record: A=Standard ARINC continuation (notes/formatted data) __ B=Combined Controlling Agency/Call Sign with Time of Operation __ C=Call Sign/Controlling Agency continuation __ E=Primary Record Extension __ L=VHF Navaid Limitation continuation __ N=Sector Narrative continuation __ T=Time of Operations continuation (formatted time) __ U=Time of Operations continuation (narrative time) __ V=Time of Operations continuation (Start/End Date) __ P=Flight Planning Application continuation __ Q=Flight Planning Application Primary Data continuation __ S=Simulation Application continuation __ W=Airport/Heliport Procedure Data continuation with SBAS authorization.
+
+
+5.107
+
+	Contains the ATA/IATA designator code (FAA Airport Identifier) for the airport or heliport related to the record's data (e.g., DEN, LHR, JFK). If the Airport Identifier is four characters in length, the field will be left blank.
+
+	Contains the ATA/IATA designator code for the airport or heliport related to the record's data (e.g., DEN, LHR, JFK).
+
+
+5.108
+
+	Indicates whether the airport or heliport has any published instrument approach procedures; 'Y' if published, 'N' if not.
+
+
+5.109
+
+	Specifies the runway width in feet (1-ft resolution), recorded as the minimum width when the runway varies along its length (e.g., 150, 300, 075).
+
+
+5.149
+
+	Defines the usable range or status of a VHF NAVAID beyond its class, with coded values: 0 = Terminal (-or=25NM), 1 = Low Altitude (-or=40NM), 2 = High Altitude (-or=130NM), 3 = Extended High Altitude (>130NM), 7 = Not in civil international NOTAM system, 9 = Out of service. FAA NOTE: Figure of Merit is determined from the NAVAID Class; If the Navaid Class is undetermined, the Figure of Merit will be coded as �3�.
+
+
+5.165
+
+	Indicates whether bearings and courses are referenced to Magnetic or True North: 'M' for magnetic, 'T' for true. In airport records, 'M' or 'T' signifies all procedures use that reference and is blank if a mix of magnetic and true data.
+
+
+5.176
+
+	Defines the landing surface dimensions of the helicopter pad, described as a rectangle or circle (e.g., 060060, 100050, 040040).
+
+
+5.177
+
+	Categorizes the airport or heliport by usage: C = civil (open to the public), M = military, P = private (not open to the public). Joint-use facilities are classified as civil.
+
+
+5.178
+
+	Indicates the airport�s standard time zone using a single-letter code based on 15� longitude intervals relative to Greenwich Mean Time (GMT): Z (0), A (-1), B (-2), C (-3), D (-4), E (-5), F (-6), G (-7), H (-8), I (-9), K (-10), L (-11), M (-12), N (+1), O (+2), P (+3), Q (+4), R (+5), S (+6), T (+7), U (+8), V (+9), W (+10), X (+11), Y (+12).
+
+	Indicates the heliports standard time zone using a single-letter code based on 15� longitude intervals relative to Greenwich Mean Time (GMT): Z (0), A (-1), B (-2), C (-3), D (-4), E (-5), F (-6), G (-7), H (-8), I (-9), K (-10), L (-11), M (-12), N (+1), O (+2), P (+3), Q (+4), R (+5), S (+6), T (+7), U (+8), V (+9), W (+10), X (+11), Y (+12).
+
+
+5.179
+
+	Indicates whether the airport observes Daylight or Summer Time: 'Y' if observed, 'N' if not observed or unknown.
+
+	Indicates whether the heliport observes Daylight or Summer Time: 'Y' if observed, 'N' if not observed or unknown.
+
+
+5.197
+
+	Defines the local horizontal reference datum used for the geographic position (latitude and longitude); represented by a three-letter code from official government publications (e.g., AGD, NAS, WGA).
+
+
+5.212
+
+	Indicates the overall runway gradient in percent from the takeoff roll start to runway end, expressed with a leading “+” (upward) or “–” (downward) and four digits with the decimal suppressed; max range ±9.000% (e.g., +0450, -0300). Note: Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available.
+
+
+5.223
+
+	Indicates the type of final approach segment; 00 = straight-in procedure, 01�15 reserved for future use.
+
+
+5.224
+
+	Specifies a single alpha character (A�Z, excluding I and O) used to distinguish multiple final approach segments to the same runway or helipad, matching the Multiple Approach Indicator in procedure identifiers.
+
+
+5.225
+
+	Specifies the surveyed height relative to the WGS-84 ellipsoid in meters (0.1 m resolution, decimal suppressed), with a leading �+� or ��� indicating above or below the ellipsoid; applies to LTP positions in Path Point Records or landing thresholds in Runway Records (e.g., +00356, +00051, +015, -00022, -01566). Note: Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available.
+
+	Specifies the surveyed height relative to the WGS-84 ellipsoid in meters (0.1 m resolution, decimal suppressed), with a leading “+” or “–” indicating above or below the ellipsoid; applies to LTP positions in Path Point Records or landing thresholds in Runway Records (e.g., +00356, +00051, +015, -00022, -01566). Note: Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available.
+
+
+5.226
+
+	Defines the intended descent gradient for the final approach, given as the glide path angle in degrees, tenths, and hundredths at the Flight Path Control Point (e.g., 0275 = 2.75�, 1015 = 10.15�, 0300 = 3.00�).
+
+
+5.227
+
+	Specifies the surveyed height relative to Mean Sea Level (MSL) in 0.1 m resolution, decimal suppressed, with a leading �+� for above MSL or ��� for below (e.g., +00356, +00051, +01566, -00022, -01566).
+
+
+5.228
+
+	Specifies the lateral course width at the Landing Threshold Point (LTP), defining approach sensitivity with the FPAP location; values in meters with 0.25 m resolution, ending in 00, 25, 50, or 75, and set to 38 m for helicopter alighting points (e.g., 08025, 14375, 03800)
+
+
+5.229
+
+	Represents the 8-character hexadecimal CRC remainder for the final approach segment data, a 32-bit value ensuring data integrity calculated per the specification�s algorithm (e.g., 243BC649, A6934B72).
+
+
+5.244
+
+	Identifies the GNSS channel used to decode the augmentation system, with values 20001�39999 reserved for GBAS (and SBAS if applicable) and 40000�99999 reserved for SBAS; values below 20000 are reserved for ILS/MLS (e.g., 20010, 56234).
+
+
+5.249
+
+	Indicates the surface type of the airport�s longest runway: H = hard surface (e.g., asphalt, concrete), S = soft surface (e.g., grass, gravel), W = water runway, U = undefined.
+
+
+5.255
+
+	Associates the approach procedure with a specific SBAS service provider, coded as a number from 00 to 15 (definitions set by ICAO SBAS SARPS working groups).
+
+
+5.256
+
+	Enables automatic tuning of a procedure by GBAS avionics, represented by a number from 00 to 48 (definitions under development by ICAO GBAS SARPS working groups).
+
+
+5.257
+
+	Provides an identifier to verify selection of the correct approach procedure, functioning like a Morse code ID in ILS approaches (e.g., GDCA, SJK2). Related to the GLS Station Identifier, which is the ICAO location code of the airport or heliport where the GLS transmitter is installed.
+
+
+5.258
+
+	Indicates the type or category of approach, represented by a number from 0 to 7, with assignments defined by ICAO GBAS SARPS and official government sources (e.g., 1 = Category I Approach).
+
+
+5.259
+
+	Defines the distance in meters from the runway stop end (SER) to the Flight Path Alignment Point (FPAP), marking where lateral sensitivity shifts to missed approach sensitivity; resolution is 8 m, with zero used when FPAP is at the opposite runway end center (e.g., 0000, 0432).
+
+
+5.262
+
+	Identifies published approach types requiring path points, HAL, and VAL, using up to 10 characters to represent the approach name (e.g., GLS, LPV, APV-II).
+
+
+5.263
+
+	Defines the Horizontal Alert Limit (HAL), the radius in meters of a circle centered on the true position within which the indicated horizontal position must fall with required probability for a given navigation mode; recorded to 0.1 m resolution, decimal suppressed (e.g., 400, 200).
+
+
+5.264
+
+	Defines the Vertical Alert Limit (VAL), half the vertical segment length centered on the true position within which the indicated vertical position must fall with required probability; expressed in meters to 0.1 m resolution, decimal suppressed (e.g., 120, 500).
+
+
+5.265
+
+	Specifies the Threshold Crossing Height (TCH) above the runway threshold (LTP) or helipad, matching Field Ref 5.67 but with higher precision; recorded in feet to 0.1 ft or meters to 0.01 m, decimal suppressed, with units defined by the TCH Units Indicator (e.g., 566777, 356799).
+
+
+5.266
+
+	Indicates the unit of measure for the Path Point TCH: F = feet, M = meters.
+
+
+5.267
+
+	Specifies the latitude of the navigation feature. Expands on Field Ref 5.36 by improving precision resolution to 0.0005 arc-seconds (e.g., N3028422400).
+
+
+5.268
+
+	Specifies the longitude of the navigation feature. Expands on Field Ref 5.37 by improving precision resolution to 0.0005 arc-seconds (e.g., W081420301000).
+
+
+5.269
+
+	Specifies the final approach course in full degrees for helicopter procedures to helipads or points in space, used with the Approach Procedure Identifier and Runway/Helipad Identifier to uniquely define the procedure (e.g., 003, 013, 103, 310, 333).
+
+
+N/A
+
+	Just "HDR", indicating this line is a HEADER line.
+
+	Indicates the record is the first Header Record, marked by a decimal value of 01.
+
+	File name, eg. "FAACIFP18"
+
+	Specifies a three-digit revision number for the file, starting at 001 and incremented if multiple versions are produced within the same cycle.
+
+	Indicates file type: �P� for production data or �T� for test data.
+
+	Specifies the fixed record length of characters per data record eg. "0132"
+
+	Provides the total number of data records in the file, expressed as a decimal count.
+
+	Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01–13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+
+	Indicates the file creation date in DD-MMM-YYYY format, using a two-digit day, three-letter month abbreviation, and four-digit year (e.g., 12-APR-2002).
+
+	Specifies the UTC creation time of the file in HH:MM:SS format with two-digit hours, minutes, and seconds (e.g., 13:12:02).
+
+	Holds identifying information about the data supplier, with content defined by the supplier.
+
+	Provides identifying details for the data user or customer (e.g., names, file codes), with content defined by the supplier and/or customer; optional field.
+
+	Specifies a unique part number for the database; optional with content to be determined.
+
+	Represents the Cyclic Redundancy Check (CRC) value for the ARINC data file (data and header records), using a polynomial and block size TBD; if multiple CRCs are required, this field may be split and relocated. For calculation, Header Record 1 columns 125�132 are treated as zeros.
