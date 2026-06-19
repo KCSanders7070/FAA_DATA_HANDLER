@@ -18,7 +18,7 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
         /// <remarks>
         /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
         /// </remarks>
-        /// <returns>The converted Record Type value.</returns>
+        /// <returns>The converted Record Type value. Ex: "Standard (S)"</returns>
         public static string Field52(string? aspan)
         {
             return aspan switch
