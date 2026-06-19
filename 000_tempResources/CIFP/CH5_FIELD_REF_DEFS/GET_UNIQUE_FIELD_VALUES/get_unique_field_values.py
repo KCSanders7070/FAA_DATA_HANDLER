@@ -4,7 +4,7 @@ import os
 import re
 
 
-INPUT_FILENAME = r"C:\Users\ksand\Desktop\ProjFolder\FAA DATA HANDLER\CIFP CODING\CH 5 FIELD REFERENCE DEFINITIONS\GET UNIQUE FIELD VALUES\FAACIFP18.txt"
+INPUT_FILENAME = r"C:\Users\ksand\Downloads\FAACIFP18.txt"
 
 CSV_DIRECTORY = r"C:\Users\ksand\Documents\VisualStudioProjects\FAA_DATA_HANDLER\000_tempResources\CIFP\CH4_RECORD_LAYOUTS"
 
@@ -170,6 +170,9 @@ def main():
                     working_line = working_line + " " * (end_index - len(working_line))
 
                 value = working_line[start_index:end_index]
+
+                # Replace every digit with # before checking uniqueness.
+                value = re.sub(r"\d", "#", value)
 
                 if value not in seen_values:
                     seen_values.add(value)
