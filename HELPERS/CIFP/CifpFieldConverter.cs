@@ -10,6 +10,9 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
     /// Provides helper methods for converting CIFP fixed-width field values.
     /// Methods are named using the field number without the decimal, such as Field52 for field 5.2.
     /// </summary>
+    /// <returns>The converted Record Type values.
+    /// Usually, if the field is empty or whitespace, return an empty string "" instead of null or whitespace and if the value is not recognized, returns it as-is.
+    /// </returns>
     internal class CifpFieldConverter
     {
         /// <summary>
@@ -18,16 +21,20 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
         /// <remarks>
         /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
         /// </remarks>
-        /// <returns>The converted Record Type value. Ex: "Standard (S)"</returns>
-        public static string Field52(string? aspan)
+        /// <returns>Ex: "Standard (S)", "Tailored (T)"</returns>
+        public static string Field52(string aspan)
         {
+            // If the field is empty or whitespace, return an empty string "" instead of null or whitespace.
+            if (string.IsNullOrWhiteSpace(aspan))
+                return string.Empty;
+
             return aspan switch
             {
                 "S" => "Standard (S)",
                 "T" => "Tailored (T)",
 
-                // If the value is not recognized, return the original value or an empty string if it's null
-                _ => aspan ?? string.Empty
+                // If the value is not recognized, return it as-is. This allows for future-proofing if new record types are added.
+                _ => aspan
             };
         }
     }
