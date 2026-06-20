@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSV Field Editor</title>
+  <style>
+    :root {
+      --bg: #111418;
+      --panel: #1a1f26;
+      --panel-2: #202733;
+      --text: #e8edf2;
+      --muted: #9aa7b3;
+      --border: #384351;
+      --input-bg: #0f1318;
+      --input-border: #4b5a6b;
+      --focus: #7aa2ff;
+      --green: #1f8f4d;
+      --green-hover: #27a85b;
+      --red: #b93636;
+      --red-hover: #d14545;
+      --button: #2d3745;
+      --button-hover: #3a4657;
+      --warning: #ffd166;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .top-actions,
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .status-line {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .warning {
+      color: var(--warning);
+    }
+
+    button,
+    .file-label {
+      border: 1px solid var(--border);
+      background: var(--button);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    button:hover,
+    .file-label:hover {
+      background: var(--button-hover);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    #saveBtn.clean {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    #saveBtn.clean:hover {
+      background: var(--green-hover);
+    }
+
+    #saveBtn.dirty {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    #saveBtn.dirty:hover {
+      background: var(--red-hover);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-12 { grid-column: span 12; }
+
+    label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: var(--input-bg);
+      color: var(--text);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18);
+    }
+
+    input.short-35 {
+      max-width: 35ch;
+    }
+
+    input.short-15 {
+      max-width: 15ch;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      overflow: hidden;
+      white-space: pre-wrap;
+    }
+
+    .readout {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    .readout strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 760px) {
+      main {
+        padding: 14px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .span-2,
+      .span-3,
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-12 {
+        grid-column: span 1;
+      }
+
+      input.short-35,
+      input.short-15 {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CSV Field Editor</h1>
+
+    <section class="panel">
+      <div class="top-actions">
+        <button type="button" id="openWritableBtn">Open CSV with direct save</button>
+        <label class="file-label" for="fileInput">Open CSV with download fallback</label>
+        <input type="file" id="fileInput" accept=".csv,text/csv" />
+        <button type="button" id="downloadBtn" disabled>Download Current CSV</button>
+      </div>
+      <div class="status-line" id="statusLine">No CSV loaded.</div>
+      <div class="status-line warning" id="supportLine"></div>
+    </section>
+
+    <section class="panel">
+      <form id="editorForm" autocomplete="off">
+        <div class="grid">
+          <div class="field span-3">
+            <label for="fieldIdSelect">Field ID</label>
+            <select id="fieldIdSelect" disabled></select>
+          </div>
+
+          <div class="field span-5">
+            <label for="fieldNameInput">Field Name</label>
+            <input id="fieldNameInput" class="short-35" type="text" disabled />
+          </div>
+
+          <div class="field span-4">
+            <label for="propertyTypeSelect">Property Type</label>
+            <select id="propertyTypeSelect" disabled></select>
+          </div>
+
+          <div class="field span-3">
+            <label for="maxLengthInput">Post-Convert Max Length</label>
+            <input id="maxLengthInput" class="short-15" type="text" disabled />
+          </div>
+
+          <div class="field span-2">
+            <label for="trimSelect">Trim</label>
+            <select id="trimSelect" disabled>
+              <option value="N">N</option>
+              <option value="Y">Y</option>
+            </select>
+          </div>
+
+          <div class="field span-2">
+            <label for="convertSelect">Convert</label>
+            <select id="convertSelect" disabled>
+              <option value="N">N</option>
+              <option value="Y">Y</option>
+            </select>
+          </div>
+
+          <div class="field span-12">
+            <label for="originalDescriptionArea">Original Field Description</label>
+            <textarea id="originalDescriptionArea" disabled></textarea>
+          </div>
+
+          <div class="field span-12">
+            <label for="conversionNotesArea">Conversion Notes</label>
+            <textarea id="conversionNotesArea" disabled></textarea>
+          </div>
+
+          <div class="field span-12">
+            <label for="postConversionDescriptionArea">Post-Conversion Field Description</label>
+            <textarea id="postConversionDescriptionArea" disabled></textarea>
+          </div>
+        </div>
+      </form>
+
+      <div class="readout">
+        <span>Record: <strong id="recordCounter">0 / 0</strong></span>
+        <span>Save status: <strong id="dirtyStatus">Clean</strong></span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="nav-actions">
+        <button type="button" id="prevBtn" disabled>Prev</button>
+        <button type="button" id="nextBtn" disabled>Next</button>
+        <button type="button" id="saveBtn" class="clean" disabled>Save</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const COLUMNS = [
+      "FieldId",
+      "FieldName",
+      "PropertyType",
+      "PostConvertMaxLength",
+      "Trim",
+      "Convert",
+      "OriginalFieldDescription",
+      "ConversionNotes",
+      "PostConversionFieldDescription"
+    ];
+
+    // This list is intentionally easy to edit. Custom project-specific types can be added here.
+    const PROPERTY_TYPES = [
+      "",
+      "string",
+      "int",
+      "decimal",
+      "double",
+      "bool",
+      "DateTime",
+      "long",
+      "short",
+      "byte",
+      "float",
+      "char",
+      "object",
+      "Guid",
+      "int?",
+      "decimal?",
+      "double?",
+      "bool?",
+      "DateTime?",
+      "long?",
+      "short?",
+      "byte?",
+      "float?",
+      "char?",
+      "Guid?"
+    ];
+
+    const state = {
+      rows: [],
+      currentIndex: -1,
+      dirty: false,
+      fileHandle: null,
+      loadedFileName: "",
+      directSaveAvailable: Boolean(window.showOpenFilePicker)
+    };
+
+    const els = {
+      openWritableBtn: document.getElementById("openWritableBtn"),
+      fileInput: document.getElementById("fileInput"),
+      downloadBtn: document.getElementById("downloadBtn"),
+      statusLine: document.getElementById("statusLine"),
+      supportLine: document.getElementById("supportLine"),
+      fieldIdSelect: document.getElementById("fieldIdSelect"),
+      fieldNameInput: document.getElementById("fieldNameInput"),
+      propertyTypeSelect: document.getElementById("propertyTypeSelect"),
+      maxLengthInput: document.getElementById("maxLengthInput"),
+      trimSelect: document.getElementById("trimSelect"),
+      convertSelect: document.getElementById("convertSelect"),
+      originalDescriptionArea: document.getElementById("originalDescriptionArea"),
+      conversionNotesArea: document.getElementById("conversionNotesArea"),
+      postConversionDescriptionArea: document.getElementById("postConversionDescriptionArea"),
+      recordCounter: document.getElementById("recordCounter"),
+      dirtyStatus: document.getElementById("dirtyStatus"),
+      prevBtn: document.getElementById("prevBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      saveBtn: document.getElementById("saveBtn")
+    };
+
+    init();
+
+    function init() {
+      populatePropertyTypes();
+      wireEvents();
+
+      if (!state.directSaveAvailable) {
+        els.openWritableBtn.disabled = true;
+        els.supportLine.textContent = "Direct save is not available in this browser. Use the fallback open button, then Save will download a new CSV file.";
+      } else {
+        els.supportLine.textContent = "Direct save works in Chromium-based browsers such as Chrome and Edge. The fallback button works anywhere.";
+      }
+    }
+
+    function populatePropertyTypes() {
+      els.propertyTypeSelect.innerHTML = "";
+      for (const type of PROPERTY_TYPES) {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type === "" ? "(blank)" : type;
+        els.propertyTypeSelect.appendChild(option);
+      }
+    }
+
+    function wireEvents() {
+      els.openWritableBtn.addEventListener("click", openWithDirectSave);
+      els.fileInput.addEventListener("change", openWithDownloadFallback);
+      els.downloadBtn.addEventListener("click", downloadCsv);
+      els.prevBtn.addEventListener("click", () => navigateTo(state.currentIndex - 1));
+      els.nextBtn.addEventListener("click", () => navigateTo(state.currentIndex + 1));
+      els.saveBtn.addEventListener("click", saveCurrentCsv);
+
+      els.fieldIdSelect.addEventListener("change", () => {
+        const requestedIndex = Number(els.fieldIdSelect.value);
+        navigateTo(requestedIndex, true);
+      });
+
+      const editableControls = [
+        els.fieldNameInput,
+        els.propertyTypeSelect,
+        els.maxLengthInput,
+        els.trimSelect,
+        els.convertSelect,
+        els.originalDescriptionArea,
+        els.conversionNotesArea,
+        els.postConversionDescriptionArea
+      ];
+
+      for (const control of editableControls) {
+        control.addEventListener("input", () => setDirty(true));
+        control.addEventListener("change", () => setDirty(true));
+      }
+
+      const textAreas = [
+        els.originalDescriptionArea,
+        els.conversionNotesArea,
+        els.postConversionDescriptionArea
+      ];
+
+      for (const area of textAreas) {
+        area.addEventListener("input", () => autoResize(area));
+      }
+
+      window.addEventListener("beforeunload", (event) => {
+        if (!state.dirty) return;
+        event.preventDefault();
+        event.returnValue = "";
+      });
+    }
+
+    async function openWithDirectSave() {
+      try {
+        const [handle] = await window.showOpenFilePicker({
+          types: [
+            {
+              description: "CSV files",
+              accept: { "text/csv": [".csv"] }
+            }
+          ],
+          multiple: false
+        });
+
+        const file = await handle.getFile();
+        const text = await file.text();
+        state.fileHandle = handle;
+        loadCsvText(text, file.name, true);
+      } catch (error) {
+        if (error && error.name === "AbortError") return;
+        showError(error);
+      }
+    }
+
+    async function openWithDownloadFallback(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        state.fileHandle = null;
+        loadCsvText(text, file.name, false);
+      } catch (error) {
+        showError(error);
+      } finally {
+        event.target.value = "";
+      }
+    }
+
+    function loadCsvText(text, fileName, directSave) {
+      const parsedRows = parseCsv(text.replace(/^\uFEFF/, ""));
+      if (parsedRows.length === 0) {
+        throw new Error("CSV file is empty.");
+      }
+
+      const header = parsedRows[0].map(value => value.trim());
+      const indexes = Object.fromEntries(header.map((name, index) => [name, index]));
+
+      for (const column of COLUMNS) {
+        if (!(column in indexes)) {
+          throw new Error(`Missing required CSV column: ${column}`);
+        }
+      }
+
+      const rows = parsedRows.slice(1).map(csvRow => {
+        const row = {};
+        for (const column of COLUMNS) {
+          row[column] = csvRow[indexes[column]] ?? "";
+        }
+        return row;
+      });
+
+      state.rows = rows;
+      state.currentIndex = rows.length > 0 ? 0 : -1;
+      state.loadedFileName = fileName || "field-data.csv";
+      state.dirty = false;
+
+      populateFieldIdOptions();
+      setFormEnabled(rows.length > 0);
+      showCurrentRow();
+      updateButtons();
+      setDirty(false);
+
+      els.statusLine.textContent = directSave
+        ? `Loaded ${state.loadedFileName}. Save will write directly back to the selected file.`
+        : `Loaded ${state.loadedFileName}. Save will download an updated CSV file.`;
+    }
+
+    function populateFieldIdOptions() {
+      els.fieldIdSelect.innerHTML = "";
+      state.rows.forEach((row, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = row.FieldId || `(blank FieldId at row ${index + 2})`;
+        els.fieldIdSelect.appendChild(option);
+      });
+    }
+
+    async function navigateTo(nextIndex, fromFieldIdSelect = false) {
+      if (nextIndex < 0 || nextIndex >= state.rows.length || nextIndex === state.currentIndex) {
+        els.fieldIdSelect.value = String(state.currentIndex);
+        return;
+      }
+
+      if (state.dirty) {
+        const shouldSave = window.confirm("You have unsaved changes. Save before moving to another FieldId?\n\nOK = Save and move\nCancel = Stay here");
+        if (!shouldSave) {
+          els.fieldIdSelect.value = String(state.currentIndex);
+          return;
+        }
+
+        const saved = await saveCurrentCsv();
+        if (!saved) {
+          els.fieldIdSelect.value = String(state.currentIndex);
+          return;
+        }
+      }
+
+      state.currentIndex = nextIndex;
+      showCurrentRow();
+      updateButtons();
+      setDirty(false);
+
+      if (!fromFieldIdSelect) {
+        els.fieldIdSelect.value = String(state.currentIndex);
+      }
+    }
+
+    function showCurrentRow() {
+      if (state.currentIndex < 0 || state.currentIndex >= state.rows.length) {
+        clearForm();
+        return;
+      }
+
+      const row = state.rows[state.currentIndex];
+      els.fieldIdSelect.value = String(state.currentIndex);
+      els.fieldNameInput.value = row.FieldName ?? "";
+      setSelectValue(els.propertyTypeSelect, row.PropertyType ?? "");
+      els.maxLengthInput.value = row.PostConvertMaxLength ?? "";
+      setSelectValue(els.trimSelect, normalizeYesNo(row.Trim, "N"));
+      setSelectValue(els.convertSelect, normalizeYesNo(row.Convert, "N"));
+      els.originalDescriptionArea.value = row.OriginalFieldDescription ?? "";
+      els.conversionNotesArea.value = row.ConversionNotes ?? "";
+      els.postConversionDescriptionArea.value = row.PostConversionFieldDescription ?? "";
+
+      autoResize(els.originalDescriptionArea);
+      autoResize(els.conversionNotesArea);
+      autoResize(els.postConversionDescriptionArea);
+    }
+
+    function clearForm() {
+      els.fieldNameInput.value = "";
+      els.propertyTypeSelect.value = "";
+      els.maxLengthInput.value = "";
+      els.trimSelect.value = "N";
+      els.convertSelect.value = "N";
+      els.originalDescriptionArea.value = "";
+      els.conversionNotesArea.value = "";
+      els.postConversionDescriptionArea.value = "";
+    }
+
+    function writeFormToCurrentRow() {
+      if (state.currentIndex < 0 || state.currentIndex >= state.rows.length) return;
+
+      const row = state.rows[state.currentIndex];
+      row.FieldName = els.fieldNameInput.value;
+      row.PropertyType = els.propertyTypeSelect.value;
+      row.PostConvertMaxLength = els.maxLengthInput.value;
+      row.Trim = els.trimSelect.value || "N";
+      row.Convert = els.convertSelect.value || "N";
+      row.OriginalFieldDescription = els.originalDescriptionArea.value;
+      row.ConversionNotes = els.conversionNotesArea.value;
+      row.PostConversionFieldDescription = els.postConversionDescriptionArea.value;
+    }
+
+    async function saveCurrentCsv() {
+      try {
+        writeFormToCurrentRow();
+        const csv = rowsToCsv(state.rows);
+
+        if (state.fileHandle) {
+          const writable = await state.fileHandle.createWritable();
+          await writable.write(csv);
+          await writable.close();
+          els.statusLine.textContent = `Saved ${state.loadedFileName}.`;
+        } else {
+          downloadText(csv, getOutputFileName());
+          els.statusLine.textContent = `Downloaded updated CSV as ${getOutputFileName()}.`;
+        }
+
+        setDirty(false);
+        return true;
+      } catch (error) {
+        showError(error);
+        return false;
+      }
+    }
+
+    function downloadCsv() {
+      writeFormToCurrentRow();
+      downloadText(rowsToCsv(state.rows), getOutputFileName());
+      els.statusLine.textContent = `Downloaded updated CSV as ${getOutputFileName()}.`;
+      setDirty(false);
+    }
+
+    function rowsToCsv(rows) {
+      const outputRows = [COLUMNS, ...rows.map(row => COLUMNS.map(column => row[column] ?? ""))];
+      return outputRows.map(csvRow => csvRow.map(quoteCsvValue).join(",")).join("\r\n") + "\r\n";
+    }
+
+    function quoteCsvValue(value) {
+      return `"${String(value ?? "").replaceAll('"', '""')}"`;
+    }
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let field = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (inQuotes) {
+          if (char === '"' && nextChar === '"') {
+            field += '"';
+            i++;
+          } else if (char === '"') {
+            inQuotes = false;
+          } else {
+            field += char;
+          }
+          continue;
+        }
+
+        if (char === '"') {
+          inQuotes = true;
+        } else if (char === ',') {
+          row.push(field);
+          field = "";
+        } else if (char === '\r') {
+          if (nextChar === '\n') i++;
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = "";
+        } else if (char === '\n') {
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = "";
+        } else {
+          field += char;
+        }
+      }
+
+      if (field.length > 0 || row.length > 0) {
+        row.push(field);
+        rows.push(row);
+      }
+
+      return rows.filter(csvRow => csvRow.some(value => value !== ""));
+    }
+
+    function normalizeYesNo(value, fallback) {
+      const upper = String(value ?? "").trim().toUpperCase();
+      return upper === "Y" ? "Y" : fallback;
+    }
+
+    function setSelectValue(select, value) {
+      const stringValue = String(value ?? "");
+      const hasOption = Array.from(select.options).some(option => option.value === stringValue);
+      if (!hasOption) {
+        const option = document.createElement("option");
+        option.value = stringValue;
+        option.textContent = stringValue;
+        select.appendChild(option);
+      }
+      select.value = stringValue;
+    }
+
+    function setFormEnabled(enabled) {
+      const controls = [
+        els.fieldIdSelect,
+        els.fieldNameInput,
+        els.propertyTypeSelect,
+        els.maxLengthInput,
+        els.trimSelect,
+        els.convertSelect,
+        els.originalDescriptionArea,
+        els.conversionNotesArea,
+        els.postConversionDescriptionArea,
+        els.prevBtn,
+        els.nextBtn,
+        els.saveBtn,
+        els.downloadBtn
+      ];
+
+      for (const control of controls) {
+        control.disabled = !enabled;
+      }
+    }
+
+    function updateButtons() {
+      const hasRows = state.rows.length > 0;
+      els.prevBtn.disabled = !hasRows || state.currentIndex <= 0;
+      els.nextBtn.disabled = !hasRows || state.currentIndex >= state.rows.length - 1;
+      els.saveBtn.disabled = !hasRows;
+      els.downloadBtn.disabled = !hasRows;
+      els.recordCounter.textContent = hasRows ? `${state.currentIndex + 1} / ${state.rows.length}` : "0 / 0";
+    }
+
+    function setDirty(isDirty) {
+      state.dirty = isDirty;
+      els.saveBtn.classList.toggle("dirty", isDirty);
+      els.saveBtn.classList.toggle("clean", !isDirty);
+      els.dirtyStatus.textContent = isDirty ? "Unsaved changes" : "Clean";
+      updateButtons();
+    }
+
+    function autoResize(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight + 2}px`;
+    }
+
+    function getOutputFileName() {
+      if (!state.loadedFileName) return "field-data-updated.csv";
+      return state.loadedFileName.toLowerCase().endsWith(".csv")
+        ? state.loadedFileName.replace(/\.csv$/i, "-updated.csv")
+        : `${state.loadedFileName}-updated.csv`;
+    }
+
+    function downloadText(text, fileName) {
+      const blob = new Blob([text], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function showError(error) {
+      const message = error && error.message ? error.message : String(error);
+      els.statusLine.textContent = `Error: ${message}`;
+      console.error(error);
+    }
+  </script>
+</body>
+</html>
