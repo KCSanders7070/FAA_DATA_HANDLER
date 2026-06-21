@@ -290,6 +290,11 @@
             <label for="postConversionDescriptionArea">Post-Conversion Field Description</label>
             <textarea id="postConversionDescriptionArea" disabled></textarea>
           </div>
+
+          <div class="field span-12">
+            <label for="returnsArea">Returns</label>
+            <textarea id="returnsArea" disabled></textarea>
+          </div>
         </div>
       </form>
 
@@ -320,7 +325,8 @@
       "Convert",
       "OriginalFieldDescription",
       "ConversionNotes",
-      "PostConversionFieldDescription"
+      "PostConversionFieldDescription",
+      "Returns"
     ];
 
     // This list is intentionally easy to edit. Custom project-specific types can be added here.
@@ -376,6 +382,7 @@
       originalDescriptionArea: document.getElementById("originalDescriptionArea"),
       conversionNotesArea: document.getElementById("conversionNotesArea"),
       postConversionDescriptionArea: document.getElementById("postConversionDescriptionArea"),
+      returnsArea: document.getElementById("returnsArea"),
       recordCounter: document.getElementById("recordCounter"),
       dirtyStatus: document.getElementById("dirtyStatus"),
       prevBtn: document.getElementById("prevBtn"),
@@ -428,7 +435,8 @@
         els.convertSelect,
         els.originalDescriptionArea,
         els.conversionNotesArea,
-        els.postConversionDescriptionArea
+        els.postConversionDescriptionArea,
+        els.returnsArea
       ];
 
       for (const control of editableControls) {
@@ -439,7 +447,8 @@
       const textAreas = [
         els.originalDescriptionArea,
         els.conversionNotesArea,
-        els.postConversionDescriptionArea
+        els.postConversionDescriptionArea,
+        els.returnsArea
       ];
 
       for (const area of textAreas) {
@@ -499,8 +508,9 @@
       const header = parsedRows[0].map(value => value.trim());
       const indexes = Object.fromEntries(header.map((name, index) => [name, index]));
 
+      const optionalColumns = new Set(["Returns"]);
       for (const column of COLUMNS) {
-        if (!(column in indexes)) {
+        if (!(column in indexes) && !optionalColumns.has(column)) {
           throw new Error(`Missing required CSV column: ${column}`);
         }
       }
@@ -585,10 +595,12 @@
       els.originalDescriptionArea.value = row.OriginalFieldDescription ?? "";
       els.conversionNotesArea.value = row.ConversionNotes ?? "";
       els.postConversionDescriptionArea.value = row.PostConversionFieldDescription ?? "";
+      els.returnsArea.value = row.Returns ?? "";
 
       autoResize(els.originalDescriptionArea);
       autoResize(els.conversionNotesArea);
       autoResize(els.postConversionDescriptionArea);
+      autoResize(els.returnsArea);
     }
 
     function clearForm() {
@@ -600,6 +612,7 @@
       els.originalDescriptionArea.value = "";
       els.conversionNotesArea.value = "";
       els.postConversionDescriptionArea.value = "";
+      els.returnsArea.value = "";
     }
 
     function writeFormToCurrentRow() {
@@ -614,6 +627,7 @@
       row.OriginalFieldDescription = els.originalDescriptionArea.value;
       row.ConversionNotes = els.conversionNotesArea.value;
       row.PostConversionFieldDescription = els.postConversionDescriptionArea.value;
+      row.Returns = els.returnsArea.value;
     }
 
     async function saveCurrentCsv() {
@@ -734,6 +748,7 @@
         els.originalDescriptionArea,
         els.conversionNotesArea,
         els.postConversionDescriptionArea,
+        els.returnsArea,
         els.prevBtn,
         els.nextBtn,
         els.saveBtn,
