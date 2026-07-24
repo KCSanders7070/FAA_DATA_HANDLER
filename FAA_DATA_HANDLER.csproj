@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DOCS\Users\" />
     <Folder Include="MODELS\CIFP\" />
     <Folder Include="MODELS\D-TPP\" />
     <Folder Include="PARSERS\CIFP\SECTIONS\" />
