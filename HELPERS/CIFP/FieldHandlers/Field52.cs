@@ -13,7 +13,7 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
     /// <returns>The converted Record Type values.
     /// Usually, if the field is empty or whitespace, return an empty string "" instead of null or whitespace and if the value is not recognized, returns it as-is.
     /// </returns>
-    internal class CifpFieldConverter
+    internal static partial class CifpFieldConverter
     {
         /// <summary>
         /// CIFP field 5.2 "Record Type"
