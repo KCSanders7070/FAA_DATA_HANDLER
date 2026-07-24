@@ -3,7 +3,7 @@ The following breaks down what is expected with each field ARINC 424 Standard de
 
 The field ID (ex: "5.2", "5.10", "5.100") references the ARINC chapter `5`.`Section`.
 
-The Metadata category depicts what is expected to be stored to the property after parsing, not what is in the source file. For example, the Max Length of a field in the source file may be 5 characters but after parsing, the value has a decimal inserted and is now 6 characters long.
+The Metadata category depicts what is expected to be stored to the property after parsing, not what is in the source file. For example, the Max Length of a field in the source file may be 5 characters but after parsing, the value has a decimal inserted and is now 6 characters long; The metadata will show 6 in this scenario.
 
 ## 5.2 - Record Type
 
