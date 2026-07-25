@@ -22,19 +22,19 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
         /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
         /// </remarks>
         /// <returns>Ex: "Standard (S)", "Tailored (T)"</returns>
-        public static string Field52(string aspan)
+        public static string Field52(char fieldValue)
         {
-            // If the field is empty or whitespace, return an empty string "" instead of null or whitespace.
-            if (string.IsNullOrWhiteSpace(aspan))
+            // A char cannot be empty, but it can be whitespace or null.
+            if (char.IsWhiteSpace(fieldValue) || fieldValue == '\0')
                 return string.Empty;
 
-            return aspan switch
+            return fieldValue switch
             {
-                "S" => "Standard (S)",
-                "T" => "Tailored (T)",
+                'S' => "(S) Standard",
+                'T' => "(T) Tailored",
 
-                // If the value is not recognized, return it as-is. This allows for future-proofing if new record types are added.
-                _ => aspan
+                // Return unrecognized characters as-is.
+                _ => fieldValue.ToString()
             };
         }
     }
