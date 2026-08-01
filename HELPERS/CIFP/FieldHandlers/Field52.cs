@@ -25,14 +25,14 @@ namespace FAA_DATA_HANDLER.HELPERS.CIFP
         public static string Field52(char fieldValue)
         {
             // A char cannot be empty, but it can be whitespace or null.
-            if (char.IsWhiteSpace(fieldValue) || fieldValue == '\0')
+            if (fieldValue == ' ')
                 return string.Empty;
-
+        
             return fieldValue switch
             {
                 'S' => "(S) Standard",
                 'T' => "(T) Tailored",
-
+        
                 // Return unrecognized characters as-is.
                 _ => fieldValue.ToString()
             };
