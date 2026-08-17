@@ -1114,32 +1114,24 @@
             /// </summary>
             /// <remarks>Indicates any special treatment applied to the runway surface to improve friction or drainage. Possible values: GRVD (Grooved), PFC (Porous Friction Course), AFSC (Aggregate Friction Seal Coat), RFSC (Rubberized Friction Seal Coat), WC (Wire Comb/Tine), NONE (No Treatment).</remarks>
             public string? TreatmentCode { get; set; }
-
-            /*
-            TODO: When the AIRAC 2609 data is available, check the APT DATA LAYOUT.pdf to verify data field definitions and update the model accordingly.
-            Note: The PCN and other models below this may have a change to their expected values.
-            `Initial population of the new "PAVEMENT CLASSIFICATION" data field has yet to be determined. Therefore, the current practice of displaying PCN values in the data fields and PCR values in a reference remark may continue after the deployment of the NASR enhancement until the fields can be properly populated and the reference remarks removed.` See: https://www.faa.gov/air_traffic/flight_info/aeronav/safety_alerts/media/NASR_26-01_DPN_10.1_Subscriber_Enhancement.pdf
-            
             /// <summary>
             /// Pavement Classification
             /// _Src: APT_RWY.csv(PAVEMENT_CLASSIFICATION)
-            /// _MaxLength: 4
-            /// _DataType: int
+            /// _MaxLength: 3
+            /// _DataType: string
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>Possible values: “PCN”, “PCR”, or Null.</remarks>
+            /// <remarks>Rating system that expresses the relative load carrying capacity of a pavement in terms of a standard single wheel load. See FAA Advisory Circular 150/5335-5 for Code Definitions and PCR/PCN Determination Formula. This field will be populated with either PCR values or PCN values (but not both), or null. (PCR) PAVEMENT CLASSIFICATION RATING __ (PCN) PAVEMENT CLASSIFICATION NUMBER</remarks>
             public string? PavementClassification { get; set; }
-            */
-
             /// <summary>
-            /// Pavement Classification Number
-            /// _Src: APT_RWY.csv(PCN)
-            /// _MaxLength: (3,0)
+            /// Pavement Classification Rating/Number
+            /// _Src: APT_RWY.csv(PCN_PCR_NUMBER)
+            /// _MaxLength: (4,0)
             /// _DataType: int
             /// _Nullable: Yes
             /// </summary>
-            /// <remarks>Representing the load-carrying capacity of the runway. Refer to FAA Advisory Circular 150/5335-5 for code definitions and calculation methodology.</remarks>
-            public int? Pcn { get; set; }
+            /// <remarks>PCN/PCR rating/number. Refer to FAA Advisory Circular 150/5335-5 for code definitions and calculation methodology.</remarks>
+            public int? PcnPcrNumber { get; set; }
             /// <summary>
             /// Pavement Type
             /// _Src: APT_RWY.csv(PAVEMENT_TYPE_CODE)
