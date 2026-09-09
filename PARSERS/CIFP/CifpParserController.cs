@@ -1,291 +1,353 @@
-﻿using FAA_DATA_HANDLER.Parsers.CIFP;
-using FAA_DATA_HANDLER.PARSERS.CIFP;
-using System;
-using System.IO;
-using System.Xml;
-using System.Collections.Generic;
 using FAA_DATA_HANDLER.Models.CIFP;
+using FAA_DATA_HANDLER.Parsers.CIFP;
+using System;
+using System.Diagnostics;
+using System.IO;
 
-/// <summary>
-/// Entry-Point into CIFP Parsing.
-/// </summary>
-/// <remarks>This class processes the CIFP file named "FAACIFP18" located in the user-specified source directory.
-/// It reads the file line by line and delegates parsing to specific parsers based on the content of each line. The
-/// parsing logic is determined by the structure and identifiers within the CIFP file.</remarks>
-public static class CifpParserController
+namespace FAA_DATA_HANDLER.Parsers.CIFP
 {
-    /// <param name="faaCifp18FilePath">The path to the directory selected by the user that contains the CIFP file named "FAACIFP18".</param>
-    public static void Parse(string faaCifp18FilePath, CifpDataCollections cifpDataCollections)
+    /// <summary>
+    /// Entry point for parsing the FAA CIFP file.
+    /// </summary>
+    /// <remarks>
+    /// Reads FAACIFP18 line by line and hands each record to the parser for its type. Every record is
+    /// exactly 132 characters, so dispatch is a couple of character tests rather than any string work.
+    /// <para><b>Where the subsection code lives depends on the section.</b> This is the one thing that
+    /// makes CIFP dispatch non-obvious, and getting it wrong silently drops whole record types:</para>
+    /// <list type="bullet">
+    ///   <item>Sections A, D, E and U carry the subsection at index 5.</item>
+    ///   <item>Section H carries it at index 12.</item>
+    ///   <item>Section P carries it at index 12, EXCEPT Terminal Navaids (PN), which use index 5.</item>
+    /// </list>
+    /// <para>Terminal Waypoints (PC) and Heliport Terminal Waypoints (HC) are the trap: they share the
+    /// 4.1.4.1 Waypoint layout with Enroute Waypoints (EA), but EA carries its subsection at index 5
+    /// while PC and HC carry theirs at index 12 with index 5 blank.</para>
+    /// <para>A record is a continuation when its Continuation Record Number is neither '0' nor '1'.
+    /// That column sits at a different index per record type, so it is read from the per-type constant
+    /// rather than a single shared offset.</para>
+    /// </remarks>
+    public static class CifpParserController
     {
-        if (!File.Exists(faaCifp18FilePath))
+        /// <summary>The fixed width of every CIFP data record.</summary>
+        public const int RecordLength = 132;
+
+        /// <summary>
+        /// Parses a CIFP file into <paramref name="cifpDataCollections"/>.
+        /// </summary>
+        /// <param name="faaCifp18FilePath">Full path to the FAACIFP18 file.</param>
+        /// <param name="cifpDataCollections">Destination for every parsed record.</param>
+        /// <param name="options">Parse options; defaults are used when null.</param>
+        /// <returns>A summary of what was read, including anything that did not match.</returns>
+        public static CifpParseReport Parse(
+            string faaCifp18FilePath,
+            CifpDataCollections cifpDataCollections,
+            CifpParseOptions? options = null)
         {
-            Console.WriteLine($"File not found: {faaCifp18FilePath}");
-            return;
+            options ??= new CifpParseOptions();
+            var report = new CifpParseReport();
+            var stopwatch = Stopwatch.StartNew();
+
+            if (!File.Exists(faaCifp18FilePath))
+                throw new FileNotFoundException("CIFP file not found.", faaCifp18FilePath);
+
+            bool keepRaw = options.KeepRawRecord;
+            int maxSamples = options.MaxSamplesPerIssue;
+
+            foreach (string rawLine in File.ReadLines(faaCifp18FilePath))
+            {
+                report.TotalLines++;
+                ReadOnlySpan<char> line = rawLine.AsSpan();
+
+                if (line.IsWhiteSpace())
+                {
+                    report.BlankLines++;
+                    continue;
+                }
+
+                if (line.StartsWith("HDR"))
+                {
+                    report.HeaderRecords++;
+                    HeaderInfoCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                    continue;
+                }
+
+                if (line.Length != RecordLength)
+                {
+                    report.WrongLengthLines++;
+                    report.Sample($"length {line.Length}, expected {RecordLength}", rawLine, maxSamples);
+                    continue;
+                }
+
+                if (!Dispatch(line, cifpDataCollections, report, keepRaw))
+                {
+                    report.UnmatchedLines++;
+                    report.Sample($"unknown record type '{line[4]}{line[5]}{line[12]}'", rawLine, maxSamples);
+
+                    if (options.ThrowOnUnknownRecord)
+                        throw new InvalidDataException($"Unrecognized CIFP record type on line {report.TotalLines}: {rawLine}");
+                }
+            }
+
+            stopwatch.Stop();
+            report.Elapsed = stopwatch.Elapsed;
+            return report;
         }
 
-        // Reads each line in CIFP file
-        foreach (var line in File.ReadLines(faaCifp18FilePath))
+        /// <summary>
+        /// Routes one 132-character record to its parser.
+        /// </summary>
+        /// <returns>False when the record's section and subsection match no known type.</returns>
+        private static bool Dispatch(
+            ReadOnlySpan<char> line,
+            CifpDataCollections cifpDataCollections,
+            CifpParseReport report,
+            bool keepRaw)
         {
-            // Skip blank/whitespace lines and anything shorter than 13 chars.
-            if (string.IsNullOrWhiteSpace(line) || line.Length < 13)
-                continue;
+            char sectionCode = line[4];
 
-            var index4 = line[4];
-            var index5 = line[5];
-            var index12 = line[12];
-
-            // Sends the line to the appropriate parser based on the stated index values.
-            switch (true)
+            // The subsection column is not in the same place for every section.
+            char subsectionCode = sectionCode switch
             {
-                // HEADER INFO
-                case bool _ when line.StartsWith("HDR"):
-                    HeaderInfoCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                'A' or 'D' or 'E' or 'U' => line[5],
+                'H' => line[12],
+                'P' => line[5] == 'N' ? 'N' : line[12],
+                _ => '\0'
+            };
 
-                // AIRLINE TERMINAL WAYPOINTS
-                case bool _ when index4 == 'P' && index12 == 'C':
-                    // AirlineTerminalWaypointsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+            switch (sectionCode)
+            {
+                // ---- Section 'A' : MORA ------------------------------------------
+                case 'A':
+                    switch (subsectionCode)
+                    {
+                        case 'S':
+                            // Grid MORA (AS) - no continuation record number field
+                            GridMoraCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "AS");
+                            return true;
 
-                // AIRPORTS
-                case bool _ when index4 == 'P' && index12 == 'A':
-                    AirportsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        default:
+                            return false;
+                    }
 
-                // RUNWAYS
-                case bool _ when index4 == 'P' && index12 == 'G':
-                    RunwaysCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                // ---- Section 'D' : Navaid ----------------------------------------
+                case 'D':
+                    switch (subsectionCode)
+                    {
+                        case ' ':
+                            // VHF Navaids (D) - continuation record number at index 21
+                            VhfNavaidsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "D");
+                            return true;
 
-                // AIRPORT APPROACH PROCEDURES
-                case bool _ when index4 == 'P' && index12 == 'F':
-                    // AirportApproachProceduresCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'B':
+                            // NDB Navaids (DB) - continuation record number at index 21
+                            NdbNavaidsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "DB");
+                            return true;
 
-                // AIRPORT MINIMUM SECTOR ALTITUDES
-                case bool _ when index4 == 'P' && index12 == 'S':
-                    // AirportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        default:
+                            return false;
+                    }
 
-                // AIRWAYS
-                case bool _ when index4 == 'E' && index5 == 'R':
-                    // AirwaysCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                // ---- Section 'E' : Enroute ---------------------------------------
+                case 'E':
+                    switch (subsectionCode)
+                    {
+                        case 'A':
+                            // Enroute Waypoints (EA) - continuation record number at index 21
+                            EnrouteWaypointsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "EA");
+                            return true;
 
-                // CONTROLLED CLASS AIRSPACE
-                case bool _ when index4 == 'U' && index5 == 'C':
-                    // ControlledClassAirspaceBCDCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'R':
+                            // Airways (ER) - continuation record number at index 38
+                            AirwaysCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "ER");
+                            return true;
 
-                // ENROUTE WAYPOINTS
-                case bool _ when index4 == 'E' && index5 == 'A':
-                    // EnrouteWaypointsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        default:
+                            return false;
+                    }
 
-                // HELIPORTS
-                case bool _ when index4 == 'H' && index12 == 'F':
-                    // HeliportApproachProceduresCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                // ---- Section 'H' : Heliport --------------------------------------
+                case 'H':
+                    switch (subsectionCode)
+                    {
+                        case 'A':
+                            // Heliports (HA) - continuation record number at index 21
+                            HeliportsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "HA");
+                            return true;
 
-                // HELIPORT MINIMUM SECTOR ALTITUDES
-                case bool _ when index4 == 'H' && index12 == 'S':
-                    // HeliportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'C':
+                            // Heliport Terminal Waypoints (HC) - continuation record number at index 21
+                            HeliportTerminalWaypointsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "HC");
+                            return true;
 
-                // HELIPORT STANDARD INSTRUMENT DEPARTURES
-                case bool _ when index4 == 'H' && index12 == 'D':
-                    // HeliportStandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'D':
+                            // Heliport SIDs (HD) - continuation record number at index 38
+                            HeliportStandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "HD");
+                            return true;
 
-                // HELIPORT TERMINAL WAYPOINTS
-                case bool _ when index4 == 'H' && index12 == 'C':
-                    // HeliportTerminalWaypointsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'F':
+                            // Heliport Approaches (HF) - continuation record number at index 38
+                            if (IsContinuation(line[38]))
+                            {
+                                HeliportApproachProceduresContinuationCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.ContinuationRecords, "HF");
+                            }
+                            else
+                            {
+                                HeliportApproachProceduresCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.PrimaryRecords, "HF");
+                            }
+                            return true;
 
-                // HELIPORTS
-                case bool _ when index4 == 'H' && index12 == 'A':
-                    HeliportsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'S':
+                            // Heliport MSA (HS) - continuation record number at index 38
+                            HeliportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "HS");
+                            return true;
 
-                // LOCALIZER AND GLIDE SLOPE
-                case bool _ when index4 == 'P' && index12 == 'I':
-                    LocalizerAndGlideSlopeCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        default:
+                            return false;
+                    }
 
-                // NNB NAVAIDS
-                case bool _ when index4 == 'D' && index5 == 'B':
-                    NdbNavaidsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                // ---- Section 'P' : Airport ---------------------------------------
+                case 'P':
+                    switch (subsectionCode)
+                    {
+                        case 'A':
+                            // Airports (PA) - continuation record number at index 21
+                            AirportsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PA");
+                            return true;
 
-                // PATH POINT
-                case bool _ when index4 == 'P' && index12 == 'P':
-                    PathPointCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'C':
+                            // Terminal Waypoints (PC) - continuation record number at index 21
+                            TerminalWaypointsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PC");
+                            return true;
 
-                // STANDARD INSTRUMENT DEPARTURES
-                case bool _ when index4 == 'P' && index12 == 'D':
-                    // StandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'D':
+                            // SIDs (PD) - continuation record number at index 38
+                            StandardInstrumentDeparturesCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PD");
+                            return true;
 
-                // STANDARD TERMINAL ARRIVAL ROUTES
-                case bool _ when index4 == 'P' && index12 == 'E':
-                    // StandardTerminalArrivalRoutesCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'E':
+                            // STARs (PE) - continuation record number at index 38
+                            StandardTerminalArrivalRoutesCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PE");
+                            return true;
 
-                // SPECIAL USE RESTRICTIVE
-                case bool _ when index4 == 'U' && index5 == 'R':
-                    // SpecialUseRestrictiveCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'F':
+                            // Airport Approaches (PF) - continuation record number at index 38
+                            if (IsContinuation(line[38]))
+                            {
+                                AirportApproachProceduresContinuationCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.ContinuationRecords, "PF");
+                            }
+                            else
+                            {
+                                AirportApproachProceduresCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.PrimaryRecords, "PF");
+                            }
+                            return true;
 
-                // GRID MORA
-                case bool _ when (index4 == 'A' && index5 == 'S'):
-                    // GridMora.Parse(line, cifpDataCollections);
-                    break;
+                        case 'G':
+                            // Runways (PG) - continuation record number at index 21
+                            RunwaysCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PG");
+                            return true;
 
-                // TERMINAL NAVAIDS
-                case bool _ when index4 == 'P' && index5 == 'N':
-                    TerminalNavaidsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'I':
+                            // Localizer and Glide Slope (PI) - continuation record number at index 21
+                            LocalizerAndGlideSlopeCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PI");
+                            return true;
 
-                // VHF NAVAIDS
-                case bool _ when index4 == 'D' && index5 == ' ':
-                    VhfNavaidsCifpParser.Parse(line, cifpDataCollections);
-                    break;
+                        case 'N':
+                            // Terminal Navaids (PN) - continuation record number at index 21
+                            TerminalNavaidsCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PN");
+                            return true;
+
+                        case 'P':
+                            // Path Point (PP) - continuation record number at index 26
+                            if (IsContinuation(line[26]))
+                            {
+                                PathPointContinuationCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.ContinuationRecords, "PP");
+                            }
+                            else
+                            {
+                                PathPointCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.PrimaryRecords, "PP");
+                            }
+                            return true;
+
+                        case 'S':
+                            // Airport MSA (PS) - continuation record number at index 38
+                            AirportMinimumSectorAltitudeCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "PS");
+                            return true;
+
+                        default:
+                            return false;
+                    }
+
+                // ---- Section 'U' : Airspace --------------------------------------
+                case 'U':
+                    switch (subsectionCode)
+                    {
+                        case 'C':
+                            // Class B/C/D Airspace (UC) - continuation record number at index 24
+                            ControlledClassAirspaceBCDCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                            Count(report.PrimaryRecords, "UC");
+                            return true;
+
+                        case 'R':
+                            // Special Use Airspace (UR) - continuation record number at index 24
+                            if (IsContinuation(line[24]))
+                            {
+                                SpecialUseRestrictiveContinuationCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.ContinuationRecords, "UR");
+                            }
+                            else
+                            {
+                                SpecialUseRestrictiveCifpParser.Parse(line, cifpDataCollections, keepRaw);
+                                Count(report.PrimaryRecords, "UR");
+                            }
+                            return true;
+
+                        default:
+                            return false;
+                    }
+
                 default:
-                    break;
+                    return false;
             }
+        }
+
+        /// <summary>
+        /// True when a Continuation Record Number marks a continuation rather than a primary record.
+        /// </summary>
+        /// <remarks>
+        /// ARINC 424 uses '0' when no continuation follows and '1' on a primary that does have one.
+        /// Continuations themselves are numbered '2' through '9' and then 'A' through 'Z'. Only PF, HF,
+        /// PP and UR actually carry continuations in the FAA CIFP, and only ever one each.
+        /// </remarks>
+        private static bool IsContinuation(char continuationRecordNumber)
+            => continuationRecordNumber != '0' && continuationRecordNumber != '1';
+
+        private static void Count(System.Collections.Generic.Dictionary<string, int> counter, string key)
+        {
+            counter.TryGetValue(key, out int existing);
+            counter[key] = existing + 1;
         }
     }
 }
-
-/*
-ARINC 424 Data Structure:
-
-	Master Airline Content
-	
-		Navaid Section (D)
-			VHF Navaid Section (D), Subsection (Blank)
-			NDB Navaid Section (D), Subsection (B)
-	
-		Enroute Section
-			Enroute Waypoint Section (E), Subsection (A)
-			Enroute Airway Marker Section (E), Subsection (M)
-			Holding Patterns (E), Subsection (P)
-			Enroute Airways Section (E), Subsection (R)
-			Enroute Airways Restrictions Section (E), Subsection (U)
-			Enroute Communications Section (E), Subsection (V)
-	
-		Airport Section (P)
-			Airport Reference Points Section (P), Subsection (A)
-			Airport Gates Section (P), Subsection (B)
-			Airport Terminal Waypoints Section (P), Subsection (C)
-			Airport Standard Instrument Departures (SIDs) Section (P), Subsection (D)
-			Airport Standard Terminal Arrival Routes (STARs) Section (P), Subsection (E)
-			Airport Approaches Section (P), Subsection (F)
-			Airport Runway Section (P), Subsection (G)
-			Airport and Heliport Localizer/Glide Slope Section (P), Subsection (I)
-			Airport and Heliport MLS Section (P), Subsection (L)
-			Airport and Heliport Marker/Locator Marker Section (P), Subsection (M)
-			MSA Section (P), Subsection (S)
-			Airport Communications Section (P), Subsection (V)
-			Airport and Heliport Terminal NDB Section (P), Subsection (N)
-			Airport and Heliport Path Point Section (P), Subsection (P)
-			Flight Planning Arrival/Departure Data Record Section (P), Subsection (R)
-			GNSS Landing System (GLS) Section (P), Subsection (T)
-			Airport Terminal Arrival Altitude Section (P), Subsection (K)
-	
-		Company Route and Alternation Destination Section (R)
-			Company Route Section (R), Subsection (Blank)
-			The Alternate Record Section (R), Subsection (A)
-	
-		Special Use Airspace Section (U)
-			Restrictive Airspace Section (U), Subsection (R)
-			FIR/UIR Section (U), Subsection (F)
-			Controlled Airspace Section (U), Subsection (C)
-	
-		Cruising Table Section (T)
-			Cruising Tables Section (T), Subsection (C)
-			Geographical Reference Table Section (T), Subsection (G)
-	
-		MORA Section (A), Subsection (S)
-	
-		Preferred Routes Section (E), Subsection (T)
-	
-	Master Helicopter Content
-		Jointly and Specifically Used Sections/Subsections
-		Heliport Section (H), Subsection (A)
-		Heliport Terminal Waypoints Section (H), Subsection (C)
-		Heliport Standard Instrument Departures (SIDs) Section (H), Subsection (D)
-		Heliport Standard Terminal Arrival Routes (STARs) Section (H), Subsection (E)
-		Heliport Approaches Section (H), Subsection (F)
-		Heliport MSA Section (H), Subsection (S)
-		Heliport Communications Section (H), Subsection (V)
-		Heliport Terminal Arrival Area Section (H), Subsection (K)
-
-| Section Code | Section Name   | Subsection Code | Subsection Name             |
-|--------------|----------------|------------------|------------------------------|
-| A            | MORA           | S                | Grid MORA                    |
-| D            | Navaid         |                  | VHF Navaid                   |
-|              |                | B                | NDB Navaid                   |
-| E            | Enroute        | A                | Waypoints                    |
-|              |                | M                | Airway Markers               |
-|              |                | P                | Holding Patterns             |
-|              |                | R                | Airways and Routes           |
-|              |                | T                | Preferred Routes             |
-|              |                | U                | Airway Restrictions          |
-|              |                | V                | Communications               |
-| H            | Heliport       | A                | Pads                         |
-|              |                | C                | Terminal Waypoints           |
-|              |                | D                | SIDs                         |
-|              |                | E                | STARs                        |
-|              |                | F                | Approach Procedures          |
-|              |                | K                | TAA                          |
-|              |                | S                | MSA                          |
-|              |                | V                | Communications               |
-| P            | Airport        | A                | Reference Points             |
-|              |                | B                | Gates                        |
-|              |                | C                | Terminal Waypoints           |
-|              |                | D                | SIDs                         |
-|              |                | E                | STARs                        |
-|              |                | F                | Approach Procedures          |
-|              |                | G                | Runways                      |
-|              |                | I                | Localizer/Glide Slope        |
-|              |                | K                | TAA                          |
-|              |                | L                | MLS                          |
-|              |                | M                | Localizer Marker             |
-|              |                | N                | Terminal NDB                 |
-|              |                | P                | Path Point                   |
-|              |                | Q                | Flt Planning ARR/DEP         |
-|              |                | S                | MSA                          |
-|              |                | T                | GLS Station                  |
-|              |                | V                | Communications               |
-| R            | Company Routes |                  | Company Routes               |
-|              |                | A                | Alternate Records            |
-| T            | Tables         | C                | Cruising Tables              |
-|              |                | G                | Geographical Reference       |
-|              |                | N                | RNAV Name Table              |
-| U            | Airspace       | C                | Controlled Airspace          |
-|              |                | F                | FIR/UIR                      |
-|              |                | R                | Restrictive Airspace         |
-
-
-FAA CIFP Data Structure:
-
-	Airports and heliports (PA and HA)
-	Runways (PG)
-	VHF Navaids (D)
-	NDB Navaids (DB)
-	Terminal Navaids (PN)
-	Localizer and Glide Slope Records (PI)
-	Path Point Records, Primary and Continuation (PP)
-	MSA Records (PS and HS)
-	Enroute Waypoints (EA)
-	Terminal Waypoints (PC and HC)
-	SIDs (PD)
-	STARs (PE)
-	Approaches, including Level of Service continuation records (PF and HF)
-	Airways (ER)
-	Class B, C, and D Airspace (UC)
-	Special Use Airspace, Primary and Continuation (UR)
-	Grid MORA (AS)
-*/

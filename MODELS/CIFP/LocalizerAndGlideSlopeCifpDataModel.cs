@@ -4,18 +4,23 @@ using System.Collections.Generic;
 namespace FAA_DATA_HANDLER.Models.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - LocalizerAndGlideSlope (PI) section data
+    /// FAACIFP18 File - LocalizerAndGlideSlope (PI) record.
     /// </summary>
     /// <remarks>
-    /// Contains data for Localizer, MLS, and GLS facilities associated
-    /// with runways at airports, including identifiers, frequencies, locations,
-    /// bearings, positions, widths, angles, elevations, and supporting facility
-    /// information. Each record corresponds to a specific localizer or approach
-    /// system linked to a runway, providing essential details for navigation
-    /// and approach procedures.
+    /// ARINC 424 layout 4.1.11.1 Airport and Heliport Localizer and Glide Slope (Localizer and Glide Slope-
+    /// PI). Identified by Section Code 'P' and Subsection Code 'I'. Continuation Record Number is at zero-
+    /// based index 21; '0' or '1' marks a primary record and anything else a continuation.
     /// </remarks>
     public class LocalizerAndGlideSlopeCifpDataModel
     {
+        /// <summary>
+        /// The complete, unmodified 132-character source record.
+        /// </summary>
+        /// <remarks>
+        /// Kept so that any field can be re-sliced and so an unexpected value can always be traced
+        /// back to its source line. Populated only when CifpParseOptions.KeepRawRecord is true.
+        /// </remarks>
+        public string? RawRecord { get; set; }
 
         /// <summary>
         /// Record Type
@@ -23,11 +28,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 0
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
+        /// Column 1 flag saying whether the record belongs to the universally applicable dataset or to a
+        /// customer-specific tailored set.
+        /// <para>FAA: The FAA readme does not discuss this field. Across all 396,430 records the value is always 'S'.</para>
         /// </remarks>
-        public string? RecordType { get; set; }
+        public string RecordType { get; set; }
 
         /// <summary>
         /// Customer/Area Code
@@ -35,9 +43,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 1:3
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL).
+        /// Three-letter code grouping each record into a broad geographic region (or, in airline-tailored
+        /// files, naming the airline the record was built for).
+        /// <para>FAA: Fixes that NASR classifies as 'Offshore' may be given a Customer/Area Code of USA paired with an ICAO Code (5.14) of 'K ' or 'P ' (single letter plus a blank). Terminal waypoint (PC) records inherit the Customer/Area Code of their parent airport regardless of where the waypoint itself sits, even though those same PC records keep their own distinct ICAO Code (5.14). Do not infer geography for a PC </para>
         /// </remarks>
         public string? CustomerAreaCode { get; set; }
 
@@ -47,9 +58,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 4
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+        /// One letter naming the major database section a record belongs to - or, on pointer fields, the
+        /// section of the record being referenced.
+        /// <para>FAA: The FAA readme does not call this field out directly, but it fixes the set of sections the CIFP can contain: A (Grid MORA), D (VHF and NDB NAVAIDs), E (enroute waypoints and airways), H (heliports and heli terminal data), P (airport and terminal data) and U (controlled and special use airspace). No other section is produced.</para>
         /// </remarks>
         public string? SectionCode { get; set; }
 
@@ -59,9 +73,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// 
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// Airport Identifier
@@ -69,35 +83,44 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 6:9
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Contains the ICAO airport identifier to which the record's data applies. If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
+        /// Four-character identifier of the airport or heliport that owns, or is referenced by, the data in the
+        /// record.
+        /// <para>FAA: The FAA uses the published ICAO airport identifier when one exists; when there is none it falls back to the published FAA identifier. On the Airport (PA) record the IATA field (5.107) is used to carry the FAA identifier instead, and that IATA field is left blank whenever the airport identifier here is already four characters long.</para>
         /// </remarks>
         public string? AirportIdentifier { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// Airport ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 10:11
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? AirportIcaoLocationCode { get; set; }
+        public string AirportIcaoLocationCode { get; set; }
 
         /// <summary>
-        /// Subsection Code
+        /// Subsection
         /// _Ref: 5.5
         /// _Idx: 12
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// One letter that, combined with the Section Code, names the exact file a record belongs to - the
+        /// primary key for record dispatch.
+        /// <para>FAA: The CIFP contains only these twenty-one record kinds: AS, D (blank subsection), DB, PN, PA, HA, PG, PI, PP (primary and continuation), PS, HS, EA, PC, HC, PD, PE, PF (primary and Level of Service continuation), HF (primary and Level of Service continuation), ER, UC, UR (primary and continuation). Everything else in the ARINC matrix below is absent. The FAA chooses between PC and EA for a named ter</para>
         /// </remarks>
-        public string? SubsectionCode { get; set; }
+        public string? Subsection { get; set; }
 
         /// <summary>
         /// Localizer Identifier
@@ -105,11 +128,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 13:16
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the Localizer, MLS facility, or GLS Reference Path associated with a runway, using the facility or path code (e.g., IDEN, ISTX, IDU, PP, MDEN, MSTX, MLAX, LFBL, EGLC, KSAN).
+        /// Identifier of the localizer, MLS facility or GLS reference path serving the record, up to four
+        /// characters.
+        /// <para>FAA: The FAA adds PI (localizer and glide slope) records only for procedures that are actually in the CIFP, so a runway can carry a blank identifier here even though the real runway has an ILS - the absence means 'no CIFP procedure', not 'no ILS'. ILS CAT II, ILS CAT III, PRM, converging ILS and GLS procedures are excluded from the CIFP, so no GLS reference path identifiers occur.</para>
         /// </remarks>
-        public string? LocId { get; set; }
+        public string? LocalizerIdentifier { get; set; }
 
         /// <summary>
         /// ILS Category
@@ -117,11 +143,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 17
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the performance category or classification of a Localizer, MLS, or GLS system: 0=ILS Localizer only (no glideslope) __ 1=ILS/MLS/GLS Category I __ 2=ILS/MLS/GLS Category II __ 3=ILS/MLS/GLS Category III __ I=IGS Facility __ L=LDA Facility with glideslope __ A=LDA Facility without glideslope __ S=SDF Facility with glideslope __ F=SDF Facility without glideslope.
+        /// Performance category of an ILS/MLS/GLS facility, or the classification of a non-ILS localizer-type
+        /// installation such as LDA, SDF or IGS.
+        /// <para>FAA: The FAA includes ILS procedures for Category I only, and does not include CAT II, CAT III, PRM, converging ILS or GLS procedures. Category 2 and 3 values nonetheless appear here because this field describes the FACILITY classification, not the procedures published to it. For LDA approaches that have both LDA and glide slope minima, the FAA codes the procedure to LDA minimums only - which is consis</para>
         /// </remarks>
-        public string? IlsCat { get; set; }
+        public string IlsCategory { get; set; }
 
         /// <summary>
         /// Blank (Spacing)
@@ -129,9 +158,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 3
         /// </summary>
         /// <remarks>
-        /// 
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// Continuation Record No.
@@ -139,23 +168,27 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 21
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'â€“'9' and then 'A'â€“'Z' as needed.
+        /// Marks whether a record is a primary record and whether continuation records follow it, and numbers
+        /// the continuations in order.
+        /// <para>FAA: The FAA emits only 0, 1 and 2. Continuations exist for exactly two things: approach level-of- service continuation records on PF/HF (6,742 pairs), and controlling agency continuation records on UR (1,175 pairs). Every other record type in the file is 0 throughout.</para>
         /// </remarks>
-        public string? ContinuationRecordNumber { get; set; }
+        public string ContinuationRecordNo { get; set; }
 
         /// <summary>
         /// Localizer Frequency
         /// _Ref: 5.45
         /// _Idx: 22:26
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the VHF frequency of the localizer in 50 kHz resolution, with the decimal suppressed (e.g., 11030, 11195).
+        /// Localizer VHF frequency as five digits with the decimal point removed - megahertz times one hundred.
         /// </remarks>
-        public string? LocFreq { get; set; }
+        public double? LocalizerFrequency { get; set; }
 
         /// <summary>
         /// Runway Identifier
@@ -163,83 +196,98 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 27:31
         /// _MaxLength: 5
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the runway ID associated with runway data or ILS/MLS records, formatted as “RW” plus a two-digit number (01–36) and optional suffix: C (Center), L (Left), R (Right), T (True degrees), or special types W (Water), S (Soft-surface), G (Glider), U (Ultralight), numeric (Assault Strip); e.g., RW26L, RW08R, RW26C, RW05, RW17T. Note: Non-numeric runway identifiers (5.46) are included and will not carry the prefixed ‘RW’ characters.
+        /// Five columns naming a runway, normally 'RW' plus a two-digit magnetic-heading designator plus an
+        /// optional suffix letter, but in the FAA CIFP also a bare non-numeric designator such as N, SE or ALL.
+        /// <para>FAA: Two FAA deviations, both stated in the CIFP readme, and both of which break a naive regular expression of ^RW\d{2}[CLRT ]?$: 1. Extra suffixes. The FAA includes runway-surface and use suffixes that ARINC does not define: W water runway S soft-surface runway G glider runway U ultralight runway a digit assault strip So 'RW17W', 'RW13S', 'RW09G', 'RW26U' and 'RW05' followed by a digit are all legitim</para>
         /// </remarks>
-        public string? RwyId { get; set; }
+        public string RunwayIdentifier { get; set; }
 
         /// <summary>
         /// Localizer Latitude
         /// _Ref: 5.36
         /// _Idx: 32:40
         /// _MaxLength: 9
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
+        /// Signed latitude packed as a hemisphere letter followed by eight digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? LocLat { get; set; }
+        public double? LocalizerLatitude { get; set; }
 
         /// <summary>
         /// Localizer Longitude
         /// _Ref: 5.37
         /// _Idx: 41:50
         /// _MaxLength: 10
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
+        /// Signed longitude packed as a hemisphere letter followed by nine digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? LocLon { get; set; }
+        public double? LocalizerLongitude { get; set; }
 
         /// <summary>
         /// Localizer Bearing
         /// _Ref: 5.47
         /// _Idx: 51:54
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the magnetic bearing of the localizer course in degrees and tenths (decimal suppressed), with a trailing “T” for true courses (e.g., 2570, 0147, 2910, 347T).
+        /// Magnetic bearing of the localizer front course (or GLS approach course) in tenths of a degree with
+        /// the decimal point removed.
         /// </remarks>
-        public string? LocBearing { get; set; }
+        public double? LocalizerBearing { get; set; }
 
         /// <summary>
         /// Glide Slope Latitude
         /// _Ref: 5.36
         /// _Idx: 55:63
         /// _MaxLength: 9
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
+        /// Signed latitude packed as a hemisphere letter followed by eight digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? GlideSlopeLat { get; set; }
+        public double? GlideSlopeLatitude { get; set; }
 
         /// <summary>
         /// Glide Slope Longitude
         /// _Ref: 5.37
         /// _Idx: 64:73
         /// _MaxLength: 10
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
+        /// Signed longitude packed as a hemisphere letter followed by nine digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? GlideSlopeLon { get; set; }
+        public double? GlideSlopeLongitude { get; set; }
 
         /// <summary>
         /// Localizer Position
         /// _Ref: 5.48
         /// _Idx: 74:77
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the antenna’s position relative to the runway end, given as a distance in feet with 1-ft resolution (e.g., 0950, 1000).
+        /// Distance in feet from the localizer (or MLS azimuth) antenna to the runway end, at one-foot
+        /// resolution.
         /// </remarks>
-        public string? LocPosition { get; set; }
+        public int? LocalizerPosition { get; set; }
 
         /// <summary>
         /// Localizer Position Reference
@@ -247,83 +295,109 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 78
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Indicates the antenna’s position relative to the runway: Localizer/Azimuth — @=beyond stop end, +=ahead of approach end, -=off to one side; Back Azimuth — @=ahead of approach end, +=beyond stop end, -=off to one side.
+        /// Single character saying where the antenna sits relative to the runway, qualifying the distance in
+        /// 5.48.
         /// </remarks>
-        public string? LocPositionReference { get; set; }
+        public string? LocalizerPositionReference { get; set; }
 
         /// <summary>
         /// Glide Slope Position
         /// _Ref: 5.50
         /// _Idx: 79:82
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the glide slope antenna’s distance in feet from the runway threshold, measured perpendicular to the runway, with 1-ft resolution (e.g., 0980, 1417).
+        /// Distance in feet from the runway threshold to the glide slope antenna, measured along the runway.
         /// </remarks>
-        public string? GlideSlopePosition { get; set; }
+        public int? GlideSlopePosition { get; set; }
 
         /// <summary>
         /// Localizer Width
         /// _Ref: 5.51
         /// _Idx: 83:86
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Decimal
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the localizer course width in degrees, tenths, and hundredths (decimal suppressed) for the ILS facility (e.g., 0500, 0400, 0350).
+        /// Full course width of the localizer, in degrees, with the decimal point removed.
         /// </remarks>
-        public string? LocWidth { get; set; }
+        public decimal? LocalizerWidth { get; set; }
 
         /// <summary>
         /// Glide Slope Angle
         /// _Ref: 5.52
         /// _Idx: 87:89
         /// _MaxLength: 3
-        /// _DataType: String
+        /// _DataType: Decimal
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the glide slope angle for an ILS facility or GLS approach in degrees, tenths, and hundredths (decimal suppressed) (e.g., 275, 300).
+        /// Glide slope angle in degrees with the decimal point removed (three digits, hundredths resolution).
         /// </remarks>
-        public string? GlideSlopeAngle { get; set; }
+        public decimal? GlideSlopeAngle { get; set; }
 
         /// <summary>
-        /// Station Declination
+        /// Station Declination - DeclinationDirection
         /// _Ref: 5.66
-        /// _Idx: 90:94
-        /// _MaxLength: 5
+        /// _Idx: 90
+        /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the angular difference between true north and the NAVAID’s zero-degree radial (or magnetic north for ILS localizers), expressed as a character indicating orientation (E=East of True North, W=West of True North, T=oriented True North, G=oriented Grid North) followed by declination in degrees/tenths with decimal suppressed; T and G entries are followed by zeros (e.g., E0072, E0000, T0000, G0000). Last digit is decimal (E0150 = E15.0)
+        /// Column 1 of the composite field 5.66 (Station Declination). Angular offset between true north and
+        /// the reference the facility is aligned to, given as a direction letter followed by degrees and
+        /// tenths.
         /// </remarks>
-        public string? StationDeclination { get; set; }
+        public string StationDeclinationDirection { get; set; }
+
+        /// <summary>
+        /// Station Declination - DeclinationMagnitude
+        /// _Ref: 5.66
+        /// _Idx: 91:94
+        /// _MaxLength: 4
+        /// _DataType: String
+        /// _Converted: Y
+        /// </summary>
+        /// <remarks>
+        /// Column 2 of the composite field 5.66 (Station Declination). Angular offset between true north and
+        /// the reference the facility is aligned to, given as a direction letter followed by degrees and
+        /// tenths.
+        /// </remarks>
+        public string StationDeclinationMagnitude { get; set; }
 
         /// <summary>
         /// Glide Slope Height at Landing Threshold
         /// _Ref: 5.67
         /// _Idx: 95:96
         /// _MaxLength: 2
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the height above the runway threshold on a normal glide path, taken from ILS/MLS glide slope, RNAV procedure, published VGSI, or set to 50 ft if none are available; also used in approach continuation and ILS/MLS records.
+        /// Height in feet above the landing threshold at which a nominal glide path crosses it.
         /// </remarks>
-        public string? GlideSlopeHeightAtLandingThreshold { get; set; }
+        public int? GlideSlopeHeightAtLandingThreshold { get; set; }
 
         /// <summary>
         /// Glide Slope Elevation
         /// _Ref: 5.74
         /// _Idx: 97:101
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the elevation of system components relative to MSL: GS ELEV = Glide Slope __ EL ELEV = MLS Elevation __ AZ ELEV = MLS Azimuth __ BAZ ELEV = MLS Back Azimuth __ GLS ELEV = GLS ground station; negative sign indicates below MSL (e.g., 00235, 01265, -0011).
+        /// Elevation in feet MSL of a specific navigation component: the glide slope, MLS elevation, azimuth or
+        /// back azimuth antenna, or the GLS ground station.
         /// </remarks>
-        public string? GlideSlopeElevation { get; set; }
+        public int? GlideSlopeElevation { get; set; }
 
         /// <summary>
         /// Supporting Facility ID
@@ -331,23 +405,30 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 102:105
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Identifies the VHF, MF, or LF facility by its official government-assigned 1-4 character code (e.g., DEN, 6YA, PPI, TIKX).
+        /// Official one- to four-character identification code of the VHF or MF/LF navigation facility
+        /// described by the record.
+        /// <para>Layout note: Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS.</para>
         /// </remarks>
-        public string? SupportingFacId { get; set; }
+        public string? SupportingFacilityId { get; set; }
 
         /// <summary>
-        /// Supporting Facility ICAO Code
+        /// Supporting Facility ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 106:107
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
+        /// <para>Layout note: Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS.</para>
         /// </remarks>
-        public string? SupportingFacIcaoLocationCode { get; set; }
+        public string SupportingFacilityIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Supporting Facility Section Code
@@ -355,11 +436,15 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 108
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+        /// One letter naming the major database section a record belongs to - or, on pointer fields, the
+        /// section of the record being referenced.
+        /// <para>FAA: The FAA readme does not call this field out directly, but it fixes the set of sections the CIFP can contain: A (Grid MORA), D (VHF and NDB NAVAIDs), E (enroute waypoints and airways), H (heliports and heli terminal data), P (airport and terminal data) and U (controlled and special use airspace). No other section is produced.</para>
+        /// <para>Layout note: Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS.</para>
         /// </remarks>
-        public string? SupportingFacSectionCode { get; set; }
+        public string? SupportingFacilitySectionCode { get; set; }
 
         /// <summary>
         /// Supporting Facility Subsection Code
@@ -367,11 +452,15 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 109
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS. Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// One letter that, combined with the Section Code, names the exact file a record belongs to - the
+        /// primary key for record dispatch.
+        /// <para>FAA: The CIFP contains only these twenty-one record kinds: AS, D (blank subsection), DB, PN, PA, HA, PG, PI, PP (primary and continuation), PS, HS, EA, PC, HC, PD, PE, PF (primary and Level of Service continuation), HF (primary and Level of Service continuation), ER, UC, UR (primary and continuation). Everything else in the ARINC matrix below is absent. The FAA chooses between PC and EA for a named ter</para>
+        /// <para>Layout note: Terminal Navaids used as Supporting Facilities must be located at the same airport as the ILS.</para>
         /// </remarks>
-        public string? SupportingFacSubsectionCode { get; set; }
+        public string? SupportingFacilitySubsectionCode { get; set; }
 
         /// <summary>
         /// Reserved (Expansion)
@@ -379,32 +468,39 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 13
         /// </summary>
         /// <remarks>
-        /// 
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string ReservedExpansion { get; set; }
+        // public string? ReservedExpansion { get; set; }
 
         /// <summary>
         /// File Record No.
         /// _Ref: 5.31
         /// _Idx: 123:127
         /// _MaxLength: 5
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
+        /// Housekeeping reference number stamped on every record - in the FAA CIFP a per-record unique tag, not
+        /// a sequential file position.
+        /// <para>FAA: From the FAA CIFP readme, verbatim in substance: 'A unique number is assigned for each record rather than consecutively for the entire dataset. Some file record numbers will have alphabetic characters or blank fields.' Two consequences the implementer must not miss: - The value is NOT ordered and must never be used to sort records, to detect gaps, or to reason about file position. - The value is N</para>
         /// </remarks>
-        public string? FileRecordNoFileRecordNum { get; set; }
+        public string? FileRecordNo { get; set; }
 
         /// <summary>
         /// Cycle Date
         /// _Ref: 5.32
         /// _Idx: 128:131
         /// _MaxLength: 4
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01â€“13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+        /// Two-digit year plus two-digit 28-day update cycle recording when the record was added or last
+        /// changed.
+        /// <para>FAA: The FAA states that cycle dates are set to the most recent cycle on every new record and on every record it modifies. Consequently the newest cycle value in the file identifies the CIFP volume itself.</para>
         /// </remarks>
-        public string? CycleDate { get; set; }
+        public string CycleDate { get; set; }
+
     }
 }

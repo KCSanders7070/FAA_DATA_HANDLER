@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <RootNamespace>FAA_DATA_HANDLER</RootNamespace>
     <AssemblyName>FAA_DATA_HANDLER</AssemblyName>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -11,9 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MODELS\D-TPP\**" />
     <Compile Remove="MODELS\NASR\ShapeFiles\**" />
+    <Compile Remove="PARSERS\D-TPP\**" />
+    <EmbeddedResource Remove="MODELS\D-TPP\**" />
     <EmbeddedResource Remove="MODELS\NASR\ShapeFiles\**" />
+    <EmbeddedResource Remove="PARSERS\D-TPP\**" />
+    <None Remove="MODELS\D-TPP\**" />
     <None Remove="MODELS\NASR\ShapeFiles\**" />
+    <None Remove="PARSERS\D-TPP\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,9 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MODELS\CIFP\DevResources\" />
-    <Folder Include="MODELS\D-TPP\" />
-    <Folder Include="PARSERS\D-TPP\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
   </ItemGroup>
 

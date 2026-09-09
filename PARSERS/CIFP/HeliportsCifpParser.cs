@@ -1,54 +1,64 @@
+using FAA_DATA_HANDLER.HELPERS.CIFP;
 using FAA_DATA_HANDLER.Models.CIFP;
 using System;
-using System.Collections.Generic;
 
 namespace FAA_DATA_HANDLER.Parsers.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - Heliports (PA) section data
+    /// Parses HA records into HeliportsCifpDataModel.
     /// </summary>
     /// <remarks>
-    /// Contains information for heliports.
+    /// Slices the 132-character record with ReadOnlySpan&lt;char&gt; so no intermediate strings are
+    /// allocated for columns the model does not keep. Column boundaries come from ARINC 424 layout 4.2.1.1
+    /// Heliport (Heliports-HA) and were verified against every HA record in FAACIFP18.
     /// </remarks>
     public static class HeliportsCifpParser
     {
-        public static void Parse(string line, CifpDataCollections cifpDataCollections)
+        /// <summary>
+        /// Parses one HA record and appends it to the collection.
+        /// </summary>
+        /// <param name="line">The full 132-character record.</param>
+        /// <param name="cifpDataCollections">Destination for the parsed model.</param>
+        /// <param name="keepRawRecord">When true, the source line is stored on the model.</param>
+        public static void Parse(ReadOnlySpan<char> line, CifpDataCollections cifpDataCollections, bool keepRawRecord = false)
         {
             var model = new HeliportsCifpDataModel
             {
-                RecordType = line.Substring(0, 1).Trim(),
-                CustomerAreaCode = line.Substring(1, 3).Trim(),
-                SectionCode = line.Substring(4, 1).Trim(),
-                // Blank (Spacing) ??? = line.Substring(5, 1).Trim()
-                HeliportIdentifier = line.Substring(6, 4).Trim(),
-                HeliportIcaoLocationCode = line.Substring(10, 2).Trim(),
-                SubsectionCode = line.Substring(12, 1).Trim(),
-                AtaIataDesignator = line.Substring(13, 3).Trim(),
-                PadIdentifier = line.Substring(16, 5).Trim(),
-                ContinuationRecordNumber = line.Substring(21, 1).Trim(),
-                SpeedLimitAltitude = line.Substring(22, 5).Trim(),
-                DatumCode = line.Substring(27, 3).Trim(),
-                IfrCapability = line.Substring(30, 1).Trim(),
-                // Blank (Spacing) ??? = line.Substring(31, 1).Trim()
-                Latitude = line.Substring(32, 9).Trim(),
-                Longitude = line.Substring(41, 10).Trim(),
-                MagVar = line.Substring(51, 5).Trim(),
-                HeliportElevation = line.Substring(56, 5).Trim(),
-                SpeedLimit = line.Substring(61, 3).Trim(),
-                RecommendedVhfNavaid = line.Substring(64, 4).Trim(),
-                NavaidIcaoLocationCode = line.Substring(68, 2).Trim(),
-                TransitionAlt = line.Substring(70, 5).Trim(),
-                TransitionLvl = line.Substring(75, 5).Trim(),
-                PublicMilitaryIndicator = line.Substring(80, 1).Trim(),
-                TimeZone = line.Substring(81, 3).Trim(),
-                DaylightIndicator = line.Substring(84, 1).Trim(),
-                PadDeimensions = line.Substring(85, 6).Trim(),
-                MagTrueIndicator = line.Substring(91, 1).Trim(),
-                // Reserved (Expansion) ??? = line.Substring(92, 1).Trim()
-                HeliportName = line.Substring(93, 30).Trim(),
-                FileRecordNum = line.Substring(123, 5).Trim(),
-                CycleDate = line.Substring(128, 4).Trim(),
+                RecordType = CifpFieldConverter.Field52(line[0]),
+                CustomerAreaCode = CifpSpan.Text(line.Slice(1, 3)),
+                SectionCode = CifpSpan.Text(line[4]),
+                HeliportIdentifier = CifpSpan.Text(line.Slice(6, 4)),
+                HeliportIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(10, 2)),
+                SubsectionCode = CifpSpan.Text(line[12]),
+                AtaIataDesignator = CifpFieldConverter.Field5107(line.Slice(13, 3)),
+                PadIdentifier = CifpSpan.Text(line.Slice(16, 5)),
+                ContinuationRecordNo = CifpFieldConverter.Field516(line[21]),
+                SpeedLimitAltitude = CifpFieldConverter.Field573(line.Slice(22, 5)),
+                DatumCode = CifpSpan.Text(line.Slice(27, 3)),
+                IfrIndicator = CifpFieldConverter.Field5108(line[30]),
+                Latitude = CifpFieldConverter.Field536(line.Slice(32, 9)),
+                Longitude = CifpFieldConverter.Field537(line.Slice(41, 10)),
+                MagneticVariation = CifpFieldConverter.Field539(line.Slice(51, 5)),
+                HeliportElevation = CifpFieldConverter.Field555(line.Slice(56, 5)),
+                SpeedLimit = CifpFieldConverter.Field572(line.Slice(61, 3)),
+                RecommendedVhfNavaid = CifpSpan.Text(line.Slice(64, 4)),
+                RecommendedVhfNavaidIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(68, 2)),
+                TransitionAltitude = CifpFieldConverter.Field553(line.Slice(70, 5)),
+                TransitionLevel = CifpFieldConverter.Field553(line.Slice(75, 5)),
+                PublicMilitaryIndicator = CifpFieldConverter.Field5177(line[80]),
+                TimeZoneLetter = CifpFieldConverter.Field5178TimeZoneLetter(line[81]),
+                TimeZoneMinutes = CifpFieldConverter.Field5178TimeZoneMinutes(line.Slice(82, 2)),
+                DaylightIndicator = CifpFieldConverter.Field5179(line[84]),
+                PadDimensionA = CifpFieldConverter.Field5176PadDimensionA(line.Slice(85, 3)),
+                PadDimensionB = CifpFieldConverter.Field5176PadDimensionB(line.Slice(88, 3)),
+                MagneticTrueIndicator = CifpFieldConverter.Field5165(line[91]),
+                HeliportName = CifpSpan.Text(line.Slice(93, 30)),
+                FileRecordNo = CifpSpan.Text(line.Slice(123, 5)),
+                CycleDate = CifpFieldConverter.Field532(line.Slice(128, 4)),
             };
+
+            if (keepRawRecord)
+                model.RawRecord = line.ToString();
 
             cifpDataCollections.Heliports.Add(model);
         }

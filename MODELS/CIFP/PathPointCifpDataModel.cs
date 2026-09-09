@@ -4,14 +4,23 @@ using System.Collections.Generic;
 namespace FAA_DATA_HANDLER.Models.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - PathPoint (PP) section data
+    /// FAACIFP18 File - PathPoint (PP) record.
     /// </summary>
     /// <remarks>
-    /// ???
+    /// ARINC 424 layout 4.1.28.1 Path Point (Path Point-PP). Identified by Section Code 'P' and Subsection
+    /// Code 'P'. Continuation Record Number is at zero-based index 26; '0' or '1' marks a primary record
+    /// and anything else a continuation.
     /// </remarks>
     public class PathPointCifpDataModel
     {
-        #region PrimaryRecord
+        /// <summary>
+        /// The complete, unmodified 132-character source record.
+        /// </summary>
+        /// <remarks>
+        /// Kept so that any field can be re-sliced and so an unexpected value can always be traced
+        /// back to its source line. Populated only when CifpParseOptions.KeepRawRecord is true.
+        /// </remarks>
+        public string? RawRecord { get; set; }
 
         /// <summary>
         /// Record Type
@@ -19,11 +28,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 0
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
+        /// Column 1 flag saying whether the record belongs to the universally applicable dataset or to a
+        /// customer-specific tailored set.
+        /// <para>FAA: The FAA readme does not discuss this field. Across all 396,430 records the value is always 'S'.</para>
         /// </remarks>
-        public string? RecordType { get; set; }
+        public string RecordType { get; set; }
 
         /// <summary>
         /// Customer/Area Code
@@ -31,9 +43,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 1:3
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL).
+        /// Three-letter code grouping each record into a broad geographic region (or, in airline-tailored
+        /// files, naming the airline the record was built for).
+        /// <para>FAA: Fixes that NASR classifies as 'Offshore' may be given a Customer/Area Code of USA paired with an ICAO Code (5.14) of 'K ' or 'P ' (single letter plus a blank). Terminal waypoint (PC) records inherit the Customer/Area Code of their parent airport regardless of where the waypoint itself sits, even though those same PC records keep their own distinct ICAO Code (5.14). Do not infer geography for a PC </para>
         /// </remarks>
         public string? CustomerAreaCode { get; set; }
 
@@ -43,21 +58,24 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 4
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+        /// One letter naming the major database section a record belongs to - or, on pointer fields, the
+        /// section of the record being referenced.
+        /// <para>FAA: The FAA readme does not call this field out directly, but it fixes the set of sections the CIFP can contain: A (Grid MORA), D (VHF and NDB NAVAIDs), E (enroute waypoints and airways), H (heliports and heli terminal data), P (airport and terminal data) and U (controlled and special use airspace). No other section is produced.</para>
         /// </remarks>
         public string? SectionCode { get; set; }
 
         /// <summary>
-        /// Blank (Spacing)
+        /// Blank
         /// _Idx: 5
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? Blank { get; set; }
 
         /// <summary>
         /// Airport Identifier
@@ -65,23 +83,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 6:9
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Contains the ICAO airport identifier to which the record's data applies. If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
+        /// Four-character identifier of the airport or heliport that owns, or is referenced by, the data in the
+        /// record.
+        /// <para>FAA: The FAA uses the published ICAO airport identifier when one exists; when there is none it falls back to the published FAA identifier. On the Airport (PA) record the IATA field (5.107) is used to carry the FAA identifier instead, and that IATA field is left blank whenever the airport identifier here is already four characters long.</para>
         /// </remarks>
         public string? AirportIdentifier { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// Airport ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 10:11
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? AirportIcaoLocationCode { get; set; }
+        public string AirportIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Subsection Code
@@ -89,9 +113,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 12
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// One letter that, combined with the Section Code, names the exact file a record belongs to - the
+        /// primary key for record dispatch.
+        /// <para>FAA: The CIFP contains only these twenty-one record kinds: AS, D (blank subsection), DB, PN, PA, HA, PG, PI, PP (primary and continuation), PS, HS, EA, PC, HC, PD, PE, PF (primary and Level of Service continuation), HF (primary and Level of Service continuation), ER, UC, UR (primary and continuation). Everything else in the ARINC matrix below is absent. The FAA chooses between PC and EA for a named ter</para>
         /// </remarks>
         public string? SubsectionCode { get; set; }
 
@@ -101,11 +128,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 13:18
         /// _MaxLength: 6
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the identifier of an approach route, including provisions for multiple procedures, circle-to-land operations, and helicopter approaches. Runway-dependent procedures use alphanumeric codes with optional multiple indicators (e.g., I26L, R29, V08-A). Circle-to-land procedures use four-character alpha identifiers with an optional fifth character for multiples (e.g., VORA, VOR-B, NDB-1). Helicopter-to-runway identifiers start with the approach type followed by a three-digit runway/course number and optional multiple indicator (e.g., I13L, V175, N175B). Helicopter-to-helipad identifiers use the approach type plus the pad designation, with no multiple indicator in this field (e.g., IA127, VBRAVO, N23, RWESTA). Col:1=Approach type (alpha, same as RouteType field) __ Col:2–3=RwyId in tens of degrees (01–36) __ Col:4=Rwy designation (L=Left, R=Right, C=Center, T=True North, dash=placeholder, blank=unused) __ Col:5=Multiple indicator (alphanumeric or blank) __ 6=Blank.
+        /// Names the specific published approach procedure, encoding the approach type, the runway it serves,
+        /// and a suffix that separates several approaches of the same type to the same runway.
+        /// <para>FAA: The FAA applies ARINC 424-19 (not -18) to this field, so the circle-to-land three-letter mnemonic table of -19 is the one in force. For RNAV (RNP) procedures the FAA puts H in column 1 of the identifier for the final and missed approach segments (and H in Route Type column 20 with F in Route Qualifier 1). All of the observed H## values are RNP procedures, not helicopter procedures. Alternate misse</para>
         /// </remarks>
-        public string? ApproachProcedrueIdent { get; set; }
+        public string ApproachProcedureIdent { get; set; }
 
         /// <summary>
         /// Runway or Helipad Identifier
@@ -113,11 +143,16 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 19:23
         /// _MaxLength: 5
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Specifies the runway or helipad ID associated with runway/heliport data or ILS/MLS records. RUNWAYS: formatted as “RW” plus a two-digit number (01–36) and optional suffix: C (Center), L (Left), R (Right), T (True degrees), or special types W (Water), S (Soft-surface), G (Glider), U (Ultralight), numeric (Assault Strip); e.g., RW26L, RW08R, RW26C, RW05, RW17T. Note: Non-numeric runway identifiers (5.46) are included and will not carry the prefixed ‘RW’ characters. HELIPADS: unique record for each pad at a location. If not supplied from source data, identifiers are assigned by the supplier using the prefix “HELO” plus a number. Examples include source-supplied IDs like PADA1, NWPAD, ALPHA, A1 and supplier-assigned IDs like HELO1, HELO2, HELO3.
+        /// Five columns naming a runway, normally 'RW' plus a two-digit magnetic-heading designator plus an
+        /// optional suffix letter, but in the FAA CIFP also a bare non-numeric designator such as N, SE or ALL.
+        /// <para>This column carries one of two different fields depending on context: 5.46 or 5.180. It is left as raw text so neither reading is lost.</para>
+        /// <para>FAA: Two FAA deviations, both stated in the CIFP readme, and both of which break a naive regular expression of ^RW\d{2}[CLRT ]?$: 1. Extra suffixes. The FAA includes runway-surface and use suffixes that ARINC does not define: W water runway S soft-surface runway G glider runway U ultralight runway a digit assault strip So 'RW17W', 'RW13S', 'RW09G', 'RW26U' and 'RW05' followed by a digit are all legitim</para>
+        /// <para>Layout note: For helicopter procedures to a pad or point in space, runway number=00, runway letter is blank, and the pad identifier and/or final approach course are in the Continuation Record.</para>
         /// </remarks>
-        public string? RwyHelipadIdentifier { get; set; }
+        public string RunwayOrHelipadIdentifier { get; set; }
 
         /// <summary>
         /// Operation Type
@@ -125,11 +160,13 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 24:25
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the type of final approach segment; 00 = straight-in procedure, 01–15 reserved for future use.
+        /// Classifies the kind of final approach segment a path point record describes.
+        /// <para>FAA: The readme does not mention it. All 4,905 path point primary records carry '00' - every FAA path point describes a straight-in final approach segment.</para>
         /// </remarks>
-        public string? OperationType { get; set; }
+        public string OperationType { get; set; }
 
         /// <summary>
         /// Continuation Record Number
@@ -137,11 +174,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 26
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, "1" if they do, with continuations numbered "2-"9" and then "A"="Z" as needed.
+        /// Marks whether a record is a primary record and whether continuation records follow it, and numbers
+        /// the continuations in order.
+        /// <para>FAA: The FAA emits only 0, 1 and 2. Continuations exist for exactly two things: approach level-of- service continuation records on PF/HF (6,742 pairs), and controlling agency continuation records on UR (1,175 pairs). Every other record type in the file is 0 throughout.</para>
         /// </remarks>
-        public string? ContinuationRecordNumber { get; set; }
+        public string ContinuationRecordNumber { get; set; }
 
         /// <summary>
         /// Route Indicator
@@ -149,9 +189,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 27
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Specifies a single alpha character (A–Z, excluding I and O) used to distinguish multiple final approach segments to the same runway or helipad, matching the Multiple Approach Indicator in procedure identifiers.
+        /// A single letter distinguishing between several different final approach segments serving the same
+        /// runway or helipad.
+        /// <para>FAA: Not mentioned in the readme. Observed on path point primaries: blank 4,432, 'Y' 330, 'Z' 129, 'X' 14. So the FAA uses only the tail end of the alphabet, matching its Y/Z/X approach naming convention.</para>
         /// </remarks>
         public string? RouteIndicator { get; set; }
 
@@ -160,24 +203,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.255
         /// _Idx: 28:29
         /// _MaxLength: 2
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Associates the approach procedure with a specific SBAS service provider, coded as a number from 00 to 15 (definitions set by ICAO SBAS SARPS working groups).
+        /// Two-digit code tying the approach to a particular satellite based augmentation system service
+        /// provider.
+        /// <para>FAA: The readme does not mention the field. All 4,905 path point primary records carry '00', which is consistent with a single U.S. provider (WAAS) for the whole dataset.</para>
         /// </remarks>
-        public string? SbasServeiceProviderId { get; set; }
+        public int? SbasServiceProviderIdentifier { get; set; }
 
         /// <summary>
         /// Reference Path Data Selector
         /// _Ref: 5.256
         /// _Idx: 30:31
         /// _MaxLength: 2
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Enables automatic tuning of a procedure by GBAS avionics, represented by a number from 00 to 48 (definitions under development by ICAO GBAS SARPS working groups).
+        /// Two-digit selector that lets GBAS avionics tune the correct approach data block automatically.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primary records carry '00'. That is expected - the FAA publishes no GBAS/GLS procedures in the CIFP, so there is no data block to select.</para>
         /// </remarks>
-        public string? RefPathDataSelector { get; set; }
+        public int? ReferencePathDataSelector { get; set; }
 
         /// <summary>
         /// Reference Path Identifier
@@ -185,131 +233,161 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 32:35
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Provides an identifier to verify selection of the correct approach procedure, functioning like a Morse code ID in ILS approaches (e.g., GDCA, SJK2). Related to the GLS Station Identifier, which is the ICAO location code of the airport or heliport where the GLS transmitter is installed.
+        /// Four-character identifier a crew can use to confirm the avionics tuned the intended approach - the
+        /// augmented-approach equivalent of an ILS Morse ident.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry a value, 95 distinct. The FAA uses a systematic scheme rather than free text: a leading 'W' (for WAAS), then the two-digit runway number, then a letter - 'W18A', 'W36A', 'W35A', 'W13A', 'W27A'. The trailing letter distinguishes multiple reference paths to the same runway number.</para>
         /// </remarks>
-        public string? RefPathId { get; set; }
+        public string? ReferencePathIdentifier { get; set; }
 
         /// <summary>
         /// Approach Performance Designator
         /// _Ref: 5.258
         /// _Idx: 36
         /// _MaxLength: 1
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the type or category of approach, represented by a number from 0 to 7, with assignments defined by ICAO GBAS SARPS and official government sources (e.g., 1 = Category I Approach).
+        /// Single digit stating the type or category of approach the path point record supports.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primary records carry '0'. Combined with the approach type identifiers on the continuation records (LPV and LP only), '0' evidently corresponds to the non-precision-approach-category SBAS approaches the FAA publishes.</para>
         /// </remarks>
-        public string? ApproachPerformanceDesignator { get; set; }
+        public int? ApproachPerformanceDesignator { get; set; }
 
         /// <summary>
         /// Landing Threshold Point Latitude
         /// _Ref: 5.267
         /// _Idx: 37:47
         /// _MaxLength: 11
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigation feature. Expands on Field Ref 5.36 by improving precision resolution to 0.0005 arc-seconds (e.g., N3028422400).
+        /// Latitude of a path point feature at 0.0001 arc-second resolution - the high precision extension of
+        /// the ordinary latitude field.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry both latitudes; 4,881 distinct LTP values, so a handful of thresholds are shared between procedures.</para>
         /// </remarks>
-        public string? LandingThresholPointLat { get; set; }
+        public double? LandingThresholdPointLatitude { get; set; }
 
         /// <summary>
         /// Landing Threshold Point Longitude
         /// _Ref: 5.268
         /// _Idx: 48:59
         /// _MaxLength: 12
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigation feature. Expands on Field Ref 5.37 by improving precision resolution to 0.0005 arc-seconds (e.g., W081420301000). 
+        /// Longitude carried at the extra precision the FAS data block needs, used for the landing threshold
+        /// and flight path alignment points on Path Point records.
         /// </remarks>
-        public string? LandingThresholPointLon { get; set; }
+        public double? LandingThresholdPointLongitude { get; set; }
 
         /// <summary>
         /// (LTP) Ellipsoid Height
         /// _Ref: 5.225
         /// _Idx: 60:65
         /// _MaxLength: 6
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the surveyed height relative to the WGS-84 ellipsoid in meters (0.1 m resolution, decimal suppressed), with a leading “+” or “–” indicating above or below the ellipsoid; applies to LTP positions in Path Point Records or landing thresholds in Runway Records (e.g., +00356, +00051, +015, -00022, -01566). Note: Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available.
+        /// Height of a surveyed point above (or below) the WGS-84 ellipsoid, in tenths of a metre with an
+        /// explicit sign.
+        /// <para>FAA: The readme names this field explicitly: "Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available." That half of the statement holds - 6,282 of 16,805 runway records carry a value. Gradient never does. On path point records, all 4,905 primaries carry an LTP ellipsoidal height (3,441 distinct values), but the FPAP ellipsoidal height on the continuation r</para>
         /// </remarks>
-        public string? LtpEllipsoidHeight { get; set; }
+        public double? LtpEllipsoidHeight { get; set; }
 
         /// <summary>
         /// Glide Path Angle
         /// _Ref: 5.226
         /// _Idx: 66:69
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the intended descent gradient for the final approach, given as the glide path angle in degrees, tenths, and hundredths at the Flight Path Control Point (e.g., 0275 = 2.75°, 1015 = 10.15°, 0300 = 3.00°).
+        /// The intended descent angle of the final approach path, in hundredths of a degree.
+        /// <para>FAA: Not mentioned in the readme. Observed on all 4,905 path point primaries, 81 distinct values from '0000' to '0570' (0.00 to 5.70 degrees). '0300' - a standard 3.00 degree path - covers 4,229 of them. A value of '0000' appears on 180 records and correlates exactly with LP procedures: every 0000 record has approach type identifier 'LP' on its continuation record and vertical alert limit '000'. So 000</para>
         /// </remarks>
-        public string? GlidePathAngle { get; set; }
+        public double? GlidePathAngle { get; set; }
 
         /// <summary>
         /// Flight Path Alignment Point Latitude
         /// _Ref: 5.267
         /// _Idx: 70:80
         /// _MaxLength: 11
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigation feature. Expands on Field Ref 5.36 by improving precision resolution to 0.0005 arc-seconds (e.g., N3028422400).
+        /// Latitude of a path point feature at 0.0001 arc-second resolution - the high precision extension of
+        /// the ordinary latitude field.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry both latitudes; 4,881 distinct LTP values, so a handful of thresholds are shared between procedures.</para>
         /// </remarks>
-        public string? FlightPathAlignmentPointLat { get; set; }
+        public double? FlightPathAlignmentPointLatitude { get; set; }
 
         /// <summary>
         /// Flight Path Alignment Point Longitude
         /// _Ref: 5.268
         /// _Idx: 81:92
         /// _MaxLength: 12
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigation feature. Expands on Field Ref 5.37 by improving precision resolution to 0.0005 arc-seconds (e.g., W081420301000). 
+        /// Longitude carried at the extra precision the FAS data block needs, used for the landing threshold
+        /// and flight path alignment points on Path Point records.
         /// </remarks>
-        public string? FlightPathAlignmentPointLon { get; set; }
+        public double? FlightPathAlignmentPointLongitude { get; set; }
 
         /// <summary>
         /// Course Width at Threshold
         /// _Ref: 5.228
         /// _Idx: 93:97
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the lateral course width at the Landing Threshold Point (LTP), defining approach sensitivity with the FPAP location; values in meters with 0.25 m resolution, ending in 00, 25, 50, or 75, and set to 38 m for helicopter alighting points (e.g., 08025, 14375, 03800)
+        /// The lateral width of the final approach course at the landing threshold, in hundredths of a metre,
+        /// which sets lateral deviation sensitivity.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries are populated; 47 distinct values ranging from '08000' (80.00 m) to '14375' (143.75 m), with '10675' (106.75 m) on 4,804 of them. Every value ends in 00, 25, 50 or 75 as required. The 38.00 m helicopter value never appears, because there are no runway-00 path point records in the file.</para>
+        /// <para>Layout note: If Runway Number = 00 (helipad), the Course Width field is ignored.</para>
         /// </remarks>
-        public string? CourseWidthAtThreshold { get; set; }
+        public double? CourseWidthAtThreshold { get; set; }
 
         /// <summary>
         /// Length Offset
         /// _Ref: 5.259
         /// _Idx: 98:101
         /// _MaxLength: 4
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the distance in meters from the runway stop end (SER) to the Flight Path Alignment Point (FPAP), marking where lateral sensitivity shifts to missed approach sensitivity; resolution is 8 m, with zero used when FPAP is at the opposite runway end center (e.g., 0000, 0432).
+        /// Distance in metres from the stop end of the runway to the Flight Path Alignment Point, marking where
+        /// lateral sensitivity switches to missed approach sensitivity.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry a value, 239 distinct, ranging from 0000 to 2016 metres, and every single one is an exact multiple of 8 - a useful validation check. The most common are 1224 m (597 records) and 0000 (565 records).</para>
         /// </remarks>
-        public string? LengthOffset { get; set; }
+        public int? LengthOffset { get; set; }
 
         /// <summary>
         /// Path Point TCH
         /// _Ref: 5.265
         /// _Idx: 102:107
         /// _MaxLength: 6
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the Threshold Crossing Height (TCH) above the runway threshold (LTP) or helipad, matching Field Ref 5.67 but with higher precision; recorded in feet to 0.1 ft or meters to 0.01 m, decimal suppressed, with units defined by the TCH Units Indicator (e.g., 566777, 356799).
+        /// The height of the approach path above the landing threshold or helicopter alighting point, at higher
+        /// resolution than the ordinary TCH field.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry a value with units 'F', 287 distinct, from '000000' to '000680' - so 0.0 to 68.0 feet. The common ones are 000400 (40.0 ft, 1,221 records), 000450 (45.0 ft) and 000500 (50.0 ft), which are typical published TCH values. 177 records carry 000000; those pair with the LP procedures that have no vertical guidance.</para>
         /// </remarks>
-        public string? PathPointTch { get; set; }
+        public double? PathPointTch { get; set; }
 
         /// <summary>
         /// TCH Units Indicator
@@ -317,180 +395,88 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 108
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the unit of measure for the Path Point TCH: F = feet, M = meters.
+        /// Says whether the Path Point TCH beside it is expressed in feet or in metres.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primary records carry 'F'; the FAA publishes threshold crossing heights in feet throughout.</para>
         /// </remarks>
-        public string? TchUnitsIndicator { get; set; }
+        public string TchUnitsIndicator { get; set; }
 
         /// <summary>
         /// HAL
         /// _Ref: 5.263
         /// _Idx: 109:111
         /// _MaxLength: 3
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the Horizontal Alert Limit (HAL), the radius in meters of a circle centered on the true position within which the indicated horizontal position must fall with required probability for a given navigation mode; recorded to 0.1 m resolution, decimal suppressed (e.g., 400, 200).
+        /// The radius of the horizontal containment circle the navigation solution must stay inside, in tenths
+        /// of a metre.
+        /// <para>FAA: Not mentioned in the readme. All 4,905 path point primaries carry '400' - 40.0 metres, the standard LPV/LP horizontal alert limit. There is no variation in the dataset.</para>
         /// </remarks>
-        public string? Hal { get; set; }
+        public double? Hal { get; set; }
 
         /// <summary>
         /// VAL
         /// _Ref: 5.264
         /// _Idx: 112:114
         /// _MaxLength: 3
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the Vertical Alert Limit (VAL), half the vertical segment length centered on the true position within which the indicated vertical position must fall with required probability; expressed in meters to 0.1 m resolution, decimal suppressed (e.g., 120, 500).
+        /// Half the height of the vertical containment segment the navigation solution must stay inside, in
+        /// tenths of a metre.
+        /// <para>FAA: Not mentioned in the readme, but the observed values map exactly onto the FAA's SBAS service levels, cross-checked against the approach type identifier (5.262) on the matching continuation record: '500' (50.0 m) on 2,985 records - all LPV, the standard LPV vertical alert limit. '350' (35.0 m) on 1,202 records - all LPV, the tighter LPV-200 limit. '000' on 718 records - all LP, which is a lateral-o</para>
         /// </remarks>
-        public string? Val { get; set; }
+        public double? Val { get; set; }
 
         /// <summary>
         /// SBAS FAS Data CRC Remainder
         /// _Ref: 5.229
         /// _Idx: 115:122
         /// _MaxLength: 8
-        /// _DataType: String
+        /// _DataType: UInt
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Represents the 8-character hexadecimal CRC remainder for the final approach segment data, a 32-bit value ensuring data integrity calculated per the specification’s algorithm (e.g., 243BC649, A6934B72).
+        /// Eight-character hexadecimal representation of the 32-bit CRC that protects the final approach
+        /// segment data block.
+        /// <para>FAA: The readme does not discuss the FAS CRC specifically, but it does state the whole CIFP file is wrapped with a separate 32-bit CRC calculated per ARINC Report 665. Observed: all 4,905 path point primaries carry a CRC and all 4,905 values are distinct, as expected.</para>
         /// </remarks>
-        public string? SbasFasDataCrcRemainder { get; set; }
+        public uint? SbasFasDataCrcRemainder { get; set; }
 
         /// <summary>
         /// File Record Number
         /// _Ref: 5.31
         /// _Idx: 123:127
         /// _MaxLength: 5
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
+        /// Housekeeping reference number stamped on every record - in the FAA CIFP a per-record unique tag, not
+        /// a sequential file position.
+        /// <para>FAA: From the FAA CIFP readme, verbatim in substance: 'A unique number is assigned for each record rather than consecutively for the entire dataset. Some file record numbers will have alphabetic characters or blank fields.' Two consequences the implementer must not miss: - The value is NOT ordered and must never be used to sort records, to detect gaps, or to reason about file position. - The value is N</para>
         /// </remarks>
-        public string? FileRecordNum { get; set; }
+        public string? FileRecordNumber { get; set; }
 
         /// <summary>
         /// Cycle Date
         /// _Ref: 5.32
         /// _Idx: 128:131
         /// _MaxLength: 4
-        /// _DataType: Int
-        /// </summary>
-        /// <remarks>
-        /// Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01â€“13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
-        /// </remarks>
-        public string? CycleDate { get; set; }
-
-        #endregion
-
-        #region ContinuationRecord
-
-        /// <summary>
-        /// Application Type
-        /// _Ref: 5.91
-        /// _Idx: 27
-        /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the application type of a continuation record: A=Standard ARINC continuation (notes/formatted data) __ B=Combined Controlling Agency/Call Sign with Time of Operation __ C=Call Sign/Controlling Agency continuation __ E=Primary Record Extension __ L=VHF Navaid Limitation continuation __ N=Sector Narrative continuation __ T=Time of Operations continuation (formatted time) __ U=Time of Operations continuation (narrative time) __ V=Time of Operations continuation (Start/End Date) __ P=Flight Planning Application continuation __ Q=Flight Planning Application Primary Data continuation __ S=Simulation Application continuation __ W=Airport/Heliport Procedure Data continuation with SBAS authorization.
+        /// Two-digit year plus two-digit 28-day update cycle recording when the record was added or last
+        /// changed.
+        /// <para>FAA: The FAA states that cycle dates are set to the most recent cycle on every new record and on every record it modifies. Consequently the newest cycle value in the file identifies the CIFP volume itself.</para>
         /// </remarks>
-        public string? ApplicationType { get; set; }
+        public string CycleDate { get; set; }
 
-        /// <summary>
-        /// (FPAP) Ellipsoid Height
-        /// _Ref: 5.225
-        /// _Idx: 28:33
-        /// _MaxLength: 6
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Specifies the surveyed height relative to the WGS-84 ellipsoid in meters (0.1 m resolution, decimal suppressed), with a leading “+” or “–” indicating above or below the ellipsoid; applies to LTP positions in Path Point Records or landing thresholds in Runway Records (e.g., +00356, +00051, +015, -00022, -01566). Note: Runway gradient (5.212) and ellipsoid height (5.225) are included in the runway record when available.
-        /// </remarks>
-        public string? FpapEllipsoidHeight { get; set; }
-
-        /// <summary>
-        /// (FPAP) Orthometric Height
-        /// _Ref: 5.227
-        /// _Idx: 34:39
-        /// _MaxLength: 6
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Specifies the surveyed height relative to Mean Sea Level (MSL) in 0.1 m resolution, decimal suppressed, with a leading “+” for above MSL or “–” for below (e.g., +00356, +00051, +01566, -00022, -01566).
-        /// </remarks>
-        public string? FpapOrthometricHeight { get; set; }
-
-        /// <summary>
-        /// (LTP) Orthometric Height
-        /// _Ref: 5.227
-        /// _Idx: 40:45
-        /// _MaxLength: 6
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Specifies the surveyed height relative to Mean Sea Level (MSL) in 0.1 m resolution, decimal suppressed, with a leading “+” for above MSL or “–” for below (e.g., +00356, +00051, +01566, -00022, -01566).
-        /// </remarks>
-        public string? LtpOrthometricHeight { get; set; }
-
-        /// <summary>
-        /// Approach Type Identifier
-        /// _Ref: 5.262
-        /// _Idx: 46:55
-        /// _MaxLength: 10
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Identifies published approach types requiring path points, HAL, and VAL, using up to 10 characters to represent the approach name (e.g., GLS, LPV, APV-II).
-        /// </remarks>
-        public string? ApproachTypeId { get; set; }
-
-        /// <summary>
-        /// GNSS Channel Number
-        /// _Ref: 5.244
-        /// _Idx: 56:60
-        /// _MaxLength: 5
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Identifies the GNSS channel used to decode the augmentation system, with values 20001–39999 reserved for GBAS (and SBAS if applicable) and 40000–99999 reserved for SBAS; values below 20000 are reserved for ILS/MLS (e.g., 20010, 56234).
-        /// </remarks>
-        public string? GnssChannelNum { get; set; }
-
-        /// <summary>
-        /// Blank (Spacing)
-        /// _Idx: 61:70
-        /// _MaxLength: 10
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        // public string BlankSpacing { get; set; }
-
-        /// <summary>
-        /// Helicopter Procedure Course
-        /// _Ref: 5.269
-        /// _Idx: 71:73
-        /// _MaxLength: 3
-        /// _DataType: String
-        /// </summary>
-        /// <remarks>
-        /// Specifies the final approach course in full degrees for helicopter procedures to helipads or points in space, used with the Approach Procedure Identifier and Runway/Helipad Identifier to uniquely define the procedure (e.g., 003, 013, 103, 310, 333).
-        /// </remarks>
-        public string? HeliProcedureCourse { get; set; }
-
-        /// <summary>
-        /// Blank (Spacing)
-        /// _Idx: 74:122
-        /// _MaxLength: 49
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        // public string BlankSpacing { get; set; }
-
-        #endregion
     }
 }

@@ -4,16 +4,23 @@ using System.Collections.Generic;
 namespace FAA_DATA_HANDLER.Models.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - Airports (PA) section data
+    /// FAACIFP18 File - Airports (PA) record.
     /// </summary>
     /// <remarks>
-    /// Contains reference points for all airports having at least one hard surfaced runway
-    /// Additionally, contains all airports required to support Enroute Airway
-    /// structure coding for those areas where Airport reference points are used
-    /// as enroute airway fixes.
+    /// ARINC 424 layout 4.1.7.1 Airport (Airports-PA). Identified by Section Code 'P' and Subsection Code
+    /// 'A'. Continuation Record Number is at zero-based index 21; '0' or '1' marks a primary record and
+    /// anything else a continuation.
     /// </remarks>
     public class AirportsCifpDataModel
     {
+        /// <summary>
+        /// The complete, unmodified 132-character source record.
+        /// </summary>
+        /// <remarks>
+        /// Kept so that any field can be re-sliced and so an unexpected value can always be traced
+        /// back to its source line. Populated only when CifpParseOptions.KeepRawRecord is true.
+        /// </remarks>
+        public string? RawRecord { get; set; }
 
         /// <summary>
         /// Record Type
@@ -21,11 +28,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 0
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
+        /// Column 1 flag saying whether the record belongs to the universally applicable dataset or to a
+        /// customer-specific tailored set.
+        /// <para>FAA: The FAA readme does not discuss this field. Across all 396,430 records the value is always 'S'.</para>
         /// </remarks>
-        public string? RecordType { get; set; }
+        public string RecordType { get; set; }
 
         /// <summary>
         /// Customer/Area Code
@@ -33,9 +43,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 1:3
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL).
+        /// Three-letter code grouping each record into a broad geographic region (or, in airline-tailored
+        /// files, naming the airline the record was built for).
+        /// <para>FAA: Fixes that NASR classifies as 'Offshore' may be given a Customer/Area Code of USA paired with an ICAO Code (5.14) of 'K ' or 'P ' (single letter plus a blank). Terminal waypoint (PC) records inherit the Customer/Area Code of their parent airport regardless of where the waypoint itself sits, even though those same PC records keep their own distinct ICAO Code (5.14). Do not infer geography for a PC </para>
         /// </remarks>
         public string? CustomerAreaCode { get; set; }
 
@@ -45,9 +58,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 4
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+        /// One letter naming the major database section a record belongs to - or, on pointer fields, the
+        /// section of the record being referenced.
+        /// <para>FAA: The FAA readme does not call this field out directly, but it fixes the set of sections the CIFP can contain: A (Grid MORA), D (VHF and NDB NAVAIDs), E (enroute waypoints and airways), H (heliports and heli terminal data), P (airport and terminal data) and U (controlled and special use airspace). No other section is produced.</para>
         /// </remarks>
         public string? SectionCode { get; set; }
 
@@ -57,9 +73,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// Airport ICAO Identifier
@@ -67,23 +83,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 6:9
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Contains the ICAO airport identifier to which the record's data applies. If there is no published ICAO Airport Identifier, then the published FAA Airport Identifier will be used.
+        /// Four-character identifier of the airport or heliport that owns, or is referenced by, the data in the
+        /// record.
+        /// <para>FAA: The FAA uses the published ICAO airport identifier when one exists; when there is none it falls back to the published FAA identifier. On the Airport (PA) record the IATA field (5.107) is used to carry the FAA identifier instead, and that IATA field is left blank whenever the airport identifier here is already four characters long.</para>
         /// </remarks>
-        public string? AptIcaoIdentifier { get; set; }
+        public string? AirportIcaoIdentifier { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// Airport ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 10:11
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? AirportIcaoLocationCode { get; set; }
+        public string AirportIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Subsection Code
@@ -91,23 +113,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 12
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// One letter that, combined with the Section Code, names the exact file a record belongs to - the
+        /// primary key for record dispatch.
+        /// <para>FAA: The CIFP contains only these twenty-one record kinds: AS, D (blank subsection), DB, PN, PA, HA, PG, PI, PP (primary and continuation), PS, HS, EA, PC, HC, PD, PE, PF (primary and Level of Service continuation), HF (primary and Level of Service continuation), ER, UC, UR (primary and continuation). Everything else in the ARINC matrix below is absent. The FAA chooses between PC and EA for a named ter</para>
         /// </remarks>
         public string? SubsectionCode { get; set; }
 
         /// <summary>
-        /// ATA/IATA Designator (FAA Airport Identifier)
+        /// ATA/IATA Designator
         /// _Ref: 5.107
         /// _Idx: 13:15
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Contains the ATA/IATA designator code (FAA Airport Identifier) for the airport or heliport related to the record's data (e.g., DEN, LHR, JFK). If the Airport Identifier is four characters in length, the field will be left blank.
+        /// A three-character short code for the airport or heliport - internationally the IATA/ATA code, but in
+        /// the FAA CIFP the three-character FAA location identifier.
+        /// <para>FAA: "The IATA code field in the Airport Record will contain the FAA Airport Identifier. If the Airport Identifier is four characters in length, the field will be left blank." In the 2507 file 8,150 of 13,321 airport records and 5,941 of 6,134 heliport records have this field blank.</para>
         /// </remarks>
-        public string? AtaIataDesignator { get; set; }
+        public string AtaIataDesignator { get; set; }
 
         /// <summary>
         /// Reserved (Expansion)
@@ -115,9 +143,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 2
         /// </summary>
         /// <remarks>
-        /// Not used yet but may be in the future.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string ReservedExpansion { get; set; }
+        // public string? ReservedExpansion { get; set; }
 
         /// <summary>
         /// Blank (Spacing)
@@ -125,9 +153,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 3
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// Continuation Record Number
@@ -135,23 +163,28 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 21
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'–'9' and then 'A'–'Z' as needed.
+        /// Marks whether a record is a primary record and whether continuation records follow it, and numbers
+        /// the continuations in order.
+        /// <para>FAA: The FAA emits only 0, 1 and 2. Continuations exist for exactly two things: approach level-of- service continuation records on PF/HF (6,742 pairs), and controlling agency continuation records on UR (1,175 pairs). Every other record type in the file is 0 throughout.</para>
         /// </remarks>
-        public string? ContinuationRecordNumber { get; set; }
+        public string ContinuationRecordNumber { get; set; }
 
         /// <summary>
         /// Speed Limit Altitude
         /// _Ref: 5.73
         /// _Idx: 22:26
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Altitude below which speed limits may be imposed, derived from official sources and expressed in feet MSL or flight levels (e.g., 10000, F125).
+        /// Altitude at and below which the terminal-area speed limit in 5.72 applies.
+        /// <para>Never populated in the FAA CIFP.</para>
         /// </remarks>
-        public string? SpdLimitAlt { get; set; }
+        public int? SpeedLimitAltitude { get; set; }
 
         /// <summary>
         /// Longest Runway
@@ -159,11 +192,13 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 27:29
         /// _MaxLength: 3
         /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the length of the longest operational runway at the airport, expressed in hundreds of feet and used for airport classification. Note: Per ARINC 424 v18, this field should reflect the longest operational hard-surface runway. However, the FAA’s implementation may include runways that are not hard-surfaced, and as such, the value may not align with the ARINC 424 definition. Examples (zero-padded to the left): 040, 055, 098, 111
+        /// Length of the airport's longest runway, expressed in hundreds of feet.
+        /// <para>FAA: The FAA readme states plainly that this field may not always represent the longest HARD-SURFACE runway at the airport, which directly contradicts the ARINC definition. The real file bears this out: the three longest values in the whole dataset - 260 (LIBBY CAMPS), 250 (LONG LAKE) and 211 (CONCHAS LAKE) - are all water landing areas, not pavement. Never present this value to a user as a hard-surfac</para>
         /// </remarks>
-        public string? LongestRwy { get; set; }
+        public int? LongestRunway { get; set; }
 
         /// <summary>
         /// IFR Capability
@@ -171,11 +206,13 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 30
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates whether the airport or heliport has any published instrument approach procedures; 'Y' if published, 'N' if not.
+        /// Says whether the airport or heliport has at least one official published instrument approach
+        /// procedure.
         /// </remarks>
-        public string? IfrCapability { get; set; }
+        public string IfrCapability { get; set; }
 
         /// <summary>
         /// Longest Runway Surface Code
@@ -183,11 +220,13 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 31
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the surface type of the airport’s longest runway: H = hard surface (e.g., asphalt, concrete), S = soft surface (e.g., grass, gravel), W = water runway, U = undefined.
+        /// Says what the longest runway at the airport is surfaced with - hard, soft, water, or unknown.
+        /// <para>FAA: The readme warns that "The Longest Runway (5.54) field may not always represent the longest hard-surface runway at the airport" - so the length and this surface code must be read together, and neither should be used alone to decide whether a paved runway of a given length exists. Observed: 'S' soft on 7,735 airports, 'H' hard on 5,000, 'W' water on 586. 'U' never appears - the FAA always states a </para>
         /// </remarks>
-        public string? LongestRwySfcCode { get; set; }
+        public string LongestRunwaySurfaceCode { get; set; }
 
         /// <summary>
         /// Airport Reference Pt. Latitude
@@ -195,11 +234,13 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 32:40
         /// _MaxLength: 9
         /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
+        /// Signed latitude packed as a hemisphere letter followed by eight digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? AptRefPtLat { get; set; }
+        public double? AirportReferencePtLatitude { get; set; }
 
         /// <summary>
         /// Airport Reference Pt. Longitude
@@ -207,35 +248,41 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 41:50
         /// _MaxLength: 10
         /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
+        /// Signed longitude packed as a hemisphere letter followed by nine digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? AptRefPtLon { get; set; }
+        public double? AirportReferencePtLongitude { get; set; }
 
         /// <summary>
         /// Magnetic Variation
         /// _Ref: 5.39
         /// _Idx: 51:55
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the angular difference between True North and Magnetic North; format is one character (E, W, or T) followed by four digits for degrees and tenths (e.g., E0140, W0075, T0000). Note: Differences between MagVar and Dynamic-MagVar.
+        /// Angular difference between true and magnetic north at the record's location, given as a direction
+        /// letter plus four digits of degrees and tenths.
+        /// <para>FAA: The FAA computes variation from the World Magnetic Model, 2020 epoch. Where no government-assigned variation exists, the CIFP dynamic magnetic variation is calculated at the magnetic epoch of a specified cycle so that it stays aligned with the NASR AWY.txt and ATS.txt files; for 2025 that reference was cycle 2504. Waypoint records and DME-only facilities use the cycle 2504 epoch. DME-only faciliti</para>
         /// </remarks>
-        public string? MagVar { get; set; }
+        public double? MagneticVariation { get; set; }
 
         /// <summary>
         /// Airport Elevation
         /// _Ref: 5.55
         /// _Idx: 56:60
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the elevation of the airport or heliport in feet to a resolution of one foot; positive values are above MSL, negative values (with a leading minus sign) are below MSL (e.g., 02171, -0142).
+        /// Elevation of the airport or heliport in feet relative to mean sea level, signed.
         /// </remarks>
-        public string? AptElevation { get; set; }
+        public int? AirportElevation { get; set; }
 
         /// <summary>
         /// Speed Limit
@@ -243,11 +290,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 61:63
         /// _MaxLength: 3
         /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines a speed limit in knots indicated airspeed (KIAS) for a fix in a terminal procedure or for an airport/heliport terminal environment. When used in airport or heliport records, it indicates the maximum speed allowed for all flight segments at or below the specified Speed Limit Altitude (5.73). In SID records, the limit applies from the procedure start or previous speed limit through the end of the leg on which it's coded, unless superseded. In STAR and Approach records, the speed limit applies from the point it is coded forward through the procedure unless replaced by another limit.
+        /// Speed restriction in knots indicated airspeed, applied either at a procedure fix or across an
+        /// airport's terminal area.
+        /// <para>FAA: The FAA leaves the airport and heliport terminal-area speed limit blank throughout, which is consistent with it also leaving Speed Limit Altitude (5.73) blank. Only procedure legs carry speed limits.</para>
         /// </remarks>
-        public string? SpdLimit { get; set; }
+        public int? SpeedLimit { get; set; }
 
         /// <summary>
         /// Recommended Navaid
@@ -255,23 +305,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 64:67
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Specifies the recommended navigational aid (Navaid) to reference a waypoint or an airport/heliport, using a 1–4 character identifier. May include VHF, NDB, Localizer, TACAN, GLS, or MLS facilities. (e.g., P, PP, DEN, LAX, ILAX, MJFK).
+        /// Identifier of the ground navaid that the leg, waypoint or airport is referenced to - the facility
+        /// that Theta (5.24) and Rho (5.25) are measured from.
+        /// <para>FAA: The readme does not mention the field. In the shipped file it is populated only on procedure leg records (22,958 of 201,114 primaries, 1,968 distinct identifiers) and is blank on all 13,321 airport records, all 6,134 heliport records and all 19,099 enroute airway primary records - even though ARINC allows it on all three.</para>
         /// </remarks>
         public string? RecommendedNavaid { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// Recommended Navaid ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 68:69
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? RecommendedNavaidIcaoLocationCode { get; set; }
+        public string RecommendedNavaidIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Transitions Altitude
@@ -279,11 +335,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 70:74
         /// _MaxLength: 5
         /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the altitude (in feet MSL) at or below which aircraft reference local altimeter settings and above which standard settings are used (QNE). Applied in STAR and Approach records as the level where barometric settings change to local, and in SID records as the transition altitude. Must be present in the first leg of each SID/STAR/Approach procedure if known. If unknown or varies by procedure, the field is left blank. Recorded to a one-foot resolution (e.g., 05000, 23000, 18000).
+        /// Altitude in feet at which altimeter setting changes between local (QNH) and standard (QNE), carried
+        /// on airport, heliport and procedure records.
+        /// <para>FAA: The FAA codes a constant 18000 everywhere it codes this field at all - that is the United States transition altitude. Measured: PA 13,263 of 13,321 records = "18000", 58 blank; HA 6,104 of 6,134 = "18000", 30 blank; PD 10,373 of 34,605 populated, all "18000"; PE 9,644 of 44,148, all "18000"; PF primary 32,375 of 122,323, all "18000".</para>
         /// </remarks>
-        public string? TransitionsAlt { get; set; }
+        public int? TransitionsAltitude { get; set; }
 
         /// <summary>
         /// Transition Level
@@ -291,11 +350,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 75:79
         /// _MaxLength: 5
         /// _DataType: Int
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Defines the altitude (in feet MSL) at or below which aircraft reference local altimeter settings and above which standard settings are used (QNE). Applied in STAR and Approach records as the level where barometric settings change to local, and in SID records as the transition altitude. Must be present in the first leg of each SID/STAR/Approach procedure if known. If unknown or varies by procedure, the field is left blank. Recorded to a one-foot resolution (e.g., 05000, 23000, 18000).
+        /// Altitude in feet at which altimeter setting changes between local (QNH) and standard (QNE), carried
+        /// on airport, heliport and procedure records.
+        /// <para>FAA: The FAA codes a constant 18000 everywhere it codes this field at all - that is the United States transition altitude. Measured: PA 13,263 of 13,321 records = "18000", 58 blank; HA 6,104 of 6,134 = "18000", 30 blank; PD 10,373 of 34,605 populated, all "18000"; PE 9,644 of 44,148, all "18000"; PF primary 32,375 of 122,323, all "18000".</para>
         /// </remarks>
-        public string? TransitionLvl { get; set; }
+        public int? TransitionLevel { get; set; }
 
         /// <summary>
         /// Public/Military Indicator
@@ -303,23 +365,41 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 80
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Categorizes the airport or heliport by usage: C = civil (open to the public), M = military, P = private (not open to the public). Joint-use facilities are classified as civil.
+        /// Classifies a landing facility as civil/public, military, or private/not open to the public.
+        /// <para>FAA: Not discussed in the readme. Distribution in the shipped file: airports 8,143 private, 4,983 civil, 195 military; heliports 5,857 private, 216 military, 61 civil. Private facilities dominate the CIFP because of the very large number of private helipads.</para>
         /// </remarks>
-        public string? PublicMilitaryIndicator { get; set; }
+        public string PublicMilitaryIndicator { get; set; }
 
         /// <summary>
-        /// Time Zone
+        /// Time Zone - TimeZoneLetter
         /// _Ref: 5.178
-        /// _Idx: 81:83
-        /// _MaxLength: 3
+        /// _Idx: 81
+        /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates the airport’s standard time zone using a single-letter code based on 15° longitude intervals relative to Greenwich Mean Time (GMT): Z (0), A (-1), B (-2), C (-3), D (-4), E (-5), F (-6), G (-7), H (-8), I (-9), K (-10), L (-11), M (-12), N (+1), O (+2), P (+3), Q (+4), R (+5), S (+6), T (+7), U (+8), V (+9), W (+10), X (+11), Y (+12).
+        /// Column 1 of the composite field 5.178 (Time Zone). The airport's or heliport's standard-time offset
+        /// from UTC, as a zone letter plus an extra minutes correction.
         /// </remarks>
-        public string? TimeZone { get; set; }
+        public string TimeZoneLetter { get; set; }
+
+        /// <summary>
+        /// Time Zone - TimeZoneMinutes
+        /// _Ref: 5.178
+        /// _Idx: 82:83
+        /// _MaxLength: 2
+        /// _DataType: String
+        /// _Converted: Y
+        /// </summary>
+        /// <remarks>
+        /// Column 2 of the composite field 5.178 (Time Zone). The airport's or heliport's standard-time offset
+        /// from UTC, as a zone letter plus an extra minutes correction.
+        /// </remarks>
+        public string TimeZoneMinutes { get; set; }
 
         /// <summary>
         /// Daylight Indicator
@@ -327,11 +407,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 84
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates whether the airport observes Daylight or Summer Time: 'Y' if observed, 'N' if not observed or unknown.
+        /// Says whether the facility observes daylight saving / summer time.
+        /// <para>FAA: Not mentioned in the readme, and never populated: all 13,321 airport and all 6,134 heliport records carry a space. Since Time Zone is blank too, the CIFP gives no local-time information at all for U.S. facilities.</para>
+        /// <para>Never populated in the FAA CIFP.</para>
         /// </remarks>
-        public string? DaylightIndicator { get; set; }
+        public string DaylightIndicator { get; set; }
 
         /// <summary>
         /// Magnetic/True Indicator
@@ -339,11 +422,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 85
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Indicates whether bearings and courses are referenced to Magnetic or True North: 'M' for magnetic, 'T' for true. In airport records, 'M' or 'T' signifies all procedures use that reference and is blank if a mix of magnetic and true data.
+        /// States whether the courses and bearings in a record are referenced to Magnetic North or True North.
         /// </remarks>
-        public string? MagTrueIndicator { get; set; }
+        public string MagneticTrueIndicator { get; set; }
 
         /// <summary>
         /// Datum Code
@@ -351,9 +435,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 86:88
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the local horizontal reference datum used for the geographic position (latitude and longitude); represented by a three-letter code from official government publications (e.g., AGD, NAS, WGA).
+        /// Three-letter code naming the local horizontal reference datum that the record's latitude and
+        /// longitude are expressed in.
+        /// <para>FAA: The readme does not mention datums. The FAA uses only two codes. 'NAR' (North American 1983) appears on essentially everything - all 70,036 waypoints, all 2,475 navaids, all 6,134 heliports and 13,311 of 13,321 airports. 'WGE' (WGS-84) appears on exactly ten airports, all military: KADW, KDAA, KHST, KLFI, KNBG, KNFW, KNGU, KNIP, KNRB and KNYG. Anything consuming CIFP coordinates should be aware th</para>
         /// </remarks>
         public string? DatumCode { get; set; }
 
@@ -363,9 +450,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 4
         /// </summary>
         /// <remarks>
-        /// Not used yet but may be in the future.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string ReservedExpansion { get; set; }
+        // public string? ReservedExpansion { get; set; }
 
         /// <summary>
         /// Airport Name
@@ -373,34 +460,43 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 93:122
         /// _MaxLength: 30
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Provides the facility name and may include a parenthetical location for clarity.
+        /// Plain-language facility name for a navaid, airport or heliport, taken from official government
+        /// publications.
         /// </remarks>
-        public string? AptName { get; set; }
+        public string? AirportName { get; set; }
 
         /// <summary>
         /// File Record Number
         /// _Ref: 5.31
         /// _Idx: 123:127
         /// _MaxLength: 5
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
+        /// Housekeeping reference number stamped on every record - in the FAA CIFP a per-record unique tag, not
+        /// a sequential file position.
+        /// <para>FAA: From the FAA CIFP readme, verbatim in substance: 'A unique number is assigned for each record rather than consecutively for the entire dataset. Some file record numbers will have alphabetic characters or blank fields.' Two consequences the implementer must not miss: - The value is NOT ordered and must never be used to sort records, to detect gaps, or to reason about file position. - The value is N</para>
         /// </remarks>
-        public string? FileRecordNum { get; set; }
+        public string? FileRecordNumber { get; set; }
 
         /// <summary>
         /// Cycle Date
         /// _Ref: 5.32
         /// _Idx: 128:131
         /// _MaxLength: 4
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01–13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+        /// Two-digit year plus two-digit 28-day update cycle recording when the record was added or last
+        /// changed.
+        /// <para>FAA: The FAA states that cycle dates are set to the most recent cycle on every new record and on every record it modifies. Consequently the newest cycle value in the file identifies the CIFP volume itself.</para>
         /// </remarks>
-        public string? CycleDate { get; set; }
+        public string CycleDate { get; set; }
+
     }
 }

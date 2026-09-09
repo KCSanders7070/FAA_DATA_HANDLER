@@ -1,80 +1,65 @@
+using FAA_DATA_HANDLER.HELPERS.CIFP;
 using FAA_DATA_HANDLER.Models.CIFP;
 using System;
-using System.Collections.Generic;
 
 namespace FAA_DATA_HANDLER.Parsers.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - Airports (PA) section data
+    /// Parses PA records into AirportsCifpDataModel.
     /// </summary>
     /// <remarks>
-    /// Contains reference points for all airports having at least one hard surfaced runway
-    /// Additionally, contains all airports required to support Enroute Airway
-    /// structure coding for those areas where Airport reference points are used
-    /// as enroute airway fixes.
+    /// Slices the 132-character record with ReadOnlySpan&lt;char&gt; so no intermediate strings are
+    /// allocated for columns the model does not keep. Column boundaries come from ARINC 424 layout 4.1.7.1
+    /// Airport (Airports-PA) and were verified against every PA record in FAACIFP18.
     /// </remarks>
-
     public static class AirportsCifpParser
     {
-        public static void Parse(string line, CifpDataCollections cifpDataCollections)
+        /// <summary>
+        /// Parses one PA record and appends it to the collection.
+        /// </summary>
+        /// <param name="line">The full 132-character record.</param>
+        /// <param name="cifpDataCollections">Destination for the parsed model.</param>
+        /// <param name="keepRawRecord">When true, the source line is stored on the model.</param>
+        public static void Parse(ReadOnlySpan<char> line, CifpDataCollections cifpDataCollections, bool keepRawRecord = false)
         {
             var model = new AirportsCifpDataModel
             {
-                RecordType = line.Substring(0, 1).Trim(),
-                CustomerAreaCode = line.Substring(1, 3).Trim(),
-                SectionCode = line.Substring(4, 1).Trim(),
-                // Blank (Spacing) ??? = line.Substring(5, 1).Trim()
-                AptIcaoIdentifier = line.Substring(6, 4).Trim(),
-                AirportIcaoLocationCode = line.Substring(10, 2).Trim(),
-                SubsectionCode = line.Substring(12, 1).Trim(),
-                AtaIataDesignator = line.Substring(13, 3).Trim(),
-                // Reserved (Expansion) ??? = line.Substring(16, 2).Trim()
-                // Blank (Spacing) ??? = line.Substring(18, 3).Trim()
-                ContinuationRecordNumber = line.Substring(21, 1).Trim(),
-                SpdLimitAlt = line.Substring(22, 5).Trim(),
-                LongestRwy = line.Substring(27, 3).Trim(),
-                IfrCapability = line.Substring(30, 1).Trim(),
-                LongestRwySfcCode = line.Substring(31, 1).Trim(),
-                AptRefPtLat = line.Substring(32, 9).Trim(),
-                AptRefPtLon = line.Substring(41, 10).Trim(),
-                MagVar = line.Substring(51, 5).Trim(),
-                AptElevation = line.Substring(56, 5).Trim(),
-                SpdLimit = line.Substring(61, 3).Trim(),
-                RecommendedNavaid = line.Substring(64, 4).Trim(),
-                RecommendedNavaidIcaoLocationCode = line.Substring(68, 2).Trim(),
-                TransitionsAlt = line.Substring(70, 5).Trim(),
-                TransitionLvl = line.Substring(75, 5).Trim(),
-                PublicMilitaryIndicator = line.Substring(80, 1).Trim(),
-                TimeZone = line.Substring(81, 3).Trim(),
-                DaylightIndicator = line.Substring(84, 1).Trim(),
-                MagTrueIndicator = line.Substring(85, 1).Trim(),
-                DatumCode = line.Substring(86, 3).Trim(),
-                // Reserved (Expansion) ??? = line.Substring(89, 4).Trim()
-                AptName = line.Substring(93, 30).Trim(),
-                FileRecordNum = line.Substring(123, 5).Trim(),
-                CycleDate = line.Substring(128, 4).Trim(),
+                RecordType = CifpFieldConverter.Field52(line[0]),
+                CustomerAreaCode = CifpSpan.Text(line.Slice(1, 3)),
+                SectionCode = CifpSpan.Text(line[4]),
+                AirportIcaoIdentifier = CifpSpan.Text(line.Slice(6, 4)),
+                AirportIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(10, 2)),
+                SubsectionCode = CifpSpan.Text(line[12]),
+                AtaIataDesignator = CifpFieldConverter.Field5107(line.Slice(13, 3)),
+                ContinuationRecordNumber = CifpFieldConverter.Field516(line[21]),
+                SpeedLimitAltitude = CifpFieldConverter.Field573(line.Slice(22, 5)),
+                LongestRunway = CifpFieldConverter.Field554(line.Slice(27, 3)),
+                IfrCapability = CifpFieldConverter.Field5108(line[30]),
+                LongestRunwaySurfaceCode = CifpFieldConverter.Field5249(line[31]),
+                AirportReferencePtLatitude = CifpFieldConverter.Field536(line.Slice(32, 9)),
+                AirportReferencePtLongitude = CifpFieldConverter.Field537(line.Slice(41, 10)),
+                MagneticVariation = CifpFieldConverter.Field539(line.Slice(51, 5)),
+                AirportElevation = CifpFieldConverter.Field555(line.Slice(56, 5)),
+                SpeedLimit = CifpFieldConverter.Field572(line.Slice(61, 3)),
+                RecommendedNavaid = CifpSpan.Text(line.Slice(64, 4)),
+                RecommendedNavaidIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(68, 2)),
+                TransitionsAltitude = CifpFieldConverter.Field553(line.Slice(70, 5)),
+                TransitionLevel = CifpFieldConverter.Field553(line.Slice(75, 5)),
+                PublicMilitaryIndicator = CifpFieldConverter.Field5177(line[80]),
+                TimeZoneLetter = CifpFieldConverter.Field5178TimeZoneLetter(line[81]),
+                TimeZoneMinutes = CifpFieldConverter.Field5178TimeZoneMinutes(line.Slice(82, 2)),
+                DaylightIndicator = CifpFieldConverter.Field5179(line[84]),
+                MagneticTrueIndicator = CifpFieldConverter.Field5165(line[85]),
+                DatumCode = CifpSpan.Text(line.Slice(86, 3)),
+                AirportName = CifpSpan.Text(line.Slice(93, 30)),
+                FileRecordNumber = CifpSpan.Text(line.Slice(123, 5)),
+                CycleDate = CifpFieldConverter.Field532(line.Slice(128, 4)),
             };
+
+            if (keepRawRecord)
+                model.RawRecord = line.ToString();
 
             cifpDataCollections.Airports.Add(model);
         }
     }
 }
-
-// TODO Refactor: Use AsSpan + literal ranges
-// AsSpan is almost 40% faster and uses half the memory compared to SubString.
-// Example:
-/*
-        public static void Parse(string line, CifpDataCollections cifpDataCollections)
-        {
-            var s = line.AsSpan();
-
-            var model = new AirportsCifpDataModel
-            {
-                RecordType = s[0..1].Trim().ToString(),
-                // etc...
-            };
-
-            cifpDataCollections.Airports.Add(model);
-        }
-    }
-*/

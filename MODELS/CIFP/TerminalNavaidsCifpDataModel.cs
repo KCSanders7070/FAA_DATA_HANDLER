@@ -4,17 +4,23 @@ using System.Collections.Generic;
 namespace FAA_DATA_HANDLER.Models.CIFP
 {
     /// <summary>
-    /// FAACIFP18 File - TerminalNavaids (PN) section data
+    /// FAACIFP18 File - TerminalNavaids (PN) record.
     /// </summary>
     /// <remarks>
-    /// <remarks>
-    /// Contains the models for NDB NAVAIDS records.
-    /// A PN Record may be used for NDBs when only used at one airport
-    /// in the CIFP, when not used on an Enroute Airway, and when
-    /// assigned a five-letter name. Otherwise, DB records will be used.
+    /// ARINC 424 layout 4.1.3.1 NDB NAVAID (Terminal Navaids-PN). Identified by Section Code 'P' and
+    /// Subsection Code 'N'. Continuation Record Number is at zero-based index 21; '0' or '1' marks a
+    /// primary record and anything else a continuation.
     /// </remarks>
     public class TerminalNavaidsCifpDataModel
     {
+        /// <summary>
+        /// The complete, unmodified 132-character source record.
+        /// </summary>
+        /// <remarks>
+        /// Kept so that any field can be re-sliced and so an unexpected value can always be traced
+        /// back to its source line. Populated only when CifpParseOptions.KeepRawRecord is true.
+        /// </remarks>
+        public string? RawRecord { get; set; }
 
         /// <summary>
         /// Record Type
@@ -22,11 +28,14 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 0
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Record types are divided into "standard" (S) and "tailored" (T) groups based on the first column; standard records precede tailored records in the file.
+        /// Column 1 flag saying whether the record belongs to the universally applicable dataset or to a
+        /// customer-specific tailored set.
+        /// <para>FAA: The FAA readme does not discuss this field. Across all 396,430 records the value is always 'S'.</para>
         /// </remarks>
-        public string? RecordType { get; set; }
+        public string RecordType { get; set; }
 
         /// <summary>
         /// Customer/Area Code
@@ -34,9 +43,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 1:3
         /// _MaxLength: 3
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the customer or area the data is intended for, such as nations (e.g., USA, CAN, EUR) or operators (e.g., UAL, DAL).
+        /// Three-letter code grouping each record into a broad geographic region (or, in airline-tailored
+        /// files, naming the airline the record was built for).
+        /// <para>FAA: Fixes that NASR classifies as 'Offshore' may be given a Customer/Area Code of USA paired with an ICAO Code (5.14) of 'K ' or 'P ' (single letter plus a blank). Terminal waypoint (PC) records inherit the Customer/Area Code of their parent airport regardless of where the waypoint itself sits, even though those same PC records keep their own distinct ICAO Code (5.14). Do not infer geography for a PC </para>
         /// </remarks>
         public string? CustomerAreaCode { get; set; }
 
@@ -46,9 +58,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 4
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Single character identifying the data section or domain, such as NAVAIDS (D), AIRPORT (P), ENROUTE (E), etc.
+        /// One letter naming the major database section a record belongs to - or, on pointer fields, the
+        /// section of the record being referenced.
+        /// <para>FAA: The FAA readme does not call this field out directly, but it fixes the set of sections the CIFP can contain: A (Grid MORA), D (VHF and NDB NAVAIDs), E (enroute waypoints and airways), H (heliports and heli terminal data), P (airport and terminal data) and U (controlled and special use airspace). No other section is produced.</para>
         /// </remarks>
         public string? SectionCode { get; set; }
 
@@ -58,9 +73,12 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 5
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the specific subsection within a major database section where the record resides; used with Section Code and record identifier to reference related data such as fixes, procedures, communications, and routes.
+        /// One letter that, combined with the Section Code, names the exact file a record belongs to - the
+        /// primary key for record dispatch.
+        /// <para>FAA: The CIFP contains only these twenty-one record kinds: AS, D (blank subsection), DB, PN, PA, HA, PG, PI, PP (primary and continuation), PS, HS, EA, PC, HC, PD, PE, PF (primary and Level of Service continuation), HF (primary and Level of Service continuation), ER, UC, UR (primary and continuation). Everything else in the ARINC matrix below is absent. The FAA chooses between PC and EA for a named ter</para>
         /// </remarks>
         public string? SubsectionCode { get; set; }
 
@@ -70,23 +88,29 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 6:9
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Contains the ICAO airport identifier to which the record's data applies; differs from the more familiar ATA/IATA airport designators.
+        /// Four-character identifier of the airport or heliport that owns, or is referenced by, the data in the
+        /// record.
+        /// <para>FAA: The FAA uses the published ICAO airport identifier when one exists; when there is none it falls back to the published FAA identifier. On the Airport (PA) record the IATA field (5.107) is used to carry the FAA identifier instead, and that IATA field is left blank whenever the airport identifier here is already four characters long.</para>
         /// </remarks>
-        public string? AptIcaoIdentifier { get; set; }
+        public string? AirportIcaoIdentifier { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// Airport ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 10:11
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? AirportIcaoLocationCode { get; set; }
+        public string AirportIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Blank (Spacing)
@@ -94,9 +118,9 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 1
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// NDB Identifier
@@ -104,9 +128,11 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 13:16
         /// _MaxLength: 4
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Identifies the VHF, MF, or LF facility by its official government-assigned 1-4 character code (e.g., DEN, 6YA, PPI, TIKX).
+        /// Official one- to four-character identification code of the VHF or MF/LF navigation facility
+        /// described by the record.
         /// </remarks>
         public string? NdbIdentifier { get; set; }
 
@@ -116,21 +142,24 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 2
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
-        /// ICAO Code
+        /// NDB ICAO Location Code
         /// _Ref: 5.14
         /// _Idx: 19:20
         /// _MaxLength: 2
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Two-character ICAO code used for geographic categorization, typically based on ICAO Doc 7910. U.S. codes begin with 'K' followed by a digit for regional subdivision (e.g., K1, K7). Used for airports with at least one hard-surfaced runway or supporting enroute airway structure. If no ICAO identifier is published, the FAA identifier is used instead.
+        /// A two-character geographic qualifier, based on the ICAO location indicator, that scopes an
+        /// identifier so the same fix name in two parts of the world can be told apart.
+        /// <para>FAA: Fixes that the NASR database classifies as offshore may be given a customer/area code of USA together with an ICAO code of "K " or "P " - that is, the letter followed by a blank or null rather than a region digit. PC (terminal waypoint) records keep their own ICAO code even when it differs from the parent airport whose area code they inherit.</para>
         /// </remarks>
-        public string? NavaidIcaoLocationCode { get; set; }
+        public string NdbIcaoLocationCode { get; set; }
 
         /// <summary>
         /// Continuation Record No.
@@ -138,107 +167,132 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 21
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the position of a continuation record in a sequence; primary records use '0' if no continuation follows, '1' if they do, with continuations numbered '2'–'9' and then 'A'–'Z' as needed.
+        /// Marks whether a record is a primary record and whether continuation records follow it, and numbers
+        /// the continuations in order.
+        /// <para>FAA: The FAA emits only 0, 1 and 2. Continuations exist for exactly two things: approach level-of- service continuation records on PF/HF (6,742 pairs), and controlling agency continuation records on UR (1,175 pairs). Every other record type in the file is 0 throughout.</para>
         /// </remarks>
-        public string? ContinuationRecordNumber { get; set; }
+        public string ContinuationRecordNo { get; set; }
 
         /// <summary>
         /// NDB Frequency
         /// _Ref: 5.34
         /// _Idx: 22:26
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the operating frequency of the VOR or NDB, expressed without a decimal: VHF in hundredths of MHz and NDB in tenths of kHz. Examples: (VHF) "11630" "11795" (NDB) "03620" "17040". FAA NOTE: If a VOR frequency is unavailable, the VOR Frequency field will contain 00000. For all other Navaids, an unavailable frequency will result in blank coding.
+        /// Five digits giving the NAVAID frequency with the decimal point removed - hundredths of a megahertz
+        /// for VHF, tenths of a kilohertz for NDB.
+        /// <para>FAA: When a VOR frequency is unavailable the FAA writes '00000' into columns 23-27 (offsets 22-26) rather than leaving the field blank. For every other NAVAID an unavailable frequency is coded as blanks. A converter must therefore treat '00000' on a VHF NAVAID record as 'not published' rather than as 0.00 MHz.</para>
         /// </remarks>
-        public string? NdbFreq { get; set; }
+        public double? NdbFrequency { get; set; }
 
         /// <summary>
-        /// NAVAID Class Navaid Type 1
+        /// NDB Class - NavaidType1
         /// _Ref: 5.35
         /// _Idx: 27
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// V = VOR
+        /// Column 1 of the composite field 5.35 (NAVAID Class). Five packed single-character codes describing
+        /// facility type, secondary facility type, usable range or power, what extra information rides on the
+        /// signal, and collocation.
         /// </remarks>
-        public string? NavaidClassNavaidType1 { get; set; }
+        public string NdbClassNavaidType1 { get; set; }
 
         /// <summary>
-        /// NAVAID Class Navaid Type 2
+        /// NDB Class - NavaidType2
         /// _Ref: 5.35
         /// _Idx: 28
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// D = DME, T = TACAN (ch.17-59 and 70-126), M = MIL TACAN (ch.1-16 and 60-69), I = ILS/DME or ILS/TACAN, N = MLS/DME/N, P = MLS/DME/P
+        /// Column 2 of the composite field 5.35 (NAVAID Class). Five packed single-character codes describing
+        /// facility type, secondary facility type, usable range or power, what extra information rides on the
+        /// signal, and collocation.
         /// </remarks>
-        public string? NavaidClassNavaidType2 { get; set; }
+        public string NdbClassNavaidType2 { get; set; }
 
         /// <summary>
-        /// NAVAID Class Range/Power
+        /// NDB Class - RangePower
         /// _Ref: 5.35
         /// _Idx: 29
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// T = Terminal, L = Low Altitude, H = High Altitude, U = Undefined, C = ILS/TACAN (freq-paired with ILS Loc with same ID and location. This TACAN may be listed elsewhere as a ILSTACAN and a TACAN.). FAA NOTE: Navaid Class 3 will be coded as "H" for high, "L" for low, and "T" for terminal altitude description. Where undetermined, the field will be coded with "U". Navaid Class 5 will carry an "N" for VORTACs if the VOR coordinates and the TACAN coordinates are 0.1 NM or greater distance from each other.
+        /// Column 3 of the composite field 5.35 (NAVAID Class). Five packed single-character codes describing
+        /// facility type, secondary facility type, usable range or power, what extra information rides on the
+        /// signal, and collocation.
         /// </remarks>
-        public string? NavaidClassRangePower { get; set; }
+        public string NdbClassRangePower { get; set; }
 
         /// <summary>
-        /// NAVAID Class Additional Info
+        /// NDB Class - AdditionalInformation
         /// _Ref: 5.35
         /// _Idx: 30
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// D = Biased ILSDME or ILSTACAN, A = Auto Transcribed Weather Broadcast, B = Scheduled Weather Broadcast, W = No Voice on Frequency, blank/null = Voice on Frequency. FAA NOTE: Weather Capability codes for Hazardous Inflight Weather Advisory Service (HIWAS) and Automatic Transcribed Weather Broadcast (TWEB), will be coded with an "A".
+        /// Column 4 of the composite field 5.35 (NAVAID Class). Five packed single-character codes describing
+        /// facility type, secondary facility type, usable range or power, what extra information rides on the
+        /// signal, and collocation.
         /// </remarks>
-        public string? NavaidClassAddInfo { get; set; }
+        public string NdbClassAdditionalInformation { get; set; }
 
         /// <summary>
-        /// NAVAID Class Collocation
+        /// NDB Class - Collocation
         /// _Ref: 5.35
         /// _Idx: 31
         /// _MaxLength: 1
         /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// N = Not Collocated, blank/null = Collocated Navaids. If "ILSDME" or "ILSTACAN", N = Not Freq-Paired, blank/null = Freq-Paired
+        /// Column 5 of the composite field 5.35 (NAVAID Class). Five packed single-character codes describing
+        /// facility type, secondary facility type, usable range or power, what extra information rides on the
+        /// signal, and collocation.
         /// </remarks>
-        public string? NavaidClassCollocation { get; set; }
+        public string NdbClassCollocation { get; set; }
 
         /// <summary>
         /// NDB Latitude
         /// _Ref: 5.36
         /// _Idx: 32:40
         /// _MaxLength: 9
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the latitude of the navigational feature using one alpha character ('N' or 'S') followed by eight digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., N39513881).
+        /// Signed latitude packed as a hemisphere letter followed by eight digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? NdbLat { get; set; }
+        public double? NdbLatitude { get; set; }
 
         /// <summary>
         /// NDB Longitude
         /// _Ref: 5.37
         /// _Idx: 41:50
         /// _MaxLength: 10
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the longitude of the navigational feature using one alpha character ('E' or 'W') followed by nine digits representing degrees, minutes, seconds, tenths, and hundredths of seconds (e.g., W104450794).
+        /// Signed longitude packed as a hemisphere letter followed by nine digits of degrees, minutes, seconds
+        /// and hundredths of a second.
         /// </remarks>
-        public string? NdbLon { get; set; }
+        public double? NdbLongitude { get; set; }
 
         /// <summary>
         /// Blank (Spacing)
@@ -246,21 +300,24 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 23
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
         /// Magnetic Variation
         /// _Ref: 5.39
         /// _Idx: 74:78
         /// _MaxLength: 5
-        /// _DataType: String
+        /// _DataType: Double
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Specifies the angular difference between True North and Magnetic North; format is one character (E, W, or T) followed by four digits for degrees and tenths (e.g., E0140, W0075, T0000). Note: Differences between MagVar and Dynamic-MagVar.
+        /// Angular difference between true and magnetic north at the record's location, given as a direction
+        /// letter plus four digits of degrees and tenths.
+        /// <para>FAA: The FAA computes variation from the World Magnetic Model, 2020 epoch. Where no government-assigned variation exists, the CIFP dynamic magnetic variation is calculated at the magnetic epoch of a specified cycle so that it stays aligned with the NASR AWY.txt and ATS.txt files; for 2025 that reference was cycle 2504. Waypoint records and DME-only facilities use the cycle 2504 epoch. DME-only faciliti</para>
         /// </remarks>
-        public string? MagVar { get; set; }
+        public double? MagneticVariation { get; set; }
 
         /// <summary>
         /// Blank (Spacing)
@@ -268,29 +325,32 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _MaxLength: 6
         /// </summary>
         /// <remarks>
-        /// Keeps similar types of information lined up in the same column positions across different records.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string BlankSpacing { get; set; }
+        // public string? BlankSpacing { get; set; }
 
         /// <summary>
-        /// Reserved (Expansion)
+        /// Reserved Expansion
         /// _Idx: 85:89
         /// _MaxLength: 5
         /// </summary>
         /// <remarks>
-        /// Not used yet but may be in the future.
+        /// Carries no data. Present so the column map stays continuous across all 132 columns.
         /// </remarks>
-        // public string ReservedExpansion { get; set; }
+        // public string? ReservedExpansion { get; set; }
 
         /// <summary>
         /// Datum Code
         /// _Ref: 5.197
         /// _Idx: 90:92
         /// _MaxLength: 3
-        /// _DataType: 
+        /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Defines the local horizontal reference datum used for the geographic position (latitude and longitude); represented by a three-letter code from official government publications (e.g., AGD, NAS, WGA).
+        /// Three-letter code naming the local horizontal reference datum that the record's latitude and
+        /// longitude are expressed in.
+        /// <para>FAA: The readme does not mention datums. The FAA uses only two codes. 'NAR' (North American 1983) appears on essentially everything - all 70,036 waypoints, all 2,475 navaids, all 6,134 heliports and 13,311 of 13,321 airports. 'WGE' (WGS-84) appears on exactly ten airports, all military: KADW, KDAA, KHST, KLFI, KNBG, KNFW, KNGU, KNIP, KNRB and KNYG. Anything consuming CIFP coordinates should be aware th</para>
         /// </remarks>
         public string? DatumCode { get; set; }
 
@@ -300,9 +360,11 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Idx: 93:122
         /// _MaxLength: 30
         /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Provides the facility name and may include a parenthetical location for clarity.
+        /// Plain-language facility name for a navaid, airport or heliport, taken from official government
+        /// publications.
         /// </remarks>
         public string? NdbName { get; set; }
 
@@ -311,23 +373,30 @@ namespace FAA_DATA_HANDLER.Models.CIFP
         /// _Ref: 5.31
         /// _Idx: 123:127
         /// _MaxLength: 5
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: N
         /// </summary>
         /// <remarks>
-        /// Sequential reference number assigned to each record for housekeeping purposes, starting at 00001 and resetting to 00000 after 99999; subject to change with each file update. Examples (pad zeros left): 10640, 00420, 31462
+        /// Housekeeping reference number stamped on every record - in the FAA CIFP a per-record unique tag, not
+        /// a sequential file position.
+        /// <para>FAA: From the FAA CIFP readme, verbatim in substance: 'A unique number is assigned for each record rather than consecutively for the entire dataset. Some file record numbers will have alphabetic characters or blank fields.' Two consequences the implementer must not miss: - The value is NOT ordered and must never be used to sort records, to detect gaps, or to reason about file position. - The value is N</para>
         /// </remarks>
-        public string? FileRecordNum { get; set; }
+        public string? FileRecordNo { get; set; }
 
         /// <summary>
-        /// Cycle Data
+        /// Cycle Date
         /// _Ref: 5.32
         /// _Idx: 128:131
         /// _MaxLength: 4
-        /// _DataType: Int
+        /// _DataType: String
+        /// _Converted: Y
         /// </summary>
         /// <remarks>
-        /// Identifies the 28-day data update cycle in which the record was added or last revised; format is YYCC, where YY is the last two digits of the year and CC is the cycle number (01–13, occasionally 14). Example (pad zeros left): Cycle 11 in the year 2032 would be "3211". A cycle date change will happen for any change to fields except Dynamic Magnetic Variation, Frequency Protection, Continuation Record Number, and File Record Number.
+        /// Two-digit year plus two-digit 28-day update cycle recording when the record was added or last
+        /// changed.
+        /// <para>FAA: The FAA states that cycle dates are set to the most recent cycle on every new record and on every record it modifies. Consequently the newest cycle value in the file identifies the CIFP volume itself.</para>
         /// </remarks>
-        public string? CycleDate { get; set; }
+        public string CycleDate { get; set; }
+
     }
 }

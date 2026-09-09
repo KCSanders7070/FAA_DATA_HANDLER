@@ -1,43 +1,55 @@
+using FAA_DATA_HANDLER.HELPERS.CIFP;
 using FAA_DATA_HANDLER.Models.CIFP;
 using System;
-using System.Collections.Generic;
 
 namespace FAA_DATA_HANDLER.Parsers.CIFP
 {
+    /// <summary>
+    /// Parses PN records into TerminalNavaidsCifpDataModel.
+    /// </summary>
+    /// <remarks>
+    /// Slices the 132-character record with ReadOnlySpan&lt;char&gt; so no intermediate strings are
+    /// allocated for columns the model does not keep. Column boundaries come from ARINC 424 layout 4.1.3.1
+    /// NDB NAVAID (Terminal Navaids-PN) and were verified against every PN record in FAACIFP18.
+    /// </remarks>
     public static class TerminalNavaidsCifpParser
     {
-        public static void Parse(string line, CifpDataCollections cifpDataCollections)
+        /// <summary>
+        /// Parses one PN record and appends it to the collection.
+        /// </summary>
+        /// <param name="line">The full 132-character record.</param>
+        /// <param name="cifpDataCollections">Destination for the parsed model.</param>
+        /// <param name="keepRawRecord">When true, the source line is stored on the model.</param>
+        public static void Parse(ReadOnlySpan<char> line, CifpDataCollections cifpDataCollections, bool keepRawRecord = false)
         {
             var model = new TerminalNavaidsCifpDataModel
             {
-                RecordType = line.Substring(0, 1).Trim(),
-                CustomerAreaCode = line.Substring(1, 3).Trim(),
-                SectionCode = line.Substring(4, 1).Trim(),
-                SubsectionCode = line.Substring(5, 1).Trim(),
-                AptIcaoIdentifier = line.Substring(6, 4).Trim(),
-                AirportIcaoLocationCode = line.Substring(10, 2).Trim(),
-                // Blank (Spacing) ??? = line.Substring(12, 1).Trim()
-                NdbIdentifier = line.Substring(13, 4).Trim(),
-                // Blank (Spacing) ??? = line.Substring(17, 2).Trim()
-                NavaidIcaoLocationCode = line.Substring(19, 2).Trim(),
-                ContinuationRecordNumber = line.Substring(21, 1).Trim(),
-                NdbFreq = line.Substring(22, 5).Trim(),
-                NavaidClassNavaidType1 = line.Substring(27, 1).Trim(),
-                NavaidClassNavaidType2 = line.Substring(28, 1).Trim(),
-                NavaidClassRangePower = line.Substring(29, 1).Trim(),
-                NavaidClassAddInfo = line.Substring(30, 1).Trim(),
-                NavaidClassCollocation = line.Substring(31, 1).Trim(),
-                NdbLat = line.Substring(32, 9).Trim(),
-                NdbLon = line.Substring(41, 10).Trim(),
-                // Blank (Spacing) ??? = line.Substring(51, 23).Trim()
-                MagVar = line.Substring(74, 5).Trim(),
-                // Blank (Spacing) ??? = line.Substring(79, 6).Trim()
-                // Reserved (Expansion) ??? = line.Substring(85, 5).Trim()
-                DatumCode = line.Substring(90, 3).Trim(),
-                NdbName = line.Substring(93, 30).Trim(),
-                FileRecordNum = line.Substring(123, 5).Trim(),
-                CycleDate = line.Substring(128, 4).Trim(),
+                RecordType = CifpFieldConverter.Field52(line[0]),
+                CustomerAreaCode = CifpSpan.Text(line.Slice(1, 3)),
+                SectionCode = CifpSpan.Text(line[4]),
+                SubsectionCode = CifpSpan.Text(line[5]),
+                AirportIcaoIdentifier = CifpSpan.Text(line.Slice(6, 4)),
+                AirportIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(10, 2)),
+                NdbIdentifier = CifpSpan.Text(line.Slice(13, 4)),
+                NdbIcaoLocationCode = CifpFieldConverter.Field514(line.Slice(19, 2)),
+                ContinuationRecordNo = CifpFieldConverter.Field516(line[21]),
+                NdbFrequency = CifpFieldConverter.Field534(line.Slice(22, 5), line[4], line[5]),
+                NdbClassNavaidType1 = CifpFieldConverter.Field535NavaidType1(line[27]),
+                NdbClassNavaidType2 = CifpFieldConverter.Field535NavaidType2(line[28]),
+                NdbClassRangePower = CifpFieldConverter.Field535RangePower(line[29]),
+                NdbClassAdditionalInformation = CifpFieldConverter.Field535AdditionalInformation(line[30]),
+                NdbClassCollocation = CifpFieldConverter.Field535Collocation(line[31]),
+                NdbLatitude = CifpFieldConverter.Field536(line.Slice(32, 9)),
+                NdbLongitude = CifpFieldConverter.Field537(line.Slice(41, 10)),
+                MagneticVariation = CifpFieldConverter.Field539(line.Slice(74, 5)),
+                DatumCode = CifpSpan.Text(line.Slice(90, 3)),
+                NdbName = CifpSpan.Text(line.Slice(93, 30)),
+                FileRecordNo = CifpSpan.Text(line.Slice(123, 5)),
+                CycleDate = CifpFieldConverter.Field532(line.Slice(128, 4)),
             };
+
+            if (keepRawRecord)
+                model.RawRecord = line.ToString();
 
             cifpDataCollections.TerminalNavaids.Add(model);
         }
