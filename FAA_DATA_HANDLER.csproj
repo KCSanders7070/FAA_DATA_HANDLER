@@ -12,8 +12,14 @@
 
   <ItemGroup>
     <Compile Remove="MODELS\NASR\ShapeFiles\**" />
+    <Compile Remove="PARSERS\CIFP\SECTIONS\**" />
+    <Compile Remove="PARSERS\D-TPP\**" />
     <EmbeddedResource Remove="MODELS\NASR\ShapeFiles\**" />
+    <EmbeddedResource Remove="PARSERS\CIFP\SECTIONS\**" />
+    <EmbeddedResource Remove="PARSERS\D-TPP\**" />
     <None Remove="MODELS\NASR\ShapeFiles\**" />
+    <None Remove="PARSERS\CIFP\SECTIONS\**" />
+    <None Remove="PARSERS\D-TPP\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DOCS\Users\" />
+    <Folder Include="GENERATORS\" />
     <Folder Include="MODELS\D-TPP\" />
-    <Folder Include="PARSERS\CIFP\SECTIONS\" />
-    <Folder Include="PARSERS\D-TPP\" />
     <Folder Include="PARSERS\NASR\ShapeFiles\" />
   </ItemGroup>
 
