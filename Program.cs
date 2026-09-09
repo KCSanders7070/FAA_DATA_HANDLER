@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-
 namespace FAA_DATA_HANDLER
 {
     class Program
@@ -57,10 +56,12 @@ namespace FAA_DATA_HANDLER
                 };
 
                 Console.WriteLine("Parsing the FAA CIFP file");
+
                 CifpParseReport cifpParseReport = CifpParserController.Parse(
                     faaCifp18FilePath, cifpDataCollections, cifpParseOptions);
 
-                Console.WriteLine(cifpParseReport);
+                // TODO: Uncomment to read parser report
+                // Console.WriteLine(cifpParseReport);
 
                 // A clean report means every non-blank line matched a known record type and was the
                 // right length. Anything else usually means a new cycle changed something.
@@ -86,8 +87,6 @@ namespace FAA_DATA_HANDLER
                                         + $"but {parsedRecordCount:N0} were read. The file may be truncated.");
                     }
                 }
-
-                Console.ReadKey();
             }
 
             if (parseAptNasrCsv)
@@ -320,6 +319,8 @@ namespace FAA_DATA_HANDLER
                 allParsedWxlData.WxlBase = wxlCsvParser.ParseWxlBase(Path.Combine(userSelectedSourceDirectory, "WXL_BASE.csv")).WxlBase;
                 allParsedWxlData.WxlSvc = wxlCsvParser.ParseWxlSvc(Path.Combine(userSelectedSourceDirectory, "WXL_SVC.csv")).WxlSvc;
             }
+
+            Console.WriteLine("Done");
         }
     }
 }
